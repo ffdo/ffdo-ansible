@@ -1,0 +1,66 @@
+---
+# tasks file for fastd
+
+- name: Check architecture
+  when: ansible_architecture != 'i386' and ansible_architecture != 'amd64'
+  set_fact: fastd_install_from_source=true
+
+- name: Add GPG key for Wheezy backports
+  when: ansible_distribution_release == 'wheezy'
+  apt_key: keyserver=pgpkeys.mit.edu id=8B48AD6246925553
+
+- name: Add Wheezy backports
+  when: ansible_distribution_release == 'wheezy'
+  apt_repository: repo='deb http://http.debian.net/debian wheezy-backports main' state=present update_cache=yes
+
+- name: Add GPG key for fastd Apt repo
+  apt_key: keyserver=pgpkeys.mit.edu id=16EF3F64CB201D9C
+
+- name: Add fastd Apt repo
+  apt_repository: repo='deb http://repo.universe-factory.net/debian/ sid main' state=present update_cache=yes
+
+- name: Install fastd build dependencies
+  when: fastd_install_from_source == 'true'
+  apt: name={{item}} update_cache=no
+  with_items:
+    - libcap2
+    - libcap-dev
+    - bison
+    - pkg-config
+    - cmake
+    - libssl1.0.0
+    - libssl-dev
+    - libsodium-dev
+    - libsodium13
+    - git
+
+- name: Clone libuecc repo
+  when: fastd_install_from_source == 'true'
+  register: clonelibuecc
+  git: repo={{fastd_libuecc_repo}} dest=/usr/src/libuecc accept_hostkey=yes version={{fastd_libuecc_tag}}
+
+- name: Clone fastd repo
+  when: fastd_install_from_source == 'true'
+  register: clonefastd
+  git: repo={{fastd_repo}} dest=/usr/src/fastd accept_hostkey=yes version={{fastd_repo_tag}}
+
+- name: Create build dirs
+  when: clonelibuecc|changed
+  register: builddircreated
+  file: path={{item}} state=directory
+  with_items:
+    - "{{fastd_libuecc_build_dir}}"
+    - "{{fastd_build_dir}}"
+
+- name: Build and install libuecc
+  when: builddircreated|changed
+  command: cmake /usr/src/libuecc && make && make install chdir={{fastd_libuecc_build_dir}}
+
+- name: Build and install fastd
+  when: builddircreated|changed
+  command: cmake /usr/src/fastd && make && make install chdir={{fastd_build_dir}}
+
+- name: Install fastd via Apt
+  when: fastd_install_from_source != 'true'
+  apt: name=fastd state=latest
+

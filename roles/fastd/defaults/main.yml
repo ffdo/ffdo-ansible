@@ -1,0 +1,10 @@
+---
+# defaults file for fastd
+fastd_repo: http://git.universe-factory.net/fastd/
+fastd_repo_tag: v17
+fastd_install_dir: /opt/fastd
+fastd_build_dir: /usr/src/fastd-build
+fastd_install_from_source: false
+fastd_libuecc_repo: git://git.universe-factory.net/libuecc
+fastd_libuecc_tag: v5
+fastd_libuecc_build_dir: /usr/src/libuecc-build

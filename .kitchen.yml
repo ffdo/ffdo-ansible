@@ -6,7 +6,7 @@ provisioner:
     name               : ansible_push
     verbose            : "vvvv"
     ansible_config     : "test/ansible.cfg"
-    idempotency_test   : True
+    idempotency_test   : False
     #chef_bootstrap_url : False
     #extra_vars        : "@kitchen_vars.yml"
 
@@ -14,11 +14,14 @@ platforms:
     - name: Debian-jessie
       driver:
         box: ARTACK/debian-jessie
-    - name: Debian-7.8
+    - name: Debian-7.6
       driver:
-        box: debian-7.8.0-amd64
-        box_url: https://github.com/kraksoft/vagrant-box-debian/releases/download/7.8.0/debian-7.8.0-amd64.box
-
+        box: Debian-7.6
+        box_url: https://github.com/jose-lpa/packer-debian_7.6.0/releases/download/1.0/packer_virtualbox-iso_virtualbox.box
+    - name: Ubuntu-14.04
+      driver:
+        box: ubuntu-14.04
+        box_url: https://github.com/kraksoft/vagrant-box-ubuntu/releases/download/14.04/ubuntu-14.04-amd64.box
 suites:
   - name: fastd
     provisioner:

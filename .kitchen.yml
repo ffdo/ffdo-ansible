@@ -1,0 +1,30 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+    name               : ansible_push
+    verbose            : "vvvv"
+    ansible_config     : "test/ansible.cfg"
+    idempotency_test   : True
+    #chef_bootstrap_url : False
+    #extra_vars        : "@kitchen_vars.yml"
+
+platforms:
+    - name: Debian-jessie
+      driver:
+        box: ARTACK/debian-jessie
+    - name: Debian-7.8
+      driver:
+        box: debian-7.8.0-amd64
+        box_url: https://github.com/kraksoft/vagrant-box-debian/releases/download/7.8.0/debian-7.8.0-amd64.box
+
+suites:
+  - name: fastd
+    provisioner:
+      playbook: "test/application/fastd.yml"
+      extra_vars: {'kitchen_connection': 'smart'}
+#  - name            : group
+#    provisioner     :
+#        playbook    : "test/application/group.yml"
+#        extra_vars  : { 'kitchen_connection': 'smart' }

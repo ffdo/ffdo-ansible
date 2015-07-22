@@ -31,11 +31,7 @@
     - libssl1.0.0
     - libssl-dev
     - git
-
-- name: Clone libuecc repo
-  when: fastd_install_from_source == 'true'
-  register: clonelibuecc
-  git: repo={{fastd_libuecc_repo}} dest=/usr/src/libuecc accept_hostkey=yes version={{fastd_libuecc_tag}}
+    - build-essential
 
 - name: Clone fastd repo
   when: fastd_install_from_source == 'true'
@@ -47,12 +43,7 @@
   register: builddircreated
   file: path={{item}} state=directory
   with_items:
-    - "{{fastd_libuecc_build_dir}}"
     - "{{fastd_build_dir}}"
-
-- name: Build and install libuecc
-  when: builddircreated|changed
-  command: cmake /usr/src/libuecc && make && make install chdir={{fastd_libuecc_build_dir}}
 
 - name: Build and install fastd
   when: builddircreated|changed

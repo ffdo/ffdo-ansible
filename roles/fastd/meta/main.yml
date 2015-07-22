@@ -13,3 +13,4 @@ galaxy_info:
   - networking
 dependencies:
    - libsodium
+   - libuecc

@@ -8,6 +8,6 @@
   git: repo={{libuecc_repo}} dest={{libuecc_repo_dir}}/libuecc accept_hostkey=yes version={{libuecc_version}}
 
 - name: Build and install libuecc
-  shell: cmake {{libuecc_repo_dir}} && make && make install
+  shell: cmake {{libuecc_repo_dir}}/libuecc && make && make install
   args:
     chdir: "{{libuecc_build_dir}}"

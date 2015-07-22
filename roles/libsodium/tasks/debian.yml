@@ -1,29 +1,37 @@
 - name: Check Debian version
-  set_fact: libsodium_build_from_source=true
-  when: ansible_lsb.major_release|int < 7
+  when: ansible_lsb.major_release|int <= 6
+  set_fact:
+    libsodium_build_from_source: true
 
 - name: Add GPG key for Wheezy backports
-  when: ansible_distribution_release == 'wheezy'
+  when: ansible_distribution_release == 'wheezy' and not libsodium_build_from_source
   apt_key: keyserver=pgpkeys.mit.edu id=8B48AD6246925553
 
 - name: Add Wheezy backports
-  when: ansible_distribution_release == 'wheezy'
+  when: ansible_distribution_release == 'wheezy' and not libsodium_build_from_source
   apt_repository: repo='deb http://http.debian.net/debian wheezy-backports main' state=present update_cache=yes
 
 - name: Add GPG key for fastd Apt repo
-  when: ansible_distribution_release == 'wheezy'
+  when: ansible_distribution_release == 'wheezy' and not libsodium_build_from_source
   apt_key: keyserver=pgpkeys.mit.edu id=16EF3F64CB201D9C
 
 - name: Add fastd Apt repo
-  when: ansible_distribution_release == 'wheezy'
+  when: ansible_distribution_release == 'wheezy' and not libsodium_build_from_source
   apt_repository: repo='deb http://repo.universe-factory.net/debian/ sid main' state=present update_cache=yes
 
 - name: Install libsodium via Apt
-  when: libsodium_build_from_source != 'true'
+  when: not libsodium_build_from_source
   apt: name={{item}} state=latest update_cache=yes
   with_items:
   - libsodium13
   - libsodium-dev
 
+- name: Install build dependencies for libsodium
+  when: libsodium_build_from_source
+  apt: name={{item}} state=present
+  with_items:
+  - build-essential
+  - autoconf
+
 - include: source.yml
-  when: libsodium_build_from_source == 'true'
+  when: libsodium_build_from_source

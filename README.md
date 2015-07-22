@@ -17,3 +17,9 @@ software and eventually fall back to building from source.
 * Add support for more platforms (don't force a linux distro to others)
 * Everything else I forgot
 * Add tests via testkitchen and CI via travis
+
+## Setup test kitchen locally
+
+* Install test kitchen sudo gem install test-kitchen
+* Install additionall kitchen gems sudo gem install kitchen-ansiblepush kitchen-ansible kitchen-vagrant
+* start tests via kitchen test

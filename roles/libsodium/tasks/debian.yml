@@ -26,4 +26,4 @@
   - libsodium-dev
 
 - include: source.yml
-  when: libsodium_build_from_source
+  when: libsodium_build_from_source == 'true'

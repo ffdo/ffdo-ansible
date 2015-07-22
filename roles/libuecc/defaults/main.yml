@@ -1,0 +1,8 @@
+---
+# defaults file for libsodium
+libuecc_build_from_source: true
+libuecc_version: v5
+libuecc_repo: git://git.universe-factory.net/libuecc
+libuecc_repo_dir: /usr/src/libuecc
+libuecc_build_dir: /usr/src/libuecc-build
+

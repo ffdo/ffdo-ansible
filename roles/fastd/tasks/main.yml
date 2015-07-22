@@ -63,4 +63,3 @@
 - name: Install fastd via Apt
   when: fastd_install_from_source != 'true'
   apt: name=fastd state=latest
-

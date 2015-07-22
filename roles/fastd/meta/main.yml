@@ -11,4 +11,5 @@ galaxy_info:
     - jessie
   categories:
   - networking
-dependencies: []
+dependencies:
+   - libsodium

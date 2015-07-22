@@ -30,8 +30,6 @@
     - cmake
     - libssl1.0.0
     - libssl-dev
-    - libsodium-dev
-    - libsodium13
     - git
 
 - name: Clone libuecc repo

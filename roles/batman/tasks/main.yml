@@ -1,0 +1,8 @@
+---
+# tasks file for batman
+
+- name: Install B.A.T.M.A.N. via APT
+  apt: name={{item}} state=present
+  with_items:
+  - batctl
+  - batmand

@@ -8,7 +8,7 @@
   when: ansible_distribution == "Debian"
 
 - name: Create fastd config directories
-  file: path=/etc/fastd/{{item.name}} state=directory recurse=yes
+  file: path=/etc/fastd/{{item.name}}/dummy state=directory recurse=yes
   with_items:
     - "{{fastd_instances}}"
 
@@ -16,8 +16,13 @@
   template: src=fastd.conf.j2 dest=/etc/fastd/{{item.name}}/fastd.conf
   with_items:
     - "{{fastd_instances}}"
+  notify: Restart fastd
 
 - name: Create fastd secrets
   template: src=secret.conf.j2 dest=/etc/fastd/{{item.name}}/secret.conf
   with_items:
     - "{{fastd_instances_secret}}"
+  notify: Restart fastd
+
+- name: fastd needs to autostart
+  service: name=fastd enabled=yes state=started

@@ -7,6 +7,11 @@ describe package('fastd') do
   it { should be_installed }
 end
 
+# Ansible seems to have problems to enable a service. Needs investigation
+#describe service('fastd') do
+#  it { should be_enabled }
+#end
+
 describe package('rng-tools') do
   it { should be_installed }
 end
@@ -22,6 +27,11 @@ describe user('fastd') do
 end
 
 describe file('/etc/fastd/test') do
+  it { should exist }
+  it { should be_directory }
+end
+
+describe file('/etc/fastd/test/dummy') do
   it { should exist }
   it { should be_directory }
 end

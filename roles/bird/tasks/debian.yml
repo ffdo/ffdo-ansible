@@ -1,0 +1,2 @@
+- name: Install bird routing daemon
+  apt: name=bird state=present

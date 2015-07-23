@@ -1,0 +1,23 @@
+---
+# tasks file for bird
+
+- include: debian.yml
+  when: ansible_distribution == "Debian"
+
+- include: debian.yml
+  when: ansible_distribution == "Ubuntu"
+
+- name: Create bird config dir 
+  file: name={{bird_config_dir}} state=directory
+
+- name: Install bird.conf
+  template: src=bird.conf.j2 dest={{bird_config_dir}}/bird.conf
+
+- name: Install bird6.conf
+  template: src=bird.conf.j2 dest={{bird_config_dir}}/bird6.conf
+
+- name: Enable and start bird and bird6
+  service: name={{item}} state=started enabled=yes
+  with_items:
+    - bird
+    - bird6

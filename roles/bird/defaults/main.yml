@@ -1,0 +1,3 @@
+---
+# defaults file for bird
+bird_config_dir: /etc/bird

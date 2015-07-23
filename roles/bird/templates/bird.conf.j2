@@ -1,0 +1,15 @@
+log syslog all;
+router id {{bird_router_id}};
+
+{% for template in bird_templates %}
+template {{template.header}} {
+        {{template.content}}
+};
+
+{% endfor %}
+
+{% for protocol in bird_protocols %}
+protocol {{protocol.header}} {
+        {{protocol.content}}
+};
+{% endfor %}

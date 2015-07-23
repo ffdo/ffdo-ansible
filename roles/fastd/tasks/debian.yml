@@ -12,6 +12,14 @@
     - git
     - build-essential
 
+- name: Install rng-tools
+  apt: name=rng-tools state=present
+
+- name: Make sure that rng-tools uses /dev/urandom
+  lineinfile:
+    dest: /etc/default/rng-tools
+    line: HRNGDEVICE=/dev/urandom
+
 - include: source.yml
   when: not repo_universe_factory_available
 

@@ -14,14 +14,13 @@ platforms:
     - name: Debian-jessie
       driver:
         box: ARTACK/debian-jessie
-    - name: Debian-7.6
+    - name: Debian-7.8
       driver:
-        box: Debian-7.6
-        box_url: https://github.com/jose-lpa/packer-debian_7.6.0/releases/download/1.0/packer_virtualbox-iso_virtualbox.box
+        box: chef/debian-7.8
     - name: Ubuntu-14.04
       driver:
-        box: ubuntu-14.04
-        box_url: https://github.com/kraksoft/vagrant-box-ubuntu/releases/download/14.04/ubuntu-14.04-amd64.box
+        box: ubuntu/trusty64
+
 suites:
   - name: fastd
     provisioner:

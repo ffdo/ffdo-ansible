@@ -1,0 +1,4 @@
+---
+# defaults file for repo-universe-factory
+repo_universe_factory_unsupported_architecture: false
+repo_universe_factory_unsupported_distro: false

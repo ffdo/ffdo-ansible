@@ -26,3 +26,6 @@
 - name: Install fastd via Apt
   when: repo_universe_factory_available
   apt: name=fastd state=latest
+
+- name: Add fastd user
+  user: createhome=no system=yes shell={{fastd_user_shell}} name={{fastd_user_name}}

@@ -15,3 +15,8 @@ describe file('/etc/default/rng-tools') do
   it { should exist }
   its(:content) { should match /HRNGDEVICE=\/dev\/urandom/ }
 end
+
+describe user('fastd') do
+  it { should exist }
+  it { should have_login_shell '/bin/false' }
+end

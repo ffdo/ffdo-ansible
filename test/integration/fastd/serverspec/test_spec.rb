@@ -20,3 +20,19 @@ describe user('fastd') do
   it { should exist }
   it { should have_login_shell '/bin/false' }
 end
+
+describe file('/etc/fastd/test') do
+  it { should exist }
+  it { should be_directory }
+end
+
+describe file('/etc/fastd/test/fastd.conf') do
+  it { should exist }
+  it { should be_file }
+end
+
+describe file('/etc/fastd/test/secret.conf') do
+  it { should exist }
+  it { should be_file }
+  its(:content) { should contain 'secret "some secret";' }
+end

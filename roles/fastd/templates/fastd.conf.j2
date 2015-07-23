@@ -1,0 +1,22 @@
+bind {{item.bind}};
+include "secret.conf";
+include peers from "dummy";
+interface "{{item.interface}}";
+log level {{item.loglevel}};
+mode {{item.mode}};
+method "{{item.method}}";
+peer limit {{item.peer_limit}};
+hide ip addresses yes;
+mtu {{item.mtu}};
+secure handshakes yes;
+log to syslog level verbose;
+status socket "{{item.status_socket}}";
+user "{{fastd_user_name}}";
+
+on up "
+  {{item.on_up_script}}
+";
+
+on verify "
+  {{item.on_verify_script}}
+";

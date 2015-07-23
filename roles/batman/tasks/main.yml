@@ -5,4 +5,15 @@
   apt: name={{item}} state=present
   with_items:
   - batctl
-  - batmand
+
+- name: Install B.A.T.M.A.N. kernel module
+  when: ansible_distribution == "Ubuntu"
+  apt: name=batman-adv-dkms state=present
+
+- name: Enable batman module on boot
+  lineinfile: dest=/etc/modules line=batman_adv
+
+- name: Load batman-adv kernel module
+  modprobe: name=batman_adv state=present
+
+# TODO make sure bat14 mode is used

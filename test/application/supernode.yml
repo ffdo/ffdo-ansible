@@ -5,6 +5,6 @@
   sudo         : True
   connection   : "{{ kitchen_connection | default('local') }}"
   vars_files   :
-                 - "fastd_pkg_vars.yml"
+                 - "supernode_pkg_vars.yml"
   roles        :
-                 - "fastd"
+                 - "ff-supernode"

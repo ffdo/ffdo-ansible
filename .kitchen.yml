@@ -22,9 +22,9 @@ platforms:
         box: ubuntu/trusty64
 
 suites:
-  - name: fastd
+  - name: supernode
     provisioner:
-      playbook: "test/application/fastd.yml"
+      playbook: "test/application/supernode.yml"
       extra_vars: {'kitchen_connection': 'smart'}
 #  - name            : group
 #    provisioner     :

@@ -53,3 +53,11 @@ describe file('/etc/fastd/test/secret.conf') do
   it { should be_file }
   its(:content) { should contain 'secret "280088c4263359417e9f2daf1771db820ab79eb4f79e3718719b2a976e8a8b5e";' }
 end
+
+describe package('batctl') do
+  it {should be_installed }
+end
+
+describe kernel_module('batman_adv') do
+  it { should be_loaded }
+end

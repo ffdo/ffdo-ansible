@@ -1,5 +1,3 @@
-fastd_install_from_source: false
-
 fastd_instances:
   - name: test
     bind: any:10000 interface "eth0" default ipv4

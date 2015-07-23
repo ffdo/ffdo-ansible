@@ -130,4 +130,4 @@ galaxy_info:
   #- web
 dependencies:
 - fastd
-#- batman
+- batman

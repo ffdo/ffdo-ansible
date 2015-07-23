@@ -18,4 +18,4 @@ fastd_instances:
 
 fastd_instances_secret:
   - name: test
-    secret: some secret
+    secret: 280088c4263359417e9f2daf1771db820ab79eb4f79e3718719b2a976e8a8b5e

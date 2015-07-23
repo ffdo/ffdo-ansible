@@ -8,7 +8,14 @@ describe package('fastd') do
 end
 
 # Ansible seems to have problems to enable a service. Needs investigation
-#describe service('fastd') do
+describe service('fastd') do
+  it { should be_running }
+#  it { should be_enabled }
+end
+
+# Detection of running service fails in Debian 7.8. Needs investigation.
+#describe service('rng-tools') do
+#  it { should be_running }
 #  it { should be_enabled }
 #end
 
@@ -44,5 +51,5 @@ end
 describe file('/etc/fastd/test/secret.conf') do
   it { should exist }
   it { should be_file }
-  its(:content) { should contain 'secret "some secret";' }
+  its(:content) { should contain 'secret "280088c4263359417e9f2daf1771db820ab79eb4f79e3718719b2a976e8a8b5e";' }
 end

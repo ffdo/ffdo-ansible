@@ -24,5 +24,8 @@
     - "{{fastd_instances_secret}}"
   notify: Restart fastd
 
+- name: rng-tools need to run
+  service: name=rng-tools state=started enabled=yes pattern=/usr/sbin/rngd
+
 - name: fastd needs to autostart
   service: name=fastd enabled=yes state=started

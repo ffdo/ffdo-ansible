@@ -1,33 +1,12 @@
-- name: Check Debian version
-  when: ansible_lsb.major_release|int < 7
-  set_fact: 
-    libuecc_build_from_source: true
-
-- name: Add GPG key for Wheezy backports
-  when: ansible_distribution_release == 'wheezy' and not libuecc_build_from_source
-  apt_key: keyserver=pgpkeys.mit.edu id=8B48AD6246925553
-
-- name: Add Wheezy backports
-  when: ansible_distribution_release == 'wheezy' and not libuecc_build_from_source
-  apt_repository: repo='deb http://http.debian.net/debian wheezy-backports main' state=present update_cache=yes
-
-- name: Add GPG key for libuecc Apt repo
-  when: not libuecc_build_from_source
-  apt_key: keyserver=pgpkeys.mit.edu id=16EF3F64CB201D9C
-
-- name: Add libuecc Apt repo
-  when: not libuecc_build_from_source
-  apt_repository: repo='deb http://repo.universe-factory.net/debian/ sid main' state=present update_cache=yes
-
 - name: Install libuecc via Apt
-  when: not libuecc_build_from_source
+  when: repo_universe_factory_available
   apt: name={{item}} state=latest update_cache=yes
   with_items:
   - libuecc0
   - libuecc-dev
 
 - name: Install libuecc build dependencies
-  when: libuecc_build_from_source
+  when: not repo_universe_factory_available
   apt: name={{item}} state=present
   with_items:
   - cmake
@@ -35,4 +14,4 @@
   - git
 
 - include: source.yml
-  when: libuecc_build_from_source
+  when: not repo_universe_factory_available

@@ -1,5 +1,4 @@
 - name: Clone fastd repo
-  when: fastd_install_from_source == 'true'
   register: clonefastd
   git: repo={{fastd_repo}} dest=/usr/src/fastd accept_hostkey=yes version={{fastd_repo_tag}}
 
@@ -12,4 +11,4 @@
 
 - name: Build and install fastd
   when: builddircreated|changed
-  command: cmake /usr/src/fastd && make && make install chdir={{fastd_build_dir}}
+  shell: cmake /usr/src/fastd && make && make install chdir={{fastd_build_dir}}

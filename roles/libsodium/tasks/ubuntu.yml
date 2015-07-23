@@ -1,13 +1,9 @@
-- name: Check Ubuntu version
-  set_fact: libsodium_build_from_source=true
-  when: ansible_lsb.major_release|int < 15
-
-- include: source.yml
-  when: libsodium_build_from_source == 'true'
-
 - name: Install libsodium via apt
-  when: libsodium_build_from_source != 'true'
+  when: repo_universe_factory_available
   apt: name={{item}} state=latest update_cache=yes
   with_items:
   - libsodium13
   - libsodium-dev
+
+- include: source.yml
+  when: not repo_universe_factory_available

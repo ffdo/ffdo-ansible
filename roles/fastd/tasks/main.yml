@@ -1,11 +1,6 @@
 ---
 # tasks file for fastd
 
-- name: Check architecture
-  when: ansible_architecture != 'i386' and ansible_architecture != 'amd64' and ansible_architecture !='x86_64'
-  set_fact:
-    fastd_install_from_source: true
-
 - include: debian.yml
   when: ansible_distribution == "Ubuntu"
 

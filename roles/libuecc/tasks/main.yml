@@ -1,11 +1,6 @@
 ---
 # tasks file for libsodium
 
-- name: Check architecture
-  when: ansible_architecture != 'i386' and ansible_architecture != 'amd64' and ansible_architecture !='x86_64'
-  set_fact: 
-    libuecc_build_from_source: true
-
 - include: debian.yml
   when: ansible_distribution == "Ubuntu"
 

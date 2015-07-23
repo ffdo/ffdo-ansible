@@ -1,21 +1,5 @@
-- name: Add GPG key for Wheezy backports
-  when: ansible_distribution_release == 'wheezy' and not fastd_install_from_source
-  apt_key: keyserver=pgpkeys.mit.edu id=8B48AD6246925553
-
-- name: Add Wheezy backports
-  when: ansible_distribution_release == 'wheezy' and not fastd_install_from_source
-  apt_repository: repo='deb http://http.debian.net/debian wheezy-backports main' state=present update_cache=yes
-
-- name: Add GPG key for fastd Apt repo
-  when: not fastd_install_from_source
-  apt_key: keyserver=pgpkeys.mit.edu id=16EF3F64CB201D9C
-
-- name: Add fastd Apt repo
-  when: not fastd_install_from_source
-  apt_repository: repo='deb http://repo.universe-factory.net/debian/ sid main' state=present update_cache=yes
-
 - name: Install fastd build dependencies
-  when: fastd_install_from_source
+  when: not repo_universe_factory_available
   apt: name={{item}} update_cache=yes
   with_items:
     - libcap2
@@ -28,6 +12,9 @@
     - git
     - build-essential
 
+- include: source.yml
+  when: not repo_universe_factory_available
+
 - name: Install fastd via Apt
-  when: not fastd_install_from_source
+  when: repo_universe_factory_available
   apt: name=fastd state=latest

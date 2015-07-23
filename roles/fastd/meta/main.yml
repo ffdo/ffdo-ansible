@@ -12,5 +12,6 @@ galaxy_info:
   categories:
   - networking
 dependencies:
-   - libsodium
-   - libuecc
+  - repo-universe-factory
+  - libsodium
+  - libuecc

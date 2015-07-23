@@ -17,3 +17,43 @@ fastd_instances:
 fastd_instances_secret:
   - name: test
     secret: 280088c4263359417e9f2daf1771db820ab79eb4f79e3718719b2a976e8a8b5e
+
+bird_router_id: 10.233.8.1
+bird_templates:
+  - header: bgp ibgp
+    content: |
+      local as 65403;
+      import all;
+      export all;
+      next hop self;
+      multihop 64;
+
+bird_protocols:
+  - header: direct
+    content: interface "*";
+  - header: bgp ffrg11 from ibgp
+    content: |
+      source address 10.0.6.6;
+      neighbor 10.0.6.5 as 65079;
+      default bgp_med 2;
+
+
+bird6_router_id: 10.233.8.1
+bird6_templates:
+  - header: bgp ibgp
+    content: |
+      source address 2a03:2260:50:5::8;
+      local as 65403;
+      import all;
+      export all;
+      next hop self;
+      direct;
+      gateway direct;
+
+bird6_protocols:
+  - header: direct
+    content: interface "*";
+  - header: bgp node012 from ibgp
+    content: |
+      neighbor 2a03:2260:50:5::24 as 65403;
+      default bgp_med 4;

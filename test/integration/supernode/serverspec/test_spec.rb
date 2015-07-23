@@ -61,3 +61,27 @@ end
 describe kernel_module('batman_adv') do
   it { should be_loaded }
 end
+
+describe package('bird') do
+  it { should be_installed }
+end
+
+describe file('/etc/bird/bird.conf') do
+  it { should exist }
+  its(:content) { should contain 'router id 10.233.8.1;' }
+end
+
+describe file('/etc/bird/bird6.conf') do
+  it { should exist }
+  its(:content) { should contain 'router id 10.233.8.1;' }
+end
+
+#describe service('bird') do
+#  it { should be_running }
+#  it { should be_enabled }
+#end
+
+#describe service('bird6') do
+#  it { should be_running }
+#  it { should be_enabled }
+#end

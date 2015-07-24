@@ -2,3 +2,8 @@
   when: supernode_interfaces is defined
   template: src=interfaces.j2 dest=/etc/network/interfaces
   notify: Restart network
+
+- name: Make sure necessary tools are installed
+  apt: name={{item}} state=present
+  with_items:
+  - wget

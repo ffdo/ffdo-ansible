@@ -19,6 +19,11 @@ end
 #  it { should be_enabled }
 #end
 
+describe file('/etc/fastd/fastd-blacklist.sh') do
+  it { should exist }
+  it { should be_executable }
+end
+
 describe port(10000) do
   it { should be_listening.with('udp6') }
 end
@@ -55,13 +60,19 @@ end
 
 describe file('/etc/bird/bird.conf') do
   it { should exist }
-  its(:content) { should contain 'router id 10.233.8.1;' }
+  its(:content) { should contain 'router id 10.42.0.1;' }
 end
 
 describe file('/etc/bird/bird6.conf') do
   it { should exist }
-  its(:content) { should contain 'router id 10.233.8.1;' }
+  its(:content) { should contain 'router id 10.42.0.1;' }
 end
+
+# At least on Ubuntu doesn't open a port. Is this a problem?
+#describe port(179) do 
+#  it { should be_listening.with('tcp') }
+#  it { should be_listening.with('tcp6') }
+#end
 
 #describe service('bird') do
 #  it { should be_running }
@@ -75,4 +86,28 @@ end
 
 describe interface('meshdummy0') do
   it { should exist }
+end
+
+describe interface('alfred0') do
+  it { should exist }
+end
+
+describe interface('bat0') do
+  it { should exist }
+end
+
+describe interface('eth0') do
+  it { should exist }
+end
+
+describe interface('tap00') do
+  it { should exist }
+end
+
+describe interface('tap01') do
+  it { should exist }
+end
+
+describe cron do
+  it { should have_entry '*/5 * * * * wget -q -O /etc/fastd/fastd-blacklist.json https://raw.githubusercontent.com/ffruhr/fastdbl/master/fastd-blacklist.json' }
 end

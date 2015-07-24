@@ -1,3 +1,11 @@
+supernode_mesh_mac: C7:D9:55:60:1C:7B
+supernode_mesh_ipv4: 10.42.0.1
+supernode_mesh_netmask_ipv4: 255.255.0.0
+supernode_bat_macaddress: 39:C5:49:BE:00:78
+supernode_mesh_net_cidr: 10.42.0.0/16
+supernode_mesh_ipv6: fdfe:7808:502a:4eb7::1/64
+supernode_mesh_net_ipv6: fdfe:7808:502a:4eb7::/64
+
 fastd_instances:
   - name: do00
     bind: any:10000 interface "eth0" default ipv4
@@ -34,7 +42,7 @@ fastd_instances_secret:
   - name: do01
     secret: 280088c4263359417e9f2daf1771db820ab79eb4f79e3718719b2a976e8a8b5e
 
-bird_router_id: 10.233.8.1
+bird_router_id: "{{supernode_mesh_ipv4}}"
 bird_templates:
   - header: bgp ibgp
     content: |
@@ -45,6 +53,14 @@ bird_templates:
       multihop 64;
 
 bird_protocols:
+  - header: kernel
+    content: |
+      device routes;
+      import all;
+      export all;
+      kernel table 42;
+  - header: device
+    content: scan time 8;
   - header: direct
     content: interface "*";
   - header: bgp ffrg11 from ibgp
@@ -52,9 +68,34 @@ bird_protocols:
       source address 10.0.6.6;
       neighbor 10.0.6.5 as 65079;
       default bgp_med 2;
+  - header: protocol bgp ffrg25 from ibgp
+    content: |
+      source address 10.0.6.2;
+      neighbor 10.0.6.1 as 65079;
+      default bgp_med 1;
+  - header: bgp node012 from ibgp
+    content: |
+      source address 10.233.8.1;
+      neighbor 10.233.24.1 as 65403;
+      default bgp_med 4;
+  - header: bgp node021 from ibgp
+    content: |
+      source address 10.233.8.1;
+      neighbor 10.233.16.1 as 65403;
+      default bgp_med 3;
+  - header: bgp node022 from ibgp
+    content: |
+      source address 10.233.8.1;
+      neighbor 10.233.32.1 as 65403;
+      default bgp_med 4;
+  - header: bgp map from ibgp
+    content: |
+      source address 10.233.8.1;
+      neighbor 10.233.0.1 as 65403;
+      default bgp_med 4;
 
 
-bird6_router_id: 10.233.8.1
+bird6_router_id: "{{supernode_mesh_ipv4}}"
 bird6_templates:
   - header: bgp ibgp
     content: |
@@ -65,13 +106,55 @@ bird6_templates:
       next hop self;
       direct;
       gateway direct;
+  - header: bgp uplink
+    content: |
+      local as 65403;
+      import all;
+      export all;
+      next hop self;
+      direct;
+      multihop 64;
 
 bird6_protocols:
+  - header: static uplink_hostroute
+    content: |
+      import all;
+      export all;
   - header: direct
     content: interface "*";
+  - header: kernel
+    content: |
+      persist;
+      device routes;
+      scan time 20;
+      import all;
+      export all;
+      kernel table 42;
+  - header: device
+    content: scan time 10;
+  - header: bgp ffrg11 from uplink
+    content: |
+      neighbor 2a03:2260:50:5b::1 as 65079;
+      default bgp_med 2;
+  - header: bgp ffrg25 from uplink
+    content: |
+      neighbor 2a03:2260:50:5a::1 as 65079;
+      default bgp_med 1;
   - header: bgp node012 from ibgp
     content: |
       neighbor 2a03:2260:50:5::24 as 65403;
+      default bgp_med 4;
+  - header: bgp node021 from ibgp
+    content: |
+      neighbor 2a03:2260:50:5::16 as 65403;
+      default bgp_med 3;
+  - header: bgp node022 from ibgp
+    content: |
+      neighbor 2a03:2260:50:5::32 as 65403;
+      default bgp_med 4;
+  - header: bgp map from ibgp
+    content: |
+      neighbor 2a03:2260:50:5::1 as 65403;
       default bgp_med 4;
 
 supernode_interfaces:
@@ -79,19 +162,3 @@ supernode_interfaces:
     auto: true
     proto: inet
     type: dhcp
-
-  - name: meshdummy0
-    auto: true
-    proto: inet 
-    type: manual
-    config:
-    - key: pre-up
-      value: ip link add $IFACE type dummy
-    - key: pre-up
-      value: ip link set address 02:ce:ef:ca:fe:2a dev $IFACE
-    - key: pre-up
-      value: ip link set up dev $IFACE
-    - key: post-down
-      value: ip link set down dev $IFACE
-    - key: up
-      value: batctl if add $IFACE

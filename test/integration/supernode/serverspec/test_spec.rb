@@ -19,6 +19,10 @@ end
 #  it { should be_enabled }
 #end
 
+describe port(10000) do
+  it { should be_listening.with('udp6') }
+end
+
 describe package('rng-tools') do
   it { should be_installed }
 end
@@ -85,3 +89,7 @@ end
 #  it { should be_running }
 #  it { should be_enabled }
 #end
+
+describe interface('meshdummy0') do
+  it { should exist }
+end

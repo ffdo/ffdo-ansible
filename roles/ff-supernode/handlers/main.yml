@@ -1,2 +1,6 @@
 ---
 # handlers file for ff-supernode
+# In Ubuntu restarting the networking service causes problems.
+# So we use ifdown and ifup to enable changes
+- name: Restart network
+  shell: ifdown --exclude=lo -a && ifup --exclude=lo -a

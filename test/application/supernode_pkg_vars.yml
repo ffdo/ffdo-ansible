@@ -57,3 +57,25 @@ bird6_protocols:
     content: |
       neighbor 2a03:2260:50:5::24 as 65403;
       default bgp_med 4;
+
+supernode_interfaces:
+  - name: eth0
+    auto: true
+    proto: inet
+    type: dhcp
+    
+  - name: meshdummy0
+    auto: true
+    proto: inet 
+    type: manual
+    config:
+    - key: pre-up
+      value: ip link add $IFACE type dummy
+    - key: pre-up
+      value: ip link set address 02:ce:ef:ca:fe:2a dev $IFACE
+    - key: pre-up
+      value: ip link set up dev $IFACE
+    - key: post-down
+      value: ip link set down dev $IFACE
+    - key: up
+      value: batctl if add $IFACE

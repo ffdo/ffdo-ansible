@@ -23,6 +23,10 @@ describe port(10000) do
   it { should be_listening.with('udp6') }
 end
 
+describe port(10001) do
+  it { should be_listening.with('udp6') }
+end
+
 describe package('rng-tools') do
   it { should be_installed }
 end
@@ -35,27 +39,6 @@ end
 describe user('fastd') do
   it { should exist }
   it { should have_login_shell '/bin/false' }
-end
-
-describe file('/etc/fastd/test') do
-  it { should exist }
-  it { should be_directory }
-end
-
-describe file('/etc/fastd/test/dummy') do
-  it { should exist }
-  it { should be_directory }
-end
-
-describe file('/etc/fastd/test/fastd.conf') do
-  it { should exist }
-  it { should be_file }
-end
-
-describe file('/etc/fastd/test/secret.conf') do
-  it { should exist }
-  it { should be_file }
-  its(:content) { should contain 'secret "280088c4263359417e9f2daf1771db820ab79eb4f79e3718719b2a976e8a8b5e";' }
 end
 
 describe package('batctl') do

@@ -1,5 +1,5 @@
 fastd_instances:
-  - name: test
+  - name: do00
     bind: any:10000 interface "eth0" default ipv4
     interface: tap00
     loglevel: info
@@ -13,9 +13,25 @@ fastd_instances:
       batctl if add $INTERFACE
     on_verify_script: |
       /etc/fastd/fastd-blacklist.sh $PEER_KEY
+  - name: do01
+    bind: any:10001 interface "eth0" default ipv4
+    interface: tap01
+    loglevel: info
+    mode: tap
+    method: salsa2012+umac
+    peer_limit: 125
+    mtu: 1280
+    status_socket: /tmp/fastd01.sock
+    on_up_script: |
+      ip link set up $INTERFACE
+      batctl if add $INTERFACE
+    on_verify_script: |
+      /etc/fastd/fastd-blacklist.sh $PEER_KEY
 
 fastd_instances_secret:
-  - name: test
+  - name: do00
+    secret: 280088c4263359417e9f2daf1771db820ab79eb4f79e3718719b2a976e8a8b5e
+  - name: do01
     secret: 280088c4263359417e9f2daf1771db820ab79eb4f79e3718719b2a976e8a8b5e
 
 bird_router_id: 10.233.8.1
@@ -63,7 +79,7 @@ supernode_interfaces:
     auto: true
     proto: inet
     type: dhcp
-    
+
   - name: meshdummy0
     auto: true
     proto: inet 

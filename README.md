@@ -9,17 +9,16 @@ software and eventually fall back to building from source.
 
 ## TODO
 
-* fastd needs to be buildable from source
-* B.A.T.M.A.N. role needs to enable build from source
-* Add role for Freifunk fastd config
+* batman role needs to enable build from source
+* we need a way to get batman compatibility mode as a fact and be able to configure it
 * Add role for Freifunk batman config
 * Add role for Freifunk network config
 * Add support for more platforms (don't force a linux distro to others)
 * Everything else I forgot
-* Add tests via testkitchen and CI via travis
+* Add CI via travis:
 
 ## Setup test kitchen locally
 
-* Install test kitchen sudo gem install test-kitchen
-* Install additionall kitchen gems sudo gem install kitchen-ansiblepush kitchen-ansible kitchen-vagrant
-* start tests via kitchen test
+* Install [test kitchen](http://kitchen.ci/): sudo gem install test-kitchen
+* Install additionall kitchen gems: sudo gem install kitchen-ansiblepush kitchen-ansible kitchen-vagrant
+* start tests via: kitchen test

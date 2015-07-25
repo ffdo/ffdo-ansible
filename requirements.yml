@@ -5,3 +5,6 @@
 
 - src: pdellaert.dhcp_server
   path: galaxy-roles
+
+- src: debops.radvd
+  path: galaxy-roles

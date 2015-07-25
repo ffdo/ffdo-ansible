@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: Till Klocke
-  description: Installs a Freifunk Supernide
+  description: Installs a Freifunk Supernode
   company: Freifunk Dortmund
   # If the issue tracker for your role is not on github, uncomment the
   # next line and provide a value
@@ -29,3 +29,5 @@ dependencies:
 - fastd
 - batman
 - bird
+- supernode-interfaces
+- pdellaert.dhcp_server

@@ -1,2 +1,24 @@
 ---
 # vars file for ff-supernode
+
+dhcp_interfaces: bat0
+dhcp_common_default_lease_time: 600
+dhcp_common_max_lease_time: 7200
+dhcp_common_ddns_update_style: none
+dhcp_common_authoritative: true
+dhcp_common_log_facility: local7
+dhcp_common_options:
+  - wpad code 252 = text
+  - 'wpad "\n\000"'
+  - interface-mtu 1280
+dhcp_subnets:
+  - base: "{{supernode_mesh_net_base_ip}}"
+    netmask: "{{supernode_mesh_netmask_ipv4}}"
+    routers: "{{supernode_mesh_ipv4}}"
+    domain_nameservers: "{{supernode_mesh_ipv4}}, {{supernode_other_nameserver}}"
+    ntp_servers: "{{supernode_mesh_ipv4}}, {{supernode_other_ntp_server}}"
+dhcp_classes:
+  - name: MSFT
+    rule: 'match if substring(option vendor-class-identifier, 0, 4) = "MSFT"'
+    options:
+      - opt: 'dhcp-parameter-request-list = concat(option dhcp-parameter-request-list, fc)'

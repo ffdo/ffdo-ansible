@@ -1,0 +1,7 @@
+alfred_build_deps:
+  - build-essential
+  - pkg-config
+  - libcap2
+  - libcap-dev
+  - libgps21
+  - libgps-dev

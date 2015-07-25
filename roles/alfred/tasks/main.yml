@@ -1,0 +1,16 @@
+---
+# tasks file for alfred
+
+- include: debian.yml
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+- name: Download alfred source code
+  get_url: dest=/usr/src url={{alfred_source_url}}
+
+- name: Extract alfred source code
+  unarchive: src=/usr/src/alfred-{{alfred_version}}.tar.gz dest=/usr/src copy=no
+
+- name: Compile and install alfred
+  shell: make && make install
+  args:
+    chdir: /usr/src/alfred-{{alfred_version}}

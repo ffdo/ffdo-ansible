@@ -108,6 +108,14 @@ describe interface('tap01') do
   it { should exist }
 end
 
+describe interface('test-node02') do
+  it { should exist }
+end
+
+describe interface('ffanon-uplink1') do
+  it { should exist }
+end
+
 describe cron do
   it { should have_entry '*/5 * * * * wget -q -O /etc/fastd/fastd-blacklist.json https://raw.githubusercontent.com/ffruhr/fastdbl/master/fastd-blacklist.json' }
 end

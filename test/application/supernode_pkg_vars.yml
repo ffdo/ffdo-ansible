@@ -1,10 +1,25 @@
-supernode_mesh_mac: C7:D9:55:60:1C:7B
+supernode_mesh_mac: 96:48:76:b5:a3:61
 supernode_mesh_ipv4: 10.42.0.1
 supernode_mesh_netmask_ipv4: 255.255.0.0
-supernode_bat_macaddress: 39:C5:49:BE:00:78
+supernode_bat_macaddress: f2:43:13:c0:d7:06
 supernode_mesh_net_cidr: 10.42.0.0/16
 supernode_mesh_ipv6: fdfe:7808:502a:4eb7::1/64
 supernode_mesh_net_ipv6: fdfe:7808:502a:4eb7::/64
+supernode_local_ip: "{{ansible_default_ipv4.address}}"
+
+supernode_mesh_backbones:
+  - name: test-node02
+    comment: Non existant mesh backbone
+    remote_ip: 192.168.0.43
+
+supernode_uplinks:
+  - name: ffanon-uplink1
+    comment: Non existant uplink
+    address: 172.16.0.1
+    dstaddr: 172.16.0.2
+    netmask: 255.255.255.252
+    endpoint: 192.168.0.23
+    address_v6: fd0a:1c06:d97c:e88d::2/64
 
 fastd_instances:
   - name: do00

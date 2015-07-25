@@ -49,10 +49,8 @@ iface bat0 inet static
     pre-up batctl bl 0
     pre-up batctl gw server 48mbit/48mbit
     pre-up echo 120 > /sys/class/net/$IFACE/mesh/hop_penalty
-
     post-down ip rule del from {{supernode_mesh_net_cidr}} table 42
     post-down ip rule del to {{supernode_mesh_net_cidr}} table 42
-
     # Paralleles Macvlan-Interface mit fixer MTU fuer Alfred
     up ip link add link $IFACE alfred0 type macvlan
     up ip link set dev alfred0 mtu 1280

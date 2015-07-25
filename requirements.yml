@@ -1,0 +1,3 @@
+- src: https://github.com/ahelal/ansible-usermanage
+  version: master
+  name: usermanage

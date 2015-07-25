@@ -1,0 +1,13 @@
+---
+- name         : Sources files
+  hosts        : all
+  gather_facts : no
+  sudo         : True
+  connection   : "{{ kitchen_connection | default('local') }}"
+  vars         :
+                 usermanage_user_source_files:
+                                               - path: "./user_source/yaml&json/"
+                                                 databag: false
+
+  roles        :
+                 - "ansible-usermanage"

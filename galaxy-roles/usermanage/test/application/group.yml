@@ -1,0 +1,10 @@
+---
+- name         : Group (1)
+  hosts        : all
+  gather_facts : no
+  sudo         : True
+  connection   : "{{ kitchen_connection | default('local') }}"
+  vars_files   :
+                 - "group_var_group_db.yml"
+  roles        :
+                 - "ansible-usermanage"

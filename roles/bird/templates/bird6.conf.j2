@@ -3,13 +3,13 @@ router id {{bird6_router_id}};
 
 {% for template in bird6_templates %}
 template {{template.header}} {
-        {{template.content}}
+  {{template.content|indent(2,false)}}
 };
 
 {% endfor %}
-
 {% for protocol in bird6_protocols %}
 protocol {{protocol.header}} {
-        {{protocol.content}}
+  {{protocol.content|indent(2,false)}}
 };
+
 {% endfor %}

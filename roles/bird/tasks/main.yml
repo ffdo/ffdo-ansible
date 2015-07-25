@@ -14,7 +14,7 @@
   template: src=bird.conf.j2 dest={{bird_config_dir}}/bird.conf
 
 - name: Install bird6.conf
-  template: src=bird.conf.j2 dest={{bird_config_dir}}/bird6.conf
+  template: src=bird6.conf.j2 dest={{bird_config_dir}}/bird6.conf
 
 - name: Enable and start bird and bird6
   service: name={{item}} state=started enabled=yes

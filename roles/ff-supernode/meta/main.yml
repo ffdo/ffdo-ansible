@@ -25,6 +25,7 @@ galaxy_info:
   categories:
   - networking
 dependencies:
+- usermanage
 - fastd
 - batman
 - bird

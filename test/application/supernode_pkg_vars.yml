@@ -4,8 +4,8 @@ supernode_mesh_net_base_ip: 10.42.0.0
 supernode_mesh_netmask_ipv4: 255.255.0.0
 supernode_bat_macaddress: f2:43:13:c0:d7:06
 supernode_mesh_net_cidr: 10.42.0.0/16
-supernode_mesh_ipv6: fdfe:7808:502a:4eb7::1/64
-supernode_mesh_net_ipv6: fdfe:7808:502a:4eb7::/64
+supernode_mesh_ipv6: 2a03:2260:50:5::8/64
+supernode_mesh_net_ipv6: 2a03:2260:50:5::/64
 supernode_local_ip: "{{ansible_default_ipv4.address}}"
 supernode_other_nameserver: 10.42.0.23
 supernode_other_ntp_server: 10.42.0.23

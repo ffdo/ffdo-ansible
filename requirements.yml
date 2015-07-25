@@ -1,3 +1,7 @@
 - src: https://github.com/ahelal/ansible-usermanage
   version: master
   name: usermanage
+  path: galaxy-roles
+
+- src: pdellaert.dhcp_server
+  path: galaxy-roles

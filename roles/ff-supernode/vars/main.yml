@@ -33,3 +33,7 @@ radvd_default_interface_options: |
   prefix {{supernode_mesh_net_ipv6}}
   {
   };
+
+radvd_default_interface_nameservers:
+  - rdnss: 
+    - "{{supernode_mesh_ipv6}}"

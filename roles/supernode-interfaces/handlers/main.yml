@@ -1,0 +1,4 @@
+---
+# handlers file for supernode-interfaces
+- name: Restart network
+  shell: ifdown --exclude=lo -a && ifup --exclude=lo -a

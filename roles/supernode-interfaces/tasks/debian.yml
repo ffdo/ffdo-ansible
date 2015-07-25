@@ -1,0 +1,9 @@
+- name: Install network config
+  when: supernode_interfaces is defined
+  template: src=interfaces.j2 dest=/etc/network/interfaces
+  register: networ_template_installed
+#  notify: Restart network
+
+- name: Restart network
+  when: networ_template_installed|changed
+  shell: "ifdown --exclude=lo --exclude=eth0 -a && ifup --exclude=lo --exclude=eth0 -a"

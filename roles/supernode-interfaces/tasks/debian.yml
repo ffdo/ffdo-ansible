@@ -10,7 +10,7 @@
 
 - name: Load sysctl variables
   when: supernode_sysctl_installed|changed
-  shell: sysctl -p
+  shell: sysctl -p /etc/sysctl.d/supernode.conf || true
 
 - name: Restart network
   when: network_template_installed|changed

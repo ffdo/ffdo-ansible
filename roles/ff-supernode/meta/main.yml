@@ -31,3 +31,4 @@ dependencies:
 - bird
 - supernode-interfaces
 - pdellaert.dhcp_server
+- debops.radvd

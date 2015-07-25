@@ -22,3 +22,14 @@ dhcp_classes:
     rule: 'match if substring(option vendor-class-identifier, 0, 4) = "MSFT"'
     options:
       - opt: 'dhcp-parameter-request-list = concat(option dhcp-parameter-request-list, fc)'
+
+radvd_default_interface: 'bat0'
+radvd_default_interface_options: |
+  AdvSendAdvert on;
+  IgnoreIfMissing on;
+  MaxRtrAdvInterval 600;
+  MinDelayBetweenRAs 10;
+  AdvLinkMTU 1280;
+  prefix {{supernode_mesh_net_ipv6}}
+  {
+  };

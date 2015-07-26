@@ -1,0 +1,20 @@
+--- ../alfred_/Makefile 2015-05-01 23:47:25.179644579 +0000
++++ Makefile    2015-05-02 00:11:56.251644579 +0000
+@@ -83,11 +83,12 @@
+ 
+   ifeq ($(origin LIBCAP_CFLAGS) $(origin LIBCAP_LDLIBS), undefined undefined)
+     LIBCAP_NAME ?= libcap
+-    ifeq ($(shell $(PKG_CONFIG) --modversion $(LIBCAP_NAME) 2>/dev/null),)
+-      $(error No $(LIBCAP_NAME) development libraries found!)
+-    endif
+-    LIBCAP_CFLAGS += $(shell $(PKG_CONFIG) --cflags $(LIBCAP_NAME))
+-    LIBCAP_LDLIBS +=  $(shell $(PKG_CONFIG) --libs $(LIBCAP_NAME))
++#    ifeq ($(shell $(PKG_CONFIG) --modversion $(LIBCAP_NAME) 2>/dev/null),)
++#      $(error No $(LIBCAP_NAME) development libraries found!)
++#    endif
++#    LIBCAP_CFLAGS += $(shell $(PKG_CONFIG) --cflags $(LIBCAP_NAME))
++#    LIBCAP_LDLIBS +=  $(shell $(PKG_CONFIG) --libs $(LIBCAP_NAME))
++    LIBCAP_LDLIBS += -lcap
+   endif
+   CFLAGS += $(LIBCAP_CFLAGS)
+   CPPFLAGS += -DCONFIG_ALFRED_CAPABILITIES

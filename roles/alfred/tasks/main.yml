@@ -10,6 +10,14 @@
 - name: Extract alfred source code
   unarchive: src=/usr/src/alfred-{{alfred_version}}.tar.gz dest=/usr/src copy=no
 
+- name: Copy libcap patch to src directory
+  when: alfred_libcap_dev_broken
+  template: src=libcap.patch.j2 dest=/usr/src/alfred-{{alfred_version}}/libcap.patch
+
+- name: Patch makefile to fix broken libcap-dev package on Debian and Ubuntu
+  when: alfred_libcap_dev_broken
+  patch: basedir=/usr/src/alfred-{{alfred_version}} src=/usr/src/alfred-{{alfred_version}}/libcap.patch remote_src=True strip=0
+
 - name: Compile and install alfred
   shell: make && make install
   args:

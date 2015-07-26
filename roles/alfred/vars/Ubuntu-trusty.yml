@@ -5,3 +5,5 @@ alfred_build_deps:
   - libcap-dev
   - libgps20
   - libgps-dev
+
+alfred_libcap_dev_broken: true

@@ -3,5 +3,5 @@ alfred_build_deps:
   - pkg-config
   - libcap2
   - libcap-dev
-  - libgps21
+  - libgps20
   - libgps-dev

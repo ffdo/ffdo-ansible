@@ -38,5 +38,5 @@
     owner: 'root'
     group: 'root'
     mode: '0644'
-  notify: [ 'Test radvd and reload' ]
+  notify: [ 'Test radvd and restart' ]
 

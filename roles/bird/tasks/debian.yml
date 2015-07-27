@@ -1,2 +1,2 @@
 - name: Install bird routing daemon
-  apt: name=bird state=present
+  apt: name=bird state=present default_release={{bird_default_release}}

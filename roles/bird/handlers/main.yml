@@ -1,2 +1,8 @@
 ---
 # handlers file for bird
+
+- name: Restart bird daemons
+  service: name={{item}} state=restarted
+  with_items:
+  - bird
+  - bird6

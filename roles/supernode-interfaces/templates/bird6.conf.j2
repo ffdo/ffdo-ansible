@@ -1,0 +1,59 @@
+log syslog all;
+router id {{supernode_mesh_ipv4}};
+
+protocol static uplink_hostroute {
+   import all;
+   export all;
+}
+
+protocol direct {
+        interface "*";
+}
+
+protocol kernel {
+        persist;
+        device routes;
+        scan time 20;
+        import all;
+        export all;
+        kernel table 42;
+}
+
+protocol device {
+        scan time 10;
+}
+
+template bgp ibgp {
+        source address 2a03:2260:50:5::8;
+        local as 65403;
+        import all;
+        export all;
+        next hop self;
+        direct;
+        gateway direct;
+}
+
+template bgp uplink {
+        local as 65403;
+        import all;
+        export all;
+        next hop self;
+        direct;
+        multihop 64;
+}
+
+{% for uplink in supernode_uplinks %}
+protocol bgp {{uplink.name}} from uplink {
+        neighbor {{uplink.adress_v6_pure}} as {{uplink.as}};
+        default bgp_med 2;
+}
+
+{% endfor %}
+
+{% for meshlink in supernode_mesh_backbones %}
+protocol bgp {{meshlink.name}} from ibgp {
+        neighbor {{meshlink.address_v6}} as {{supernode_as}};
+        default bgp_med 4;
+}
+
+{% endfor %}

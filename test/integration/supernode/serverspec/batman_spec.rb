@@ -7,3 +7,7 @@ end
 describe kernel_module('batman_adv') do
   it { should be_loaded }
 end
+
+describe process('alfred') do
+  it { should be_running }
+end

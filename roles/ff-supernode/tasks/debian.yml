@@ -2,3 +2,12 @@
   apt: name={{item}} state=present
   with_items:
   - wget
+  - supervisor
+
+- name: Install backport kernel for Debian wheezy
+  apt: name=linux-image-amd64 default_release=wheezy-backports state=latest
+  when: ansible_distribution_release == 'wheezy'
+  notify: Reboot machine
+
+- name: Start and enable supervisor
+  service: name=supervisor state=started enabled=yes

@@ -4,3 +4,9 @@
 # So we use ifdown and ifup to enable changes
 - name: Restart network
   shell: ifdown --exclude=lo -a && ifup --exclude=lo -a
+
+- name: Restart supervisor
+  service: name=supervisor state=restarted
+
+- name: Reboot machine
+  shell: reboot

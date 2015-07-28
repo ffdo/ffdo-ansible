@@ -39,3 +39,7 @@ radvd_default_interface_options: |
 radvd_default_interface_nameservers:
   - rdnss: 
     - "{{supernode_mesh_ipv6}}"
+
+supervisor_services:
+  - name: alfred
+    command: /usr/local/sbin/alfred -i alfred0

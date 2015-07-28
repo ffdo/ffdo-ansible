@@ -15,3 +15,8 @@
 
 - name: Install verify shell script
   template: src=fastd-blacklist.sh.j2 dest=/etc/fastd/fastd-blacklist.sh mode="u=rwx,g=rx,o=r"
+
+- name: Create supervisor services
+  template: src=supervisor.service.j2 dest=/etc/supervisor/conf.d/{{item.name}}.conf
+  with_items: "{{supervisor_services}}"
+  notify: Restart supervisor

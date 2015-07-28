@@ -1,5 +1,4 @@
 .vagrant
 .kitchen/
-.kitchen.local.yml
-.kitchen.cloud.yml
+.kitchen.*.yml
 secrets

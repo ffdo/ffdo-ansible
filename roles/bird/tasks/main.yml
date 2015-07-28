@@ -13,14 +13,17 @@
   file: name={{bird_config_dir}} state=directory
 
 - name: Install bird.conf
+  when: bird_configure
   template: src=bird.conf.j2 dest={{bird_config_dir}}/bird.conf
   notify: Restart bird daemons
 
 - name: Install bird6.conf
+  when: bird_configure
   template: src=bird6.conf.j2 dest={{bird_config_dir}}/bird6.conf
   notify: Restart bird daemons
 
 - name: Enable and start bird and bird6
+  when: bird_configure
   service: name={{item}} state=started enabled=yes
   with_items:
     - bird

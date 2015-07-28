@@ -1,5 +1,5 @@
 log syslog all;
-router id {{supernode_mesh_ipv4}};
+router id {{supernode_mesh_ipv4|ipaddr('address')}};
 
 protocol static uplink_hostroute {
    import all;
@@ -24,8 +24,8 @@ protocol device {
 }
 
 template bgp ibgp {
-        source address 2a03:2260:50:5::8;
-        local as 65403;
+        source address {{supernode_mesh_ipv6|ipaddr('address')}};
+        local as {{supernode_as}};
         import all;
         export all;
         next hop self;
@@ -34,7 +34,7 @@ template bgp ibgp {
 }
 
 template bgp uplink {
-        local as 65403;
+        local as {{supernode_uplinks[0].as}};
         import all;
         export all;
         next hop self;
@@ -44,7 +44,7 @@ template bgp uplink {
 
 {% for uplink in supernode_uplinks %}
 protocol bgp {{uplink.name}} from uplink {
-        neighbor {{uplink.adress_v6_pure}} as {{uplink.as}};
+        neighbor {{uplink.address_v6|ipaddr('address')}} as {{uplink.as}};
         default bgp_med 2;
 }
 

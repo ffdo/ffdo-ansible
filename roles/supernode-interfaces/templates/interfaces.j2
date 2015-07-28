@@ -41,17 +41,17 @@ iface meshdummy0 inet manual
 # batman-adv Mesh Interface, wird von meshdummy0 per Hotplug aktiviert
 allow-hotplug bat0
 iface bat0 inet static
-    address {{supernode_mesh_ipv4}}
-    netmask {{supernode_mesh_netmask_ipv4}}
+    address {{supernode_mesh_ipv4|ipaddr('address')}}
+    netmask {{supernode_mesh_ipv4|ipaddr('netmask')}}
     hwaddress {{supernode_bat_macaddress}}
-    pre-up ip rule add from {{supernode_mesh_net_cidr}} table 42
-    pre-up ip rule add to {{supernode_mesh_net_cidr}} table 42
+    pre-up ip rule add from {{supernode_mesh_ipv4}} table 42
+    pre-up ip rule add to {{supernode_mesh_ipv4}} table 42
     pre-up batctl it 5000
     pre-up batctl bl 0
     pre-up batctl gw server 48mbit/48mbit
     pre-up echo 120 > /sys/class/net/$IFACE/mesh/hop_penalty
-    post-down ip rule del from {{supernode_mesh_net_cidr}} table 42
-    post-down ip rule del to {{supernode_mesh_net_cidr}} table 42
+    post-down ip rule del from {{supernode_mesh_ipv4}} table 42
+    post-down ip rule del to {{supernode_mesh_ipv4}} table 42
     # Paralleles Macvlan-Interface mit fixer MTU fuer Alfred
     up ip link add link $IFACE alfred0 type macvlan
     up ip link set dev alfred0 mtu 1280
@@ -61,10 +61,10 @@ iface bat0 inet static
 
 iface bat0 inet6 static
     address {{supernode_mesh_ipv6}}
-    pre-up ip -6 rule add from {{supernode_mesh_net_ipv6}} table 42
-    pre-up ip -6 rule add to {{supernode_mesh_net_ipv6}} table 42
-    post-down ip -6 rule del from {{supernode_mesh_net_ipv6}} table 42
-    post-down ip -6 rule del to {{supernode_mesh_net_ipv6}} table 42
+    pre-up ip -6 rule add from {{supernode_mesh_ipv6|ipaddr('cidr')}} table 42
+    pre-up ip -6 rule add to {{supernode_mesh_ipv6|ipaddr('cidr')}} table 42
+    post-down ip -6 rule del from {{supernode_mesh_ipv6|ipaddr('cidr')}} table 42
+    post-down ip -6 rule del to {{supernode_mesh_ipv6|ipaddr('cidr')}} table 42
     #pre-up ebtables -A FORWARD -p IPv6 -i $IFACE --ip6-proto ipv6-icmp --ip6-icmp-type router-advertisement -j DROP
 
 {% if supernode_mesh_backbones is defined %}

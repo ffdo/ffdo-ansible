@@ -1,5 +1,5 @@
 log syslog all;
-router id {{supernode_mesh_ipv4}};
+router id {{supernode_mesh_ipv4|ipaddr('address')}};
 
 protocol direct {
         interface "*";
@@ -35,7 +35,7 @@ protocol bgp {{uplink.name}} from ibgp {
 
 {% for meshlink in supernode_mesh_backbones%}
 protocol bgp {{meshlink.name}} from ibgp {
-        source address {{supernode_mesh_ipv4}};
+        source address {{supernode_mesh_ipv4|ipaddr('address')}};
         neighbor {{meshlink.mesh_ip}} as {{supernode_as}};
         default bgp_med 4;
 };

@@ -12,11 +12,13 @@ dhcp_common_options:
   - 'wpad "\n\000"'
   - interface-mtu 1280
 dhcp_subnets:
-  - base: "{{supernode_mesh_net_base_ip}}"
-    netmask: "{{supernode_mesh_netmask_ipv4}}"
-    routers: "{{supernode_mesh_ipv4}}"
-    domain_nameservers: "{{supernode_mesh_ipv4}}, {{supernode_other_nameserver}}"
-    ntp_servers: "{{supernode_mesh_ipv4}}, {{supernode_other_ntp_server}}"
+  - base: "{{supernode_mesh_ipv4|ipaddr('network')}}"
+    netmask: "{{supernode_mesh_ipv4|ipaddr('netmask')}}"
+    routers: "{{supernode_mesh_ipv4|ipaddr('address')}}"
+    range_start: "{{supernode_dhcp_range_start}}"
+    range_end: "{{supernode_dhcp_range_end}}"
+    domain_nameservers: "{{supernode_mesh_ipv4|ipaddr('address')}}, {{supernode_other_nameserver}}"
+    ntp_servers: "{{supernode_mesh_ipv4|ipaddr('address')}}, {{supernode_other_ntp_server}}"
 dhcp_classes:
   - name: MSFT
     rule: 'match if substring(option vendor-class-identifier, 0, 4) = "MSFT"'
@@ -30,7 +32,7 @@ radvd_default_interface_options: |
   MaxRtrAdvInterval 600;
   MinDelayBetweenRAs 10;
   AdvLinkMTU 1280;
-  prefix {{supernode_mesh_net_ipv6}}
+  prefix {{supernode_mesh_ipv6|ipaddr('subnet')}}
   {
   };
 

@@ -2,7 +2,7 @@
 - name         : Fastd via pkg manager
   hosts        : all
   gather_facts : yes
-  sudo         : yes
+  #sudo         : no
   connection   : "{{ kitchen_connection | default('local') }}"
   vars_files   :
                  - "supernode_pkg_vars.yml"

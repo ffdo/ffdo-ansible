@@ -10,6 +10,14 @@ describe port(179) do
   it { should be_listening.with('tcp6') }
 end
 
+describe process('bird') do
+  it { should be_running }
+end
+
+describe process('bird6') do
+  it { should be_running }
+end
+
 #describe service('bird') do
 #  it { should be_running }
 #  it { should be_enabled }

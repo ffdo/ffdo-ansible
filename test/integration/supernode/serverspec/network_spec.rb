@@ -24,10 +24,10 @@ describe interface('tap01') do
   it { should exist }
 end
 
-describe interface('test-node02') do
+describe interface('node02') do
   it { should exist }
 end
 
-describe interface('ffanon-uplink1') do
+describe interface('uplink1') do
   it { should exist }
 end

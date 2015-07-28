@@ -1,5 +1,6 @@
 supernode_mesh_mac: 96:48:76:b5:a3:61
 supernode_mesh_ipv4: 10.42.0.1
+supernode_as: '65403'
 supernode_mesh_net_base_ip: 10.42.0.0
 supernode_mesh_netmask_ipv4: 255.255.0.0
 supernode_bat_macaddress: f2:43:13:c0:d7:06
@@ -11,18 +12,22 @@ supernode_other_nameserver: 10.42.0.23
 supernode_other_ntp_server: 10.42.0.23
 
 supernode_mesh_backbones:
-  - name: test-node02
+  - name: node02
     comment: Non existant mesh backbone
     remote_ip: 192.168.0.43
+    mesh_ip: 10.42.0.2
+    address_v6: fd0a:1c06:d97c:e89d::2
 
 supernode_uplinks:
-  - name: ffanon-uplink1
+  - name: uplink1
     comment: Non existant uplink
     address: 172.16.0.1
     dstaddr: 172.16.0.2
     netmask: 255.255.255.252
     endpoint: 192.168.0.23
     address_v6: fd0a:1c06:d97c:e88d::2/64
+    adress_v6_pure: fd0a:1c06:d97c:e88d::2
+    as: '65079'
 
 fastd_instances:
   - name: do00

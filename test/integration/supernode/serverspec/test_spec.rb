@@ -12,3 +12,12 @@ end
 describe port(67) do
   it { should be_listening.with('udp') }
 end
+
+describe process('unbound') do
+  it { should be_running }
+end
+
+describe port(53) do
+  it { should be_listening.with('udp') }
+  it { should be_listening.with('udp6') }
+end

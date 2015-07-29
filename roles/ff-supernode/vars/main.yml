@@ -39,12 +39,29 @@ radvd_default_interface_options: |
   {
   };
 
-radvd_default_interface_nameservers:
-  - rdnss: 
-    - "{{supernode_mesh_ipv6}}"
-
 supervisor_services:
   - name: alfred
     command: /usr/local/sbin/alfred -i alfred0
   - name: batadv-vis
     command: /usr/local/sbin/batadv-vis -s
+
+unbound_configuration:
+    - verbosity: 1
+    - do-ip4: "yes"
+    - do-ip6: "yes"
+    - num-threads: 1
+    - pidfile: "/var/run/unbound.pid"
+    - logfile: "{{unbound_logfile}}"
+    - module-config: '"iterator"'
+
+unbound_forward_zone_active : true
+unbound_forward_zone:
+  - 151.80.64.190
+  - 85.14.255.33
+unbound_interfaces:
+  - 0.0.0.0
+  - ::0
+unbound_access_control:
+  - 10.233.0.0/16 allow
+  - "2a03:2260:50:5::/64 allow"
+  - "fe80::/10 allow"

@@ -1,0 +1,14 @@
+# {{ ansible_managed }}
+# See the unbound.conf(5) man page.
+#
+# See /usr/share/doc/unbound/examples/unbound.conf for a commented
+# reference config file.
+
+server:
+    # The following line will configure unbound to perform cryptographic
+    # DNSSEC validation using the root trust anchor.
+
+{% for include in unbound_conf_list.stdout_lines %}
+    include: "/etc/unbound/conf.d/{{include}}"
+{% endfor %}
+

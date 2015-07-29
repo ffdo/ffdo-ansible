@@ -1,0 +1,57 @@
+---
+unbound_logfile: "/var/log/unbound.log"
+unbound_configuration:
+    - verbosity: 1
+    - do-ip4: "yes"
+    - do-ip6: "no"
+    - num-threads: 1
+    - pidfile: "/var/run/unbound.pid"
+    - logfile: "{{unbound_logfile}}"
+
+unbound_zone_name: "default"
+unbound_only_zones: false
+
+unbound_interfaces: 
+    - 127.0.0.1
+
+unbound_access_control:
+    - 127.0.0.1 allow
+
+unbound_private_address:
+    - 10.0.0.0/8
+    - 172.16.0.0/12
+    - 192.168.0.0/16
+    - 169.254.0.0/16 
+    - "fd00::/8"
+    - "fe80::/10"
+
+unbound_domains: {}
+
+unbound_domains_with_reverses: []
+
+unbound_inventory_domain: {}
+
+unbound_local_zone_type: {}
+unbound_local_zone: []
+
+unbound_default_local_zone: "static"
+
+unbound_inventory_domain_with_reverse: true
+
+unbound_zones: 
+    - name: "default"
+
+unbound_forward_zone_active : true
+unbound_forward_zone:
+   - 8.8.8.8 #Google DNS 1
+   - 8.8.4.4 #Google DNS 2
+
+# Package states: installed or latest
+unbound_pkg_state: installed
+
+# Service states: started or stopped
+unbound_service_state: started
+
+# Service enabled on startup: yes or no
+unbound_service_enabled: yes
+

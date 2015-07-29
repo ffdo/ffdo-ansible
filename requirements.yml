@@ -8,3 +8,6 @@
 
 - src: debops.radvd
   path: galaxy-roles
+
+- src: jdauphant.unbound
+  path: galaxy-roles

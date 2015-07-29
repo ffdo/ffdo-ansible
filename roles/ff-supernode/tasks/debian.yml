@@ -3,6 +3,7 @@
   with_items:
   - wget
   - supervisor
+  - ntp
 
 - name: Install backport kernel for Debian wheezy
   apt: name=linux-image-amd64 default_release=wheezy-backports state=latest

@@ -21,3 +21,12 @@ describe port(53) do
   it { should be_listening.with('udp') }
   it { should be_listening.with('udp6') }
 end
+
+describe process('ntpd') do
+  it { should be_running }
+end
+
+describe port(123) do
+  it { should be_listening.with('udp') }
+  it { should be_listening.with('udp') }
+end

@@ -21,6 +21,8 @@ working on windows, it is easier to do on Linux or Mac OS
 * Install ansible for test kitchen: `sudo gem install kitchen-ansiblepush kitchen-ansible`
 * Install vagrant driver for test kitchen: `sudo gem install kitchen-vagrant`
 
+Alternative to the last three steps you can also just use [bundler](http://bundler.io) to `bundle install` all necessary ruby gems.
+
 ### First steps
 
 After you installed all necessary tools and gems you change in the checked out directory of this project

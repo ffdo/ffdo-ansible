@@ -35,6 +35,9 @@ radvd_default_interface_options: |
   prefix {{supernode_mesh_ipv6|ipaddr('subnet')}}
   {
   };
+  RDNSS {{supernode_mesh_ipv6|ipaddr('address')}} 
+  {
+  };
 
 radvd_default_interface_nameservers:
   - rdnss: 
@@ -43,3 +46,5 @@ radvd_default_interface_nameservers:
 supervisor_services:
   - name: alfred
     command: /usr/local/sbin/alfred -i alfred0
+  - name: batadv-vis
+    command: /usr/local/sbin/batadv-vis -s

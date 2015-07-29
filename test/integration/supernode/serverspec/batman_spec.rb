@@ -11,3 +11,7 @@ end
 describe process('alfred') do
   it { should be_running }
 end
+
+describe process('batadv-vis') do
+  it { should be_running }
+end

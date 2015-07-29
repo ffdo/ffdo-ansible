@@ -31,3 +31,7 @@ end
 describe interface('uplink1') do
   it { should exist }
 end
+
+describe process('radvd') do
+  it { should be_running }
+end

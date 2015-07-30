@@ -1,12 +1,16 @@
+- name: Remove resolvconf from Ubunut
+  when: ansible_distribution == 'Ubuntu'
+  apt: name=resolvconf state=absent
+  
+- name: Install custom resolv.conf
+  template: src=resolv.conf.j2 dest=/etc/resolv.conf
+
 - name: Make sure necessary tools are installed
   apt: name={{item}} state=present
   with_items:
   - wget
   - supervisor
   - ntp
-
-- name: Remove resolvconf from Ubunut
-  apt: name=resolvconf state=absent
 
 - name: Install backport kernel for Debian wheezy
   apt: name=linux-image-amd64 default_release=wheezy-backports state=latest

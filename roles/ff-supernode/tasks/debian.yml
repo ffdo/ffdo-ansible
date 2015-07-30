@@ -5,6 +5,9 @@
   - supervisor
   - ntp
 
+- name: Remove resolvconf from Ubunut
+  apt: name=resolvconf state=absent
+
 - name: Install backport kernel for Debian wheezy
   apt: name=linux-image-amd64 default_release=wheezy-backports state=latest
   when: ansible_distribution_release == 'wheezy'

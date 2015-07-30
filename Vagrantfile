@@ -15,14 +15,12 @@ Vagrant.configure("2") do |config|
         ]
       end
 
-      if machine_id == N
-        node.vm.provision :ansible do |ansible|
-          ansible.playbook = "playbook.yml"
+      node.vm.provision :ansible do |ansible|
+        ansible.playbook = "playbook.yml"
 
-          ansible.groups = {
-            "supernodes" => ["node01", "node02"],
-          }
-        end
+        ansible.groups = {
+          "supernodes" => ["node01", "node02"],
+        }
       end
     end
   end

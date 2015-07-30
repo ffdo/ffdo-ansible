@@ -41,6 +41,7 @@ If you need to analyse problems on one machine you can login with `kitchen login
 ## The Vagrantfile
 
 The Vagrantfile and the host and group vars in this repo should be used to quickly create a "test community" in the future.
+Ideally if you type `vagrant up` you should get a working test community, but currently without uplinks.
 
 ## TODO
 

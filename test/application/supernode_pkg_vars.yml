@@ -1,3 +1,21 @@
+supernodes:
+  - name: node01
+    public_ip: 192.168.77.21
+    mesh_ip_v4: 10.42.0.8/16
+    mesh_ip_v6: fdec:16a3:681b:865c::8/64
+    mesh_mac: 96:48:76:b5:a3:61
+    bat_mac: f2:43:13:c0:d7:06
+    dhcp_range_start: 10.42.0.32
+    dhcp_range_end: 10.42.5.254
+  - name: node02
+    public_ip: 192.168.77.22
+    mesh_ip_v4: 10.42.0.16/16
+    mesh_ip_v6: fdec:16a3:681b:865c::16/64
+    mesh_mac: c2:e1:c6:e5:68:4c
+    bat_mac: 1e:f5:dc:71:bb:5f
+    dhcp_range_start: 10.42.6.2
+    dhcp_range_end: 10.42.8.254
+
 supernode_mesh_mac: 96:48:76:b5:a3:61
 supernode_mesh_ipv4: 10.42.0.1/16
 supernode_as: '65403'
@@ -8,13 +26,13 @@ supernode_other_nameserver: 10.42.0.23
 supernode_other_ntp_server: 10.42.0.23
 supernode_dhcp_range_start: 10.42.9.1
 supernode_dhcp_range_end: 10.42.45.25
+supernode_top_domain: ff.test
 
 supernode_mesh_backbones:
-  - name: node02
-    comment: Non existant mesh backbone
-    remote_ip: 192.168.0.43
-    mesh_ip: 10.42.0.2
-    address_v6: fd0a:1c06:d97c:e89d::2
+  - name: "{{supernodes[1].name}}"
+    remote_ip: "{{supernodes[1].public_ip}}"
+    mesh_ip: "{{supernodes[1].mesh_ip_v4|ipaddr('address')}}"
+    address_v6: "{{supernodes[1].mesh_ip_v6|ipaddr('address')}}"
 
 supernode_uplinks:
   - name: uplink1

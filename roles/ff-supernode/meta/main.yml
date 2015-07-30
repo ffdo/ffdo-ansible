@@ -22,4 +22,5 @@ dependencies:
 - pdellaert.dhcp_server
 - debops.radvd
 - alfred
+- ff-unbound
 - jdauphant.unbound

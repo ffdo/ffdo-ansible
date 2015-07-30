@@ -23,6 +23,3 @@
 
 - name: Install ntp.conf
   template: src=ntp.conf.j2 dest=/etc/ntp.conf
-
-- name: Install unbound domain config
-  template: src=unbound.domain.j2 dest=/etc/unbound/conf.d/supernode.conf

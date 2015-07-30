@@ -1,0 +1,32 @@
+supernode_mesh_mac: "{{supernodes[0].mesh_mac}}"
+supernode_mesh_ipv4: "{{supernodes[0].mesh_ip_v4}}"
+supernode_bat_macaddress: "{{supernodes[0].bat_mac}}"
+supernode_mesh_ipv6: "{{supernodes[0].mesh_ip_v6}}"
+supernode_local_ip: "{{ansible_default_ipv4.address}}"
+supernode_dhcp_range_start: "{{supernodes[0].dhcp_range_start}}"
+supernode_dhcp_range_end: "{{supernodes[0].dhcp_range_end}}"
+
+supernode_mesh_backbones:
+  - name: "{{supernodes[1].name}}"
+    remote_ip: "{{supernodes[1].public_ip}}"
+    mesh_ip: "{{supernodes[1].mesh_ip_v4|ipaddr('address')}}"
+    address_v6: "{{supernodes[1].mesh_ip_v6|ipaddr('address')}}"
+
+supernode_other_nameserver: "{{supernode_mesh_backbones|map(attribute='mesh_ip')|map('ipaddr','address')|join(' ')}}"
+supernode_other_ntp_server: "{{supernode_mesh_backbones|map(attribute='mesh_ip')|map('ipaddr','address')|join(' ')}}"
+
+supernode_uplinks:
+  - name: uplink1
+    comment: Non existant uplink
+    address: 172.16.0.1
+    dstaddr: 172.16.0.2
+    netmask: 255.255.255.252
+    endpoint: 192.168.0.23
+    address_v6: fd0a:1c06:d97c:e88d::2/64
+    as: '65079'
+
+supernode_interfaces:
+  - name: eth0
+    auto: true
+    proto: inet
+    type: dhcp

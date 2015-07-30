@@ -1,0 +1,57 @@
+usermanage_usersdb:
+  till:
+    comment: "Till Klocke"
+    state: "present"
+    groups: "sudo"
+    keys:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQD+TYXciE/JuTehDwUEzixbR3dX5u0yMVhR3rHncFKi+2hDKd0KbXpcOK/vgUZqf+sM0zpA9nyoEDMMO+1m+ptfs1aZPaNiBhUZKpOqdwS8b5QfXmhuyKF1AQuXExaJLQIPuse6l/BbUKL/u5KehPqAIVzMnxTMcGRT7oxgmzIOYxXSGkZSNx8IXRbQX8eRJwXgDStJ9z6iiXRqzveYpoEGHra5OeSeN/hCkeM8OIQyZZQNmBwInUk/rCxvNOZwnUH+SuqitgUgDWl8i/LSsHu5DqhIr+tPUD2iDofsXqQJYZZXGbYSCPHegKOCmA5TV72ghJtLAZJKlwaAek91f/UMQGQuHsvi6YYPUKQIpj8q03+MdyjSVYoFyJTu3VPbTpozVMsI0WbA5U2hhyWPQIqITZGH6FyIh+zY89TPDli90GWRGLsO2o8DV/QPBY/iKeU3PeaRfNHVKWNLUlt+FusmJhBcHopJuT2ThmYpU4bDleH9xihX9iAKtxv4MqnaN2CqndUuwyqTPrda1h7u0I2P1au7zCa6SMgDKW4pbuPGEOm8Z3O/RJQFh/9+NNkrI5av+AP/9UvOAfVY3x/oU2+nz5zMSl2v1fZA5lmhWdudMqh//PtrBqdr3XKNdxVkF7bOqJBahzqky8xnL93kymTNtaCIS40aPvW/j8dEIEsFsQ== MacBookAir Till"
+
+supernodes:
+  - name: node01
+    public_ip: 192.168.77.21
+    mesh_ip_v4: 10.42.0.8/16
+    mesh_ip_v6: fdec:16a3:681b:865c::8/64
+    mesh_mac: 96:48:76:b5:a3:61
+    bat_mac: f2:43:13:c0:d7:06
+    dhcp_range_start: 10.42.0.32
+    dhcp_range_end: 10.42.5.254
+  - name: node01
+    public_ip: 192.168.77.22
+    mesh_ip_v4: 10.42.0.8/16
+    mesh_ip_v6: fdec:16a3:681b:865c::16/64
+    mesh_mac: c2:e1:c6:e5:68:4c
+    bat_mac: 1e:f5:dc:71:bb:5f
+    dhcp_range_start: 10.42.6.2
+    dhcp_range_end: 10.42.8.254
+
+supernode_as: '65403'
+
+fastd_instances:
+  - name: do00
+    bind: any:10000 interface "eth0" default ipv4
+    interface: tap00
+    loglevel: info
+    mode: tap
+    method: salsa2012+umac
+    peer_limit: 125
+    mtu: 1280
+    status_socket: /tmp/fastd00.sock
+    on_up_script: |
+      ip link set up $INTERFACE
+      batctl if add $INTERFACE
+    on_verify_script: |
+      /etc/fastd/fastd-blacklist.sh $PEER_KEY
+  - name: do01
+    bind: any:10001 interface "eth0" default ipv4
+    interface: tap01
+    loglevel: info
+    mode: tap
+    method: salsa2012+umac
+    peer_limit: 125
+    mtu: 1280
+    status_socket: /tmp/fastd01.sock
+    on_up_script: |
+      ip link set up $INTERFACE
+      batctl if add $INTERFACE
+    on_verify_script: |
+      /etc/fastd/fastd-blacklist.sh $PEER_KEY

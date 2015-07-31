@@ -95,7 +95,7 @@ iface {{uplink.name}} inet tunnel
     address {{uplink.address}}
     dstaddr {{uplink.dstaddr}}
     netmask {{uplink.netmask}}
-    local {{supernode_local_ip}}
+    local {{supernode_local_ip|ipaddr('address')}}
     endpoint {{uplink.endpoint}}
     mtu 1400
     ttl 64

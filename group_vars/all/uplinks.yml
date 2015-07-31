@@ -1,0 +1,9 @@
+uplinks:
+- name: uplink01
+  public_ip: 192.178.77.31/24
+  as: '65079'
+  public_interface: eth1
+  tunnel:
+  - tunnel_ip: 172.16.42.1/30
+    address_v6: fd30:db1d:2377:4143::1/64
+    supernode: "{{supernodes[0]}}"

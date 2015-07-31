@@ -16,6 +16,8 @@ supernodes:
     dhcp_range_start: 10.42.0.32
     dhcp_range_end: 10.42.5.254
     public_interface: eth1
+    uplink_tunnel_ip: 172.16.42.2/30
+    uplink_tunnel_ip_v6: fd30:db1d:2377:4143::2/64
   - name: node02
     public_ip: 192.168.77.22/24
     mesh_ip_v4: 10.42.0.16/16
@@ -25,6 +27,8 @@ supernodes:
     dhcp_range_start: 10.42.6.2
     dhcp_range_end: 10.42.8.254
     public_interface: eth1
+    uplink_tunnel_ip: 172.16.43.2/30
+    uplink_tunnel_ip_v6: fd30:db1d:2377:4144::2/64
 
 supernode_as: '65403'
 

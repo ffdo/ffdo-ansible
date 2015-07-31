@@ -1,0 +1,14 @@
+---
+galaxy_info:
+  author: Till Klocke
+  description: Quick and dirty role to create a local uplink for test communities
+  company: Freifunk Dortmund
+  license: MIT
+  min_ansible_version: 1.2
+  platforms:
+  - name: Debian
+    versions:
+    - jessie
+  categories:
+  - networking
+dependencies: []

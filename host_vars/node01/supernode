@@ -21,14 +21,14 @@ supernode_other_nameserver: "{{supernode_mesh_backbones|map(attribute='mesh_ip')
 supernode_other_ntp_server: "{{supernode_mesh_backbones|map(attribute='mesh_ip')|map('ipaddr','address')|join(' ')}}"
 
 supernode_uplinks:
-  - name: uplink1
-    comment: Non existant uplink
-    address: 172.16.0.1
-    dstaddr: 172.16.0.2
-    netmask: 255.255.255.252
-    endpoint: 192.168.0.23
-    address_v6: fd0a:1c06:d97c:e88d::2/64
-    as: '65079'
+  - name: "{{uplinks[0].name}}"
+    comment: "{{uplinks[0].tunnel[0].comment|default('No comment')}}"
+    address: "{{local_node.uplink_tunnel_ip|ipaddr('address')}}"
+    dstaddr: "{{uplinks[0].tunnel[0].tunnel_ip|ipaddr('address')}}"
+    netmask: "{{uplinks[0].tunnel[0].tunnel_ip|ipaddr('netmask')}}"
+    endpoint: "{{uplinks[0].public_ip|ipaddr('address')}}"
+    address_v6: "{{local_node.uplink_tunnel_ip_v6}}"
+    as: "{{uplinks[0].as}}"
 
 supernode_interfaces:
   - name: eth0

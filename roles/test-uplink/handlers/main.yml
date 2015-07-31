@@ -1,0 +1,4 @@
+---
+# handlers file for test-uplink
+- name: Restart network
+  shell: ifdown --exclude=lo --exclude="{{local_uplink.public_interface}}" -a && ifup --exclude=lo --exclude="{{local_uplink.public_interface}}" -a

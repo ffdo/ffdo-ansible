@@ -25,6 +25,11 @@ Alternative to the last three steps you can also just use [bundler](http://bundl
 
 ### First steps
 
+**Important**
+On Debian wheezy we need to install a new kernel from wheezy-backports. For this a reboot is necessary and executed via
+an ansible handler. Unfortunately this breaks the `kitchen test` run. You can do do `kitchen setup && kitchen verify && kitchen destroy`
+instead. It does the same as `kitchen test` but doesn't break because of the reboot.
+
 After you installed all necessary tools and gems you change in the checked out directory of this project
 and simply type `kitchen test`. This will create multiple virtual machines execute the ansible roles and
 test everything via serverspec. After all tests are successfull the machines are destroyed again.

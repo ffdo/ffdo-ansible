@@ -1,10 +1,12 @@
-supernode_mesh_mac: "{{supernodes[1].mesh_mac}}"
-supernode_mesh_ipv4: "{{supernodes[1].mesh_ip_v4}}"
-supernode_bat_macaddress: "{{supernodes[1].bat_mac}}"
-supernode_mesh_ipv6: "{{supernodes[1].mesh_ip_v6}}"
+local_node: "{{supernodes[1]}}"
+
+supernode_mesh_mac: "{{local_node.mesh_mac}}"
+supernode_mesh_ipv4: "{{local_node.mesh_ip_v4}}"
+supernode_bat_macaddress: "{{local_node.bat_mac}}"
+supernode_mesh_ipv6: "{{local_node.mesh_ip_v6}}"
 supernode_local_ip: "{{ansible_default_ipv4.address}}"
-supernode_dhcp_range_start: "{{supernodes[1].dhcp_range_start}}"
-supernode_dhcp_range_end: "{{supernodes[1].dhcp_range_end}}"
+supernode_dhcp_range_start: "{{local_node.dhcp_range_start}}"
+supernode_dhcp_range_end: "{{local_node.dhcp_range_end}}"
 
 supernode_mesh_backbones:
   - name: "{{supernodes[0].name}}"

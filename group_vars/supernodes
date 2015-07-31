@@ -8,21 +8,23 @@ usermanage_usersdb:
 supernode_top_domain: ff.test
 supernodes:
   - name: node01
-    public_ip: 192.168.77.21
+    public_ip: 192.168.77.21/16
     mesh_ip_v4: 10.42.0.8/16
     mesh_ip_v6: fdec:16a3:681b:865c::8/64
     mesh_mac: 96:48:76:b5:a3:61
     bat_mac: f2:43:13:c0:d7:06
     dhcp_range_start: 10.42.0.32
     dhcp_range_end: 10.42.5.254
+    public_interface: eth1
   - name: node02
-    public_ip: 192.168.77.22
+    public_ip: 192.168.77.22/16
     mesh_ip_v4: 10.42.0.16/16
     mesh_ip_v6: fdec:16a3:681b:865c::16/64
     mesh_mac: c2:e1:c6:e5:68:4c
     bat_mac: 1e:f5:dc:71:bb:5f
     dhcp_range_start: 10.42.6.2
     dhcp_range_end: 10.42.8.254
+    public_interface: eth1
 
 supernode_as: '65403'
 

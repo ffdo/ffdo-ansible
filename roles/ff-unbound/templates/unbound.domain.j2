@@ -1,5 +1,6 @@
-local-zone: "services.{{supernode_top_domain}}." static
-{% for backbone in supernodes %}
-local-data: "{{loop.index}}.ntp.services.{{supernode_top_domain}}. A {{backbone.mesh_ip_v4|ipaddr('address')}}"
-local-data: "{{loop.index}}.ntp.services.{{supernode_top_domain}}. AAAA {{backbone.mesh_ip_v6|ipaddr('address')}}""
-{% endfor %}
+server:
+  local-zone: "services.{{supernode_top_domain}}." static
+  {% for backbone in supernodes %}
+  local-data: "{{loop.index}}.ntp.services.{{supernode_top_domain}}. A {{backbone.mesh_ip_v4|ipaddr('address')}}"
+  local-data: "{{loop.index}}.ntp.services.{{supernode_top_domain}}. AAAA {{backbone.mesh_ip_v6|ipaddr('address')}}"
+  {% endfor %}

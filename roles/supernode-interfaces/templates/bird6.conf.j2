@@ -37,6 +37,7 @@ template bgp ibgp {
         gateway direct;
 }
 
+{% if supernode_uplinks is defined %}
 template bgp uplink {
         local as {{supernode_uplinks[0].as}};
         import all;
@@ -53,6 +54,7 @@ protocol bgp {{uplink.name}} from uplink {
 }
 
 {% endfor %}
+{% endif %}
 
 {% for meshlink in supernode_mesh_backbones %}
 protocol bgp {{meshlink.name}} from ibgp {

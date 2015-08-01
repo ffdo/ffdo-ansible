@@ -28,6 +28,7 @@ template bgp ibgp {
         multihop 64;
 };
 
+{% if supernode_uplinks is defined %}
 {% for uplink in supernode_uplinks %}
 protocol bgp {{uplink.name}} from ibgp {
         source address {{uplink.address}};
@@ -36,6 +37,7 @@ protocol bgp {{uplink.name}} from ibgp {
 };
 
 {% endfor %}
+{% endif %}
 
 {% for meshlink in supernode_mesh_backbones%}
 protocol bgp {{meshlink.name}} from ibgp {

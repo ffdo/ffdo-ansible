@@ -52,7 +52,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.define "mapserver" do |node|
     node.vm.box = "ARTACK/debian-jessie"
-    node.vm.hostname = "map"
+    node.vm.hostname = "mapserver"
     node.vm.network "private_network", ip: "192.168.77.29"
 
     node.vm.provider :virtualbox do |vb|
@@ -67,7 +67,7 @@ Vagrant.configure("2") do |config|
       ansible.playbook = "playbook.yml"
 
       ansible.groups = {
-        "uplinks" => ["uplink01"]
+        "mapservers" => ["mapserver"]
       }
     end
   end

@@ -7,3 +7,8 @@
   sudo: yes
   roles:
   - test-uplink
+
+- hosts: mapservers
+  sudo: yes
+  roles:
+  - map-server

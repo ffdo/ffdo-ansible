@@ -1,10 +1,3 @@
-usermanage_usersdb:
-  till:
-    comment: "Till Klocke"
-    state: "present"
-    groups: "sudo"
-    keys:
-      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQD+TYXciE/JuTehDwUEzixbR3dX5u0yMVhR3rHncFKi+2hDKd0KbXpcOK/vgUZqf+sM0zpA9nyoEDMMO+1m+ptfs1aZPaNiBhUZKpOqdwS8b5QfXmhuyKF1AQuXExaJLQIPuse6l/BbUKL/u5KehPqAIVzMnxTMcGRT7oxgmzIOYxXSGkZSNx8IXRbQX8eRJwXgDStJ9z6iiXRqzveYpoEGHra5OeSeN/hCkeM8OIQyZZQNmBwInUk/rCxvNOZwnUH+SuqitgUgDWl8i/LSsHu5DqhIr+tPUD2iDofsXqQJYZZXGbYSCPHegKOCmA5TV72ghJtLAZJKlwaAek91f/UMQGQuHsvi6YYPUKQIpj8q03+MdyjSVYoFyJTu3VPbTpozVMsI0WbA5U2hhyWPQIqITZGH6FyIh+zY89TPDli90GWRGLsO2o8DV/QPBY/iKeU3PeaRfNHVKWNLUlt+FusmJhBcHopJuT2ThmYpU4bDleH9xihX9iAKtxv4MqnaN2CqndUuwyqTPrda1h7u0I2P1au7zCa6SMgDKW4pbuPGEOm8Z3O/RJQFh/9+NNkrI5av+AP/9UvOAfVY3x/oU2+nz5zMSl2v1fZA5lmhWdudMqh//PtrBqdr3XKNdxVkF7bOqJBahzqky8xnL93kymTNtaCIS40aPvW/j8dEIEsFsQ== MacBookAir Till"
 supernode_top_domain: ff.test
 supernodes:
   - name: node01
@@ -27,8 +20,15 @@ supernodes:
     dhcp_range_start: 10.42.6.2
     dhcp_range_end: 10.42.8.254
     public_interface: eth1
-    uplink_tunnel_ip: 172.16.43.2/30
-    uplink_tunnel_ip_v6: fd30:db1d:2377:4144::2/64
+    #uplink_tunnel_ip: 172.16.43.2/30
+    #uplink_tunnel_ip_v6: fd30:db1d:2377:4144::2/64
+  - name: map
+    public_ip: 192.168.77.29/24
+    mesh_ip_v4: 10.42.0.128/16
+    mesh_ip_v6: fdec:16a3:681b:865c::80/64
+    mesh_mac: 12:78:92:f8:1b:42
+    bat_mac: f6:9c:fe:9d:d4:da
+    public_interface: eth1
 
 supernode_as: '65403'
 

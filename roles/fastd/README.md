@@ -1,22 +1,38 @@
-Role Name
+fastd
 =========
 
-A brief description of the role goes here.
+This role installs fastd and its dependency (from source if necessary) and is able to configure one or more instances.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+Ansible 1.2 and a Debian based OS (this may change in the future)
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+### Default variables
+
+Variable | Description | Default
+-------- | ----------- | --------
+fastd_repo | If building from source the git repo to checkout from | http://git.universe-factory.net/fastd/
+fastd_repo_tag | If building from source, the git tag or branch to checkout | v17
+fastd_build_dir | If building from source, the directory where the sources are build | /usr/src/fastd-build
+fastd_install_from_source | Wether to build from source, this is set automatically if necessary | false
+fastd_user_name | The user which should be created for fastd | fastd
+fastd_user_shell | Shell for the fastd user | /bin/false
+libsodum_src_url | If building from source, where to find the source tar ball | https://download.libsodium.org/libsodium/releases/libsodium-{{libsodum_version}}.tar.gz
+libsodum_version | If building from source, which version of libsodium to download | 1.0.3
+libsodium_build_dir | If building from source, where should the build happen | /usr/src/
+libuecc_version | If building from source, which git tag or branch to checkout from source repo | v5
+libuecc_repo | If building from source, from which repo to checkout the source | git://git.universe-factory.net/libuecc
+libuecc_repo_dir | If building from source, under which directory should the local clone be created | /usr/src/
+libuecc_build_dir | Where to create the cmake build dir, if building from source | /usr/src/libuecc-build
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+no dependencies
 
 Example Playbook
 ----------------
@@ -30,7 +46,7 @@ Including an example of how to use your role (for instance, with variables passe
 License
 -------
 
-BSD
+MIT
 
 Author Information
 ------------------

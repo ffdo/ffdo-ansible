@@ -11,7 +11,4 @@ galaxy_info:
     - jessie
   categories:
   - networking
-dependencies:
-  - repo-universe-factory
-  - libsodium
-  - libuecc
+dependencies: []

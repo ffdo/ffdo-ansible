@@ -1,6 +1,12 @@
 ---
 # tasks file for fastd
 
+- include: repo.yml
+
+- include: libsodium/main.yml
+
+- include: libuecc/main.yml
+
 - include: debian.yml
   when: ansible_distribution == "Ubuntu"
 

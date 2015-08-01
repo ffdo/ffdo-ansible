@@ -14,5 +14,4 @@ galaxy_info:
     - all
   categories:
   - networking
-dependencies:
-  - repo-universe-factory
+dependencies: []

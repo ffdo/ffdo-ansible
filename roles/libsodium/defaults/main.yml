@@ -1,7 +1,0 @@
----
-# defaults file for libsodium
-libsodium_build_from_source: false
-libsodum_version: 1.0.3
-libsodum_src_url: https://download.libsodium.org/libsodium/releases/libsodium-{{libsodum_version}}.tar.gz
-libsodium_build_dir: /usr/src/
-

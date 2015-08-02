@@ -17,7 +17,7 @@ platforms:
         box: debian/jessie64
     - name: Debian-wheezy
       driver:
-        box: debian/wheezy64 #chef/debian-7.8
+        box: debian/wheezy64
     - name: Ubuntu-trusty
       driver:
         box: ubuntu/trusty64
@@ -27,7 +27,7 @@ suites:
     provisioner:
       playbook: "test/application/supernode.yml"
       extra_vars: {'kitchen_connection': 'smart'}
-#  - name            : group
-#    provisioner     :
-#        playbook    : "test/application/group.yml"
-#        extra_vars  : { 'kitchen_connection': 'smart' }
+  - name: mapserver
+    provisioner:
+      playbook: "test/application/mapserver.yml"
+      extra_vars: {'kitchen_connection': 'smart'}

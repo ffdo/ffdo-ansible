@@ -1,2 +1,10 @@
+- name: Add GPG key for Wheezy backports
+  when: ansible_distribution_release == 'wheezy'
+  apt_key: keyserver=pgpkeys.mit.edu id=8B48AD6246925553
+
+- name: Add Wheezy backports
+  when: ansible_distribution_release == 'wheezy'
+  apt_repository: repo='deb http://http.debian.net/debian wheezy-backports main' state=present update_cache=yes
+
 - name: Install bird routing daemon
   apt: name=bird state=present default_release={{bird_default_release}}

@@ -1,0 +1,4 @@
+ffmap_backend_dependencies:
+- python3
+- python3-networkx
+- rrdtool

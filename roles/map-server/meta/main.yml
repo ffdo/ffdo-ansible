@@ -19,6 +19,35 @@ galaxy_info:
   - web
 dependencies:
 - batman
-- alfred
-- alfred-json
+- mapserver-certificates
+- role: jdauphant.nginx
+  nginx_sites:
+    default:
+    - listen 80 default_server
+    - "listen [::]:80 default_server"
+    - server_name _
+    - listen 443 ssl
+    - "listen [::]:443 ssl"
+    - "ssl_certificate /etc/nginx/ssl/wiki.ffdo.de.crt"
+    - "ssl_certificate_key /etc/nginx/ssl/wiki.ffdo.de.key"
+    - "ssl_dhparam /etc/nginx/dhparams.pem"
+    - "root /var/www"
+    - index index.html
+    - "location = / { return 302 /meshviewer/; }"
+    - location /meshviewer {
+                alias {{meshviewer_install_directory}};
+                try_files $uri $uri/ =404;
+                gzip on;
+                gzip_comp_level 2;
+                gzip_types application/json application/javascript text/css;
+                gzip_vary on;
+        }
+    - location /data {
+                alias {{ffmap_backend_data_dir}};
+                gzip on;
+                gzip_comp_level 2;
+                gzip_types application/json;
+                gzip_vary on;
+        }
+- meshviewer
 - supernode-interfaces

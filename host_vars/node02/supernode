@@ -23,8 +23,8 @@ supernode_mesh_backbones:
     local_ip: "{{supernode_local_ip|ipaddr('address')}}"
     interface: "{{supernode_public_interface}}"
 
-supernode_other_nameserver: "{{supernode_mesh_backbones|map(attribute='mesh_ip')|map('ipaddr','address')|join(' ')}}"
-supernode_other_ntp_server: "{{supernode_mesh_backbones|map(attribute='mesh_ip')|map('ipaddr','address')|join(' ')}}"
+supernode_other_nameserver: "{{supernode_mesh_backbones|map(attribute='mesh_ip')|map('ipaddr','address')|join(', ')}}"
+supernode_other_ntp_server: "{{supernode_mesh_backbones|map(attribute='mesh_ip')|map('ipaddr','address')|join(', ')}}"
 
 supernode_interfaces:
   - name: eth0

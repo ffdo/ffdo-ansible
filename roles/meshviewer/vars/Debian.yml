@@ -1,0 +1,3 @@
+meshviewer_build_dependencies:
+- npm
+- ruby-sass

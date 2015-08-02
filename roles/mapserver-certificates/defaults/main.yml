@@ -1,0 +1,3 @@
+---
+# defaults file for mapserver-certificates
+mapserver_use_pregenerated_dh_params: false

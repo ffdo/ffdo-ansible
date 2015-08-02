@@ -1,0 +1,53 @@
+---
+galaxy_info:
+  author: Till Klocke
+  description: Downloads and installs meshviewer
+  company: Freifunk Dortmund
+  license: MIT
+  min_ansible_version: 1.2
+  platforms:
+  - name: EL
+    versions:
+    - all
+  - name: GenericUNIX
+    versions:
+    - all
+    - any
+  - name: Fedora
+    versions:
+    - all
+  - name: SmartOS
+    versions:
+    - all
+    - any
+  - name: opensuse
+    versions:
+    - all
+  - name: Amazon
+    versions:
+    - all
+  - name: GenericBSD
+    versions:
+    - all
+    - any
+  - name: FreeBSD
+    versions:
+    - all
+  - name: Ubuntu
+    versions:
+    - all
+  - name: SLES
+    versions:
+    - all
+  - name: GenericLinux
+    versions:
+    - all
+    - any
+  - name: Debian
+    versions:
+    - all
+  categories:
+  - monitoring
+  - web
+dependencies:
+- ffmap-backend

@@ -1,0 +1,46 @@
+---
+# tasks file for meshviewer
+
+- include_vars: "{{ ansible_os_family}}.yml"
+
+- name: Install build dependencies
+  apt: name={{item}} state=present
+  with_items: "{{meshviewer_build_dependencies}}"
+
+- name: Create meshviewer install directory
+  file: name={{meshviewer_install_directory}} state=directory
+
+- name: Create meshviewer build directory
+  file: name={{meshviewer_build_directory}} state=directory
+
+- name: Download meshviewer
+  get_url: url={{meshviewer_download_url}} dest=/tmp/
+
+- name: Extract meshviewer source archive
+  unarchive: copy=false src=/tmp/{{meshviewer_archive_name}} dest={{meshviewer_build_directory}}
+
+- name: Install npm build dependencies
+  command: npm install
+  register: meshviewer_npm_installed
+  args:
+    chdir: "{{meshviewer_build_directory}}/meshviewer-{{meshviewer_version}}"
+    creates: "{{meshviewer_build_directory}}/meshviewer-{{meshviewer_version}}/node_modules"
+
+- name: Install bower and grunt
+  when: meshviewer_npm_installed|changed
+  command: npm install bower grunt-cli
+
+- name: Install frontend dependencies
+  command: node_modules/.bin/bower --allow-root --config.interactive=false install
+  args:
+    chdir: "{{meshviewer_build_directory}}/meshviewer-{{meshviewer_version}}"
+    creates: "{{meshviewer_build_directory}}/meshviewer-{{meshviewer_version}}/bower_components"
+
+- name: Install build config
+  template: src=config.js.j2 dest="{{meshviewer_build_directory}}/meshviewer-{{meshviewer_version}}/config.js"
+
+- name: Build meshviewer
+  command:
+  args:
+    chdir: "{{meshviewer_build_directory}}/meshviewer-{{meshviewer_version}}"
+    creates: "{{meshviewer_build_directory}}/meshviewer-{{meshviewer_version}}/build"

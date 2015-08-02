@@ -1,0 +1,7 @@
+---
+# defaults file for ffmap-backend
+ffmap_backend_repo_url: https://github.com/ffnord/ffmap-backend.git
+ffmap_backend_version: v2
+ffmap_backend_install_dir: /opt/ffmap-backend
+ffmap_backend_data_dir: /srv/ffmap-data
+ffmap_backend_prune_days: 14

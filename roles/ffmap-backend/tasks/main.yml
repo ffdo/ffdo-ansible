@@ -1,0 +1,17 @@
+---
+# tasks file for ffmap-backend
+
+- include_vars: "{{ ansible_os_family }}.yml"
+
+- name: Install ffmap-backend dependencies
+  apt: name={{item}} state=present
+  with_items: "{{ffmap_backend_dependencies}}"
+
+- name: Create install directory for ffmap-backend
+  file: dest={{ffmap_backend_install_dir}} state=directory
+
+- name: Clone ffmap-backend sources
+  git: repo={{ffmap_backend_repo_url}} version={{ffmap_backend_version}} dest={{ffmap_backend_install_dir}}
+
+- name: Add ffmap-backend cron entry
+  cron: name=ffmap-backend state=present user=root job="{{ffmap_backend_install_dir}}/backend.py -d {{ffmap_backend_data_dir}} -p {{ffmap_backend_prune_days}}"

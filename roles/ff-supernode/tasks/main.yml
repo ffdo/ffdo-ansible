@@ -23,3 +23,9 @@
 
 - name: Install ntp.conf
   template: src=ntp.conf.j2 dest=/etc/ntp.conf
+
+- name: Create install dir for ffrl tools
+  file: dest={{supernode_freifunk_tools_dir}} state=directory
+
+- name: Install ffrl tools
+  git: repo={{supernode_freifunk_tools_repo}} dest={{supernode_freifunk_tools_dir}}

@@ -8,7 +8,10 @@ galaxy_info:
   platforms:
   - name: Debian
     versions:
-    - jessie
+    - all
+  - name: Ubuntu
+    vesions:
+    - all
   categories:
   - networking
 dependencies: []

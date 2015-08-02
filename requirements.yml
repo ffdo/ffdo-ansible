@@ -11,3 +11,6 @@
 
 - src: jdauphant.unbound
   path: galaxy-roles
+
+- src: dereulenspiegel.fastd
+  path: galaxy-roles

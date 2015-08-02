@@ -1,0 +1,33 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+    name               : ansible_push
+    verbose            : "vvvv"
+    ansible_config     : "test/ansible.cfg"
+    idempotency_test   : False
+    sudo               : True
+    #chef_bootstrap_url : False
+    #extra_vars        : "@kitchen_vars.yml"
+
+platforms:
+    - name: Debian-jessie
+      driver:
+        box: debian/jessie64
+    - name: Debian-wheezy
+      driver:
+        box: debian/wheezy64 #chef/debian-7.8
+    - name: Ubuntu-trusty
+      driver:
+        box: ubuntu/trusty64
+
+suites:
+  - name: fastd
+    provisioner:
+      playbook: "test/application/fastd.yml"
+      extra_vars: {'kitchen_connection': 'smart'}
+#  - name            : group
+#    provisioner     :
+#        playbook    : "test/application/group.yml"
+#        extra_vars  : { 'kitchen_connection': 'smart' }

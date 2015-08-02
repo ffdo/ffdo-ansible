@@ -16,7 +16,7 @@ galaxy_info:
   - networking
 dependencies:
 - usermanage
-- fastd
+- dereulenspiegel.fastd
 - batman
 - supernode-interfaces
 - pdellaert.dhcp_server

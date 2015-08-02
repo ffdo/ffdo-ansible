@@ -1,0 +1,35 @@
+fastd_instances:
+  - name: test1
+    bind: any:10000 interface "eth0" default ipv4
+    interface: tap00
+    loglevel: info
+    mode: tap
+    method: salsa2012+umac
+    peer_limit: 125
+    mtu: 1280
+    status_socket: /tmp/fastd00.sock
+    on_up_script: |
+      ip link set up $INTERFACE
+      batctl if add $INTERFACE
+    on_verify_script: |
+      /etc/fastd/fastd-blacklist.sh $PEER_KEY
+  - name: test2
+    bind: any:10001 interface "eth0" default ipv4
+    interface: tap01
+    loglevel: info
+    mode: tap
+    method: salsa2012+umac
+    peer_limit: 125
+    mtu: 1280
+    status_socket: /tmp/fastd01.sock
+    on_up_script: |
+      ip link set up $INTERFACE
+      batctl if add $INTERFACE
+    on_verify_script: |
+      /etc/fastd/fastd-blacklist.sh $PEER_KEY
+
+fastd_instances_secret:
+  - name: test1
+    secret: 280088c4263359417e9f2daf1771db820ab79eb4f79e3718719b2a976e8a8b5e
+  - name: test2
+    secret: 280088c4263359417e9f2daf1771db820ab79eb4f79e3718719b2a976e8a8b5e

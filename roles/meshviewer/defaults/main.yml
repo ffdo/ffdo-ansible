@@ -3,6 +3,7 @@
 
 meshviewer_version: v3
 meshviewer_archive_name: "meshviewer-{{meshviewer_version}}.tar.gz"
+meshviewer_repo: https://github.com/tcatm/meshviewer.git
 meshviewer_download_url: "http://draic.info/meshviewer/{{meshviewer_archive_name}}"
 meshviewer_install_directory: /srv/meshviewer
 meshviewer_build_directory: /usr/src/meshviewer

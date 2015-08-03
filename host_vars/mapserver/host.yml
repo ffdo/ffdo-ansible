@@ -40,6 +40,9 @@ supernode_interfaces:
     - key: broadcast
       value: "{{supernode_local_ip|ipaddr('broadcast')}}"
 
+meshviewer_data_url: "https://192.168.77.29/data"
+meshviewer_site_name: Freifunk example
+
 mapserver_use_pregenerated_dh_params: true
 mapserver_dh_params: |
   -----BEGIN DH PARAMETERS-----

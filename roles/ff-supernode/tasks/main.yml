@@ -30,7 +30,7 @@
   - pyroute2
 
 - name: Create install dir for ffrl tools
-  file: dest={{supernode_freifunk_tools_dir}} state= directory
+  file: dest={{supernode_freifunk_tools_dir}} state=directory
 
 - name: Clone ffrl tools
   git: repo={{supernode_freifunk_tools_repo}} dest={{supernode_freifunk_tools_dir}}

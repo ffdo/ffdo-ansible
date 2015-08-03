@@ -11,6 +11,7 @@
   - wget
   - supervisor
   - ntp
+  - git
 
 - name: Install dependencies for ffrl tools
   apt: name={{item}}

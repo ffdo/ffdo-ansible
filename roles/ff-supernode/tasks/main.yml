@@ -24,8 +24,19 @@
 - name: Install ntp.conf
   template: src=ntp.conf.j2 dest=/etc/ntp.conf
 
-- name: Create install dir for ffrl tools
-  file: dest={{supernode_freifunk_tools_dir}} state=directory
+- name: Install python dependencies for ffrl tools
+  pip: name={{item}} executable=pip3
+  with_items:
+  - pyroute2
 
-- name: Install ffrl tools
+- name: Create install dir for ffrl tools
+  file: dest={{supernode_freifunk_tools_dir}} state= directory
+
+- name: Clone ffrl tools
   git: repo={{supernode_freifunk_tools_repo}} dest={{supernode_freifunk_tools_dir}}
+
+- name: Install nodeinfo cron job
+  cron: 
+    name: nodeinfo.py 
+    job: "{{supernode_freifunk_tools_dir}}/nodeinfo/nodeinfo.py | gzip | alfred -s 158"
+    user: root

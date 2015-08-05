@@ -3,9 +3,16 @@
 
 - include_vars: "{{ ansible_os_family }}.yml"
 
+- include_vars: "{{ ansible_distribution }}-{{ ansible_distribution_release }}.yml"
+  when: ansible_distribution == 'Debian' and ansible_distribution_release == 'wheezy'
+
 - name: Install ffmap-backend dependencies
   apt: name={{item}} state=present
   with_items: "{{ffmap_backend_dependencies}}"
+
+- name: Install ffmap-backend python dependencies
+  pip: name={{item}} executable="{{ffmap_backend_pip_executable}}"
+  with_items: "{{ffmap_backend_python_dependencies}}"
 
 - name: Create install directory for ffmap-backend
   file: dest={{ffmap_backend_install_dir}} state=directory

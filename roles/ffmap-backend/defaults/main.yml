@@ -5,3 +5,4 @@ ffmap_backend_version: v2
 ffmap_backend_install_dir: /opt/ffmap-backend
 ffmap_backend_data_dir: /srv/ffmap-data
 ffmap_backend_prune_days: 14
+ffmap_backend_pip_executable: pip3

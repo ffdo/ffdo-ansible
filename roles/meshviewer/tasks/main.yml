@@ -7,6 +7,10 @@
   apt: name={{item}} state=present
   with_items: "{{meshviewer_build_dependencies}}"
 
+#- name: Fix annoying bug debians node package
+#  when: ansible_os_family == 'Debian'
+#  file: dest=/usr/bin/node src=/usr/bin/nodejs state=link
+
 - name: Create meshviewer install directory
   file: name={{meshviewer_install_directory}} state=directory
 

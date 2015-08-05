@@ -17,11 +17,11 @@ platforms:
         box: debian/jessie64
         customize:
           memory: 128
-    - name: Debian-wheezy
-      driver:
-        box: debian/wheezy64
-        customize:
-          memory: 128
+    #- name: Debian-wheezy
+    #  driver:
+    #    box: debian/wheezy64
+    #    customize:
+    #      memory: 128
     - name: Ubuntu-trusty
       driver:
         box: ubuntu/trusty64

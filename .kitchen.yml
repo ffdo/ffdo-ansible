@@ -15,12 +15,18 @@ platforms:
     - name: Debian-jessie
       driver:
         box: debian/jessie64
+        customize:
+          memory: 128
     - name: Debian-wheezy
       driver:
         box: debian/wheezy64
+        customize:
+          memory: 128
     - name: Ubuntu-trusty
       driver:
         box: ubuntu/trusty64
+        customize:
+          memory: 128
 
 suites:
   - name: supernode

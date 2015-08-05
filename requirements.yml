@@ -17,3 +17,6 @@
 
 - src: jdauphant.nginx
   path: galaxy-roles
+
+- src: laggyluke.nodejs
+  path: galaxy-roles

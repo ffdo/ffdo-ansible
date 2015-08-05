@@ -1,6 +1,9 @@
 ---
 # tasks file for ff-supernode
 
+- include_vars: "{{ ansible_distribution }}-{{ansible_distribution_release }}.yml"
+  when: ansible_distribution_release == 'wheezy' and ansible_distribution == 'Debian'
+
 - include: debian.yml
   when: ansible_distribution == 'Debian'
 
@@ -25,7 +28,7 @@
   template: src=ntp.conf.j2 dest=/etc/ntp.conf
 
 - name: Install python dependencies for ffrl tools
-  pip: name={{item}} executable=pip3
+  pip: name={{item}} executable={{supernode_pip_executable}}
   with_items:
   - pyroute2
 

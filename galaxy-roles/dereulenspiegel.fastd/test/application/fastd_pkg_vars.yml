@@ -8,6 +8,7 @@ fastd_instances:
     peer_limit: 125
     mtu: 1280
     status_socket: /tmp/fastd00.sock
+    peer_dir: /etc/fastd/test1/dummy
     on_up_script: |
       ip link set up $INTERFACE
       batctl if add $INTERFACE
@@ -27,6 +28,12 @@ fastd_instances:
       batctl if add $INTERFACE
     on_verify_script: |
       /etc/fastd/fastd-blacklist.sh $PEER_KEY
+    peer_dir: "/etc/fastd/test2/peers"
+    peers:
+    - name: test-peer
+      key: "not a valid key"
+      remotes:
+      - 192.0.2.1:10000
 
 fastd_instances_secret:
   - name: test1

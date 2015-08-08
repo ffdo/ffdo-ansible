@@ -42,6 +42,7 @@ fastd_instances:
     peer_limit: 125
     mtu: 1280
     status_socket: /tmp/fastd00.sock
+    peer_dir: /etc/fastd/do00/dummy
     on_up_script: |
       ip link set up $INTERFACE
       batctl if add $INTERFACE
@@ -56,6 +57,7 @@ fastd_instances:
     peer_limit: 125
     mtu: 1280
     status_socket: /tmp/fastd01.sock
+    peer_dir: /etc/fastd/do01/dummy
     on_up_script: |
       ip link set up $INTERFACE
       batctl if add $INTERFACE

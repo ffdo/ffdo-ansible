@@ -13,15 +13,27 @@
     - build-essential
 
 - name: Install rng-tools
+  when: fastd_use_rng
   apt: name=rng-tools state=present
 
 - name: Make sure that rng-tools uses /dev/urandom
+  when: fastd_use_rng
   lineinfile:
     dest: /etc/default/rng-tools
     line: HRNGDEVICE=/dev/urandom
 
 - include: source.yml
   when: not repo_universe_factory_available
+
+- name: Download backported libjson-c2
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_major_version|int < 14
+  get_url: 
+    url="{{ fastd_libjson_url }}"
+    dest="/tmp/libjson-c2.deb"
+
+- name: Install backported libjson-c2
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_major_version|int < 14
+  apt: deb="/tmp/libjson-c2.deb"
 
 - name: Install fastd via Apt
   when: repo_universe_factory_available

@@ -14,23 +14,34 @@
   when: ansible_distribution == "Debian"
 
 - name: Create fastd config directories
-  file: path=/etc/fastd/{{item.name}}/dummy state=directory recurse=yes
+  file: path=/etc/fastd/{{item.name}} state=directory recurse=yes
   with_items:
     - "{{fastd_instances}}"
 
 - name: Create fastd configs
   template: src=fastd.conf.j2 dest=/etc/fastd/{{item.name}}/fastd.conf
-  with_items:
-    - "{{fastd_instances}}"
+  with_items: "{{fastd_instances}}"
   notify: Restart fastd
 
 - name: Create fastd secrets
   template: src=secret.conf.j2 dest=/etc/fastd/{{item.name}}/secret.conf
-  with_items:
-    - "{{fastd_instances_secret}}"
+  with_items: "{{fastd_instances_secret}}"
   notify: Restart fastd
 
+- name: Create fastd peer include directories
+  when: item.peer_dir is defined
+  file: dest={{item.peer_dir}} state=directory
+  with_items: "{{fastd_instances}}"
+
+- name: Create fastd peer configs
+  when: item.0.peer_dir is defined
+  template: src=peer.config.j2 dest="{{item.0.peer_dir}}/{{item.1.name}}"
+  with_subelements:
+  - "{{fastd_instances | selectattr('peers', 'defined') | list}}"
+  - peers
+
 - name: rng-tools need to run
+  when: fastd_use_rng
   service: name=rng-tools state=started enabled=yes pattern=/usr/sbin/rngd
 
 - name: fastd needs to autostart

@@ -12,12 +12,15 @@ provisioner:
     #extra_vars        : "@kitchen_vars.yml"
 
 platforms:
+    - name: Ubuntu-precise
+      driver:
+        box: ubuntu/precise64
     - name: Debian-jessie
       driver:
         box: debian/jessie64
     - name: Debian-wheezy
       driver:
-        box: debian/wheezy64 #chef/debian-7.8
+        box: debian/wheezy64
     - name: Ubuntu-trusty
       driver:
         box: ubuntu/trusty64

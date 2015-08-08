@@ -1,4 +1,4 @@
-fastd
+fastd [![Build Status](https://travis-ci.org/dereulenspiegel/ansible-fastd.svg?branch=master)](https://travis-ci.org/dereulenspiegel/ansible-fastd)
 =========
 
 This role installs fastd and its dependency (from source if necessary) and is able to configure one or more instances.

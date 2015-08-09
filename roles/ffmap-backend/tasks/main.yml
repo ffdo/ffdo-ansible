@@ -21,4 +21,5 @@
   git: repo={{ffmap_backend_repo_url}} version={{ffmap_backend_version}} dest={{ffmap_backend_install_dir}}
 
 - name: Add ffmap-backend cron entry
-  cron: name=ffmap-backend state=present user=root job="{{ffmap_backend_install_dir}}/backend.py -d {{ffmap_backend_data_dir}} -p {{ffmap_backend_prune_days}}"
+  template: src=ffmap-backend.cron.j2 dest=/etc/cron.d/ffmap-backend
+  notify: Restart cron

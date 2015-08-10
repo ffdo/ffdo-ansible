@@ -26,7 +26,7 @@ platforms:
       driver:
         box: ubuntu/trusty64
         customize:
-          memory: 128
+          memory: 256
 
 suites:
   - name: supernode

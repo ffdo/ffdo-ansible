@@ -39,7 +39,5 @@
   git: repo={{supernode_freifunk_tools_repo}} dest={{supernode_freifunk_tools_dir}}
 
 - name: Install nodeinfo cron job
-  cron: 
-    name: nodeinfo.py 
-    job: "{{supernode_freifunk_tools_dir}}/nodeinfo/nodeinfo.py | gzip | alfred -s 158"
-    user: root
+  template: src=nodeinfo.cron.j2 dest=/etc/cron.d/nodeinfo
+  notify: Restart cron

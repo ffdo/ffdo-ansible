@@ -1,5 +1,6 @@
 ---
 # vars file for ff-supernode
+fastd_use_rng: true
 
 dhcp_interfaces: bat0
 dhcp_common_default_lease_time: 600

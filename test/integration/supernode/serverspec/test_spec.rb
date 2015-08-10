@@ -2,7 +2,6 @@ require 'serverspec'
 
 describe cron do
   it { should have_entry '*/5 * * * * wget -q -O /etc/fastd/fastd-blacklist.json https://raw.githubusercontent.com/ffruhr/fastdbl/master/fastd-blacklist.json' }
-  it { should have_entry '* * * * * /src/ff-tools/nodeinfo/nodeinfo.py | gzip | alfred -s 158'}
 end
 
 describe user('fritz') do

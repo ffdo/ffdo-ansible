@@ -43,7 +43,7 @@ supernode_interfaces:
 
 meshviewer_data_url: "https://192.168.77.29/data/"
 meshviewer_site_name: Freifunk example
-meshviewer_version: v2
+meshviewer_version: v3
 
 mapserver_use_pregenerated_dh_params: true
 mapserver_dh_params: |

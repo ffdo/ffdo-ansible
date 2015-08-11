@@ -8,5 +8,5 @@ meshviewer_download_url: "http://draic.info/meshviewer/{{meshviewer_archive_name
 meshviewer_install_directory: /srv/meshviewer
 meshviewer_build_directory: /usr/src/meshviewer
 meshviewer_map_sigma_scale: 0.5
-meshviewer_show_contacts: false
+meshviewer_show_contacts: "false"
 meshviewer_max_age: 14

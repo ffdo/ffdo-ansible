@@ -1,6 +1,5 @@
 local_node: "{{supernodes[2]}}"
 ffmap_backend_version: v2
-meshviewer_version: v2
 
 supernode_mesh_mac: "{{local_node.mesh_mac}}"
 supernode_mesh_ipv4: "{{local_node.mesh_ip_v4}}"
@@ -42,8 +41,9 @@ supernode_interfaces:
     - key: broadcast
       value: "{{supernode_local_ip|ipaddr('broadcast')}}"
 
-meshviewer_data_url: "https://192.168.77.29/data"
+meshviewer_data_url: "https://192.168.77.29/data/"
 meshviewer_site_name: Freifunk example
+meshviewer_version: v2
 
 mapserver_use_pregenerated_dh_params: true
 mapserver_dh_params: |

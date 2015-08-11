@@ -63,3 +63,9 @@ fastd_instances:
       batctl if add $INTERFACE
     on_verify_script: |
       /etc/fastd/fastd-blacklist.sh $PEER_KEY
+
+fastd_instances_secret:
+  - name: do00
+    secret: 280088c4263359417e9f2daf1771db820ab79eb4f79e3718719b2a976e8a8b5e
+  - name: do01
+    secret: 280088c4263359417e9f2daf1771db820ab79eb4f79e3718719b2a976e8a8b5e

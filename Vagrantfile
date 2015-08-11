@@ -1,9 +1,10 @@
 Vagrant.configure("2") do |config|
 
   N = 2
+  box_name = "ARTACK/debian-jessie"
   (1..N).each do |machine_id|
     config.vm.define "node0#{machine_id}" do |node|
-      node.vm.box = "ARTACK/debian-jessie"
+      node.vm.box = box_name
       node.vm.hostname = "node0#{machine_id}"
       node.vm.network "private_network", ip: "192.168.77.#{20+machine_id}"
 
@@ -27,7 +28,7 @@ Vagrant.configure("2") do |config|
   U = 1
   (1..U).each do |machine_id|
     config.vm.define "uplink0#{machine_id}" do |node|
-      node.vm.box = "ARTACK/debian-jessie"
+      node.vm.box = box_name
       node.vm.hostname = "uplink0#{machine_id}"
       node.vm.network "private_network", ip: "192.168.77.#{30+machine_id}"
 
@@ -49,7 +50,7 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.define "mapserver" do |node|
-    node.vm.box = "ARTACK/debian-jessie"
+    node.vm.box = box_name
     node.vm.hostname = "mapserver"
     node.vm.network "private_network", ip: "192.168.77.29"
 

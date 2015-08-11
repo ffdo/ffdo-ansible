@@ -1,4 +1,6 @@
 local_node: "{{supernodes[2]}}"
+ffmap_backend_version: v2
+meshviewer_version: v2
 
 supernode_mesh_mac: "{{local_node.mesh_mac}}"
 supernode_mesh_ipv4: "{{local_node.mesh_ip_v4}}"

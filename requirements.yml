@@ -15,6 +15,9 @@
 - src: dereulenspiegel.fastd
   path: galaxy-roles
 
+- src: dereulenspiegel.alfred
+  path: galaxy-roles
+
 - src: jdauphant.nginx
   path: galaxy-roles
 

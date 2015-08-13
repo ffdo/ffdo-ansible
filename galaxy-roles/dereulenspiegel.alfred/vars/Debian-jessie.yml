@@ -1,0 +1,11 @@
+alfred_build_deps:
+  - build-essential
+  - pkg-config
+  - libcap2
+  - libcap-dev
+
+alfred_gpsd_build_deps:
+  - libgps21
+  - libgps-dev
+
+alfred_libcap_dev_broken: false

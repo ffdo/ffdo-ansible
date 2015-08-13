@@ -1,0 +1,6 @@
+---
+# defaults file for alfred
+alfred_version: 2015.0
+alfred_source_url: http://downloads.open-mesh.org/batman/stable/sources/alfred/alfred-{{alfred_version}}.tar.gz
+alfred_gps: true
+alfred_vis: true

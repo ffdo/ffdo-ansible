@@ -21,6 +21,6 @@ dependencies:
 - supernode-interfaces
 - pdellaert.dhcp_server
 - debops.radvd
-- alfred
+- dereulenspiegel.alfred
 - ff-unbound
 - jdauphant.unbound

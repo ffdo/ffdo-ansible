@@ -17,6 +17,7 @@
 
 - src: dereulenspiegel.alfred
   path: galaxy-roles
+  version: v1.1
 
 - src: dereulenspiegel.alfred-json
   path: galaxy-roles

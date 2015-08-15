@@ -21,3 +21,7 @@ end
 describe package('libgps-dev') do
   it { should_not be_installed }
 end
+
+describe file('/etc/init.d/batadv-vis') do
+  it { should_not exist }
+end

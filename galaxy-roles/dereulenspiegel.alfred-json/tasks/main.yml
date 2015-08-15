@@ -1,0 +1,27 @@
+---
+# tasks file for alfred-json
+
+- include_vars: "{{ ansible_os_family }}.yml"
+
+- name: Install build dependencies
+  apt: name={{item}} state=present
+  with_items: "{{alfred_json_build_deps}}"
+
+- name: Create directories for clone and build
+  file: dest={{item}} state=directory
+  with_items:
+  - "{{alfred_json_src_dir}}"
+  - "{{alfred_json_build_dir}}"
+
+- name: Clone alfred-json repo
+  git: dest={{alfred_json_src_dir}} repo={{alfred_json_repo_url}} version={{alfred_json_version}}
+
+- name: Cmake alfred-json
+  shell: cmake {{alfred_json_src_dir}}
+  args:
+    chdir: "{{alfred_json_build_dir}}"
+
+- name: Build and install alfred-json
+  shell: make && make install
+  args:
+    chdir: "{{alfred_json_build_dir}}"

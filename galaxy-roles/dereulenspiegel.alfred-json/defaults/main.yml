@@ -1,0 +1,6 @@
+---
+# defaults file for alfred-json
+alfred_json_repo_url: https://github.com/tcatm/alfred-json.git
+alfred_json_version: v0.3.1
+alfred_json_src_dir: /usr/src/alfred-json
+alfred_json_build_dir: /usr/src/alfred-json-build

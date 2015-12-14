@@ -1,0 +1,71 @@
+supernode_top_domain: ff.test
+supernodes:
+  - name: node01
+    public_ip: 192.168.77.21/24
+    mesh_ip_v4: 10.42.0.8/16
+    mesh_ip_v6: fdec:16a3:681b:865c::8/64
+    mesh_mac: 96:48:76:b5:a3:61
+    bat_mac: f2:43:13:c0:d7:06
+    dhcp_range_start: 10.42.0.32
+    dhcp_range_end: 10.42.5.254
+    public_interface: eth1
+    uplink_tunnel_ip: 172.16.42.2/30
+    uplink_tunnel_ip_v6: fd30:db1d:2377:4143::2/64
+  - name: node02
+    public_ip: 192.168.77.22/24
+    mesh_ip_v4: 10.42.0.16/16
+    mesh_ip_v6: fdec:16a3:681b:865c::16/64
+    mesh_mac: c2:e1:c6:e5:68:4c
+    bat_mac: 1e:f5:dc:71:bb:5f
+    dhcp_range_start: 10.42.6.2
+    dhcp_range_end: 10.42.8.254
+    public_interface: eth1
+    #uplink_tunnel_ip: 172.16.43.2/30
+    #uplink_tunnel_ip_v6: fd30:db1d:2377:4144::2/64
+  - name: map
+    public_ip: 192.168.77.29/24
+    mesh_ip_v4: 10.42.0.128/16
+    mesh_ip_v6: fdec:16a3:681b:865c::80/64
+    mesh_mac: 12:78:92:f8:1b:42
+    bat_mac: f6:9c:fe:9d:d4:da
+    public_interface: eth1
+
+supernode_as: '65403'
+
+fastd_instances:
+  - name: do00
+    bind: any:10000 interface "eth0" default ipv4
+    interface: tap00
+    loglevel: info
+    mode: tap
+    method: salsa2012+umac
+    peer_limit: 125
+    mtu: 1280
+    status_socket: /tmp/fastd00.sock
+    peer_dir: /etc/fastd/do00/dummy
+    on_up_script: |
+      ip link set up $INTERFACE
+      batctl if add $INTERFACE
+    on_verify_script: |
+      /etc/fastd/fastd-blacklist.sh $PEER_KEY
+  - name: do01
+    bind: any:10001 interface "eth0" default ipv4
+    interface: tap01
+    loglevel: info
+    mode: tap
+    method: salsa2012+umac
+    peer_limit: 125
+    mtu: 1280
+    status_socket: /tmp/fastd01.sock
+    peer_dir: /etc/fastd/do01/dummy
+    on_up_script: |
+      ip link set up $INTERFACE
+      batctl if add $INTERFACE
+    on_verify_script: |
+      /etc/fastd/fastd-blacklist.sh $PEER_KEY
+
+fastd_instances_secret:
+  - name: do00
+    secret: 280088c4263359417e9f2daf1771db820ab79eb4f79e3718719b2a976e8a8b5e
+  - name: do01
+    secret: 280088c4263359417e9f2daf1771db820ab79eb4f79e3718719b2a976e8a8b5e

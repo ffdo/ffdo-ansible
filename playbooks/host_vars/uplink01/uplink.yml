@@ -1,0 +1,27 @@
+local_uplink: "{{uplinks[0]}}"
+
+uplink_gre_tunnel:
+- name: "{{local_uplink.tunnel[0].supernode.name}}"
+  local: "{{local_uplink.public_ip|ipaddr('address')}}"
+  endpoint: "{{local_uplink.tunnel[0].supernode.public_ip|ipaddr('address')}}"
+  netmask: "{{local_uplink.tunnel[0].tunnel_ip|ipaddr('netmask')}}"
+  address: "{{local_uplink.tunnel[0].tunnel_ip|ipaddr('address')}}"
+  dstaddr: "{{local_uplink.tunnel[0].supernode.uplink_tunnel_ip|ipaddr('address')}}"
+  address_v6: "{{local_uplink.tunnel[0].address_v6}}"
+
+uplink_interfaces:
+  - name: eth0
+    auto: true
+    proto: inet
+    type: dhcp
+  - name: eth1
+    auto: true
+    proto: inet
+    type: static
+    config:
+    - key: address
+      value: "{{local_uplink.public_ip|ipaddr('address')}}"
+    - key: netmask
+      value: "{{local_uplink.public_ip|ipaddr('netmask')}}"
+    - key: broadcast
+      value: "{{local_uplink.public_ip|ipaddr('broadcast')}}"

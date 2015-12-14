@@ -1,0 +1,8 @@
+[supernodes]
+node01-1.do.freifunk.ruhr
+node01-2.do.freifunk.ruhr
+node02-1.do.freifunk.ruhr
+node02-2.do.freifunk.ruhr
+
+[mapservers]
+map.do.freifunk.ruhr

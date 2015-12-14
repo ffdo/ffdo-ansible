@@ -1,4 +1,5 @@
 ---
 - hosts: all
+  sudo: true
   roles:
   - usermanage

@@ -9,7 +9,6 @@
   apt: name={{item}} state=present
   with_items:
   - wget
-  - supervisor
   - ntp
   - git
 

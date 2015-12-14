@@ -1,0 +1,8 @@
+alfred_json_build_deps:
+- cmake
+- build-essential
+- git
+- libjansson-dev
+- libjansson4
+- zlib1g-dev
+- pkg-config

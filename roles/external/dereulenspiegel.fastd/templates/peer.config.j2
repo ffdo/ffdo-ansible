@@ -1,0 +1,12 @@
+{% if item.1 is defined %}
+{% set peer = item.1 %}
+{% endif %}
+key "{{peer.key}}";
+{% if peer.remotes is defined %}
+{% for remote in peer.remotes %}
+remote {{remote}};
+{% endfor %}
+{% endif %}
+{% if peer.float is defined %}
+float {{peer.float}};
+{% endif %}

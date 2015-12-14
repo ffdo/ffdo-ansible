@@ -1,0 +1,18 @@
+- name: Download libsodium
+  get_url: dest={{libsodium_build_dir}} url={{libsodum_src_url}}
+
+- name: Extract libsodium
+  unarchive: dest={{libsodium_build_dir}} copy=no src="/usr/src/libsodium-{{libsodum_version}}.tar.gz" creates="{{libsodium_build_dir}}/libsodium-{{libsodum_version}}"
+
+- name: Configure libsodium
+  register: libsodiumconfigured
+  command: ./configure chdir="{{libsodium_build_dir}}/libsodium-{{libsodum_version}}" creates="{{libsodium_build_dir}}/libsodium-{{libsodum_version}}/Makefile"
+
+- name: Compile libsodium
+  when: libsodiumconfigured|changed
+  register: libsodiumcompiled
+  shell: make && make check chdir="{{libsodium_build_dir}}/libsodium-{{libsodum_version}}"
+
+- name: Install libsodium
+  when: libsodiumcompiled|changed
+  command: make install chdir="{{libsodium_build_dir}}/libsodium-{{libsodum_version}}"

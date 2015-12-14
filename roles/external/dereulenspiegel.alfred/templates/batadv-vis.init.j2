@@ -1,0 +1,59 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          batadv-vis
+# Required-Start:    $remote_fs $network alfred
+# Required-Stop:     $remote_fs $network alfred
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: batadv-vis
+### END INIT INFO
+
+# Author: Nils Schneider <nils@nilsschneider.net>
+
+PATH=/sbin:/bin
+DESC="batadv-vis"
+NAME=batadv-vis
+DAEMON=/usr/local/sbin/$NAME
+PIDFILE=/var/run/$NAME.pid
+SCRIPTNAME=/etc/init.d/$NAME
+GROUP=alfred
+OPTIONS="-s"
+
+[ -x "$DAEMON" ] || exit 0
+
+# Source defaults.
+[ -r /etc/default/$NAME ] && . /etc/default/$NAME
+
+[ -n "$BATMANIF" ] && OPTIONS="$OPTIONS -i $BATMANIF"
+
+. /lib/lsb/init-functions
+
+case "$1" in
+  start)
+        log_daemon_msg "Starting $DESC" "$NAME"
+        start-stop-daemon --start --quiet --pidfile "$PIDFILE" \
+                --make-pidfile --background \
+                --exec "$DAEMON" --oknodo -- $OPTIONS
+        log_end_msg $?
+        ;;
+  stop)
+        log_daemon_msg "Stopping $DESC" "$NAME"
+        start-stop-daemon --stop --quiet --pidfile "$PIDFILE" \
+                --retry 1 --oknodo
+        log_end_msg $?
+        ;;
+  restart|force-reload)
+        $0 stop
+        sleep 1
+        $0 start
+        ;;
+  status)
+        status_of_proc "$DAEMON" "$NAME" && exit 0 || exit $?
+        ;;
+  *)
+        echo "Usage: $SCRIPTNAME {start|stop|restart|force-reload|status}" >&2
+        exit 1
+        ;;
+esac
+
+exit $?

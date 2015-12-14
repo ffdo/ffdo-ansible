@@ -1,0 +1,20 @@
+- src: https://github.com/AutomationWithAnsible/ansible-usermanage.git
+  version: v1.4.1
+  name: usermanage
+
+- src: pdellaert.dhcp_server
+
+- src: debops.radvd
+
+- src: jdauphant.unbound
+
+- src: dereulenspiegel.fastd
+
+- src: dereulenspiegel.alfred
+  version: v1.1
+
+- src: dereulenspiegel.alfred-json
+
+- src: jdauphant.nginx
+
+- src: laggyluke.nodejs

@@ -1,0 +1,12 @@
+---
+- name         : Simple Mode (1)
+  hosts        : "{{ kitchen_hosts }}"
+  gather_facts : no
+  sudo         : True
+  connection   : "{{ kitchen_connection | default('local') }}"
+  vars         :
+                 usermanage_debug : true
+  vars_files   :
+                 - "simple_var_user_db.yml"
+  roles        :
+                 - "ansible-usermanage"

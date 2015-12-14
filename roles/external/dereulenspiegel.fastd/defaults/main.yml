@@ -1,0 +1,26 @@
+---
+# defaults file for fastd
+fastd_repo: http://git.universe-factory.net/fastd/
+fastd_repo_tag: v17
+fastd_install_dir: /opt/fastd
+fastd_build_dir: /usr/src/fastd-build
+fastd_install_from_source: false
+fastd_user_name: fastd
+fastd_user_shell: /bin/false
+fastd_libjson_url: https://launchpad.net/~ondrej/+archive/ubuntu/php5/+build/4910513/+files/libjson-c2_0.11-3%2Bdebphp.org~precise%2B1_amd64.deb
+fastd_libjson_dev_url: https://launchpad.net/~ondrej/+archive/ubuntu/php5/+build/4910513/+files/libjson-c-dev_0.11-3%2Bdebphp.org~precise%2B1_amd64.deb
+fastd_use_rng: false
+
+repo_universe_factory_unsupported_architecture: false
+repo_universe_factory_unsupported_distro: false
+
+libsodium_build_from_source: false
+libsodum_version: 1.0.3
+libsodum_src_url: https://download.libsodium.org/libsodium/releases/libsodium-{{libsodum_version}}.tar.gz
+libsodium_build_dir: /usr/src/
+
+libuecc_build_from_source: false
+libuecc_version: v5
+libuecc_repo: git://git.universe-factory.net/libuecc
+libuecc_repo_dir: /usr/src/
+libuecc_build_dir: /usr/src/libuecc-build

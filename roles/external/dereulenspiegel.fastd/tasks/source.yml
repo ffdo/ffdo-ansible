@@ -1,0 +1,14 @@
+- name: Clone fastd repo
+  register: clonefastd
+  git: repo={{fastd_repo}} dest=/usr/src/fastd accept_hostkey=yes version={{fastd_repo_tag}}
+
+- name: Create build dirs
+  when: clonelibuecc|changed
+  register: builddircreated
+  file: path={{item}} state=directory
+  with_items:
+    - "{{fastd_build_dir}}"
+
+- name: Build and install fastd
+  when: builddircreated|changed
+  shell: cmake /usr/src/fastd && make && make install chdir={{fastd_build_dir}}

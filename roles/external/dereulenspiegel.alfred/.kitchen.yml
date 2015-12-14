@@ -1,0 +1,36 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+    name               : ansible_push
+    verbose            : "vvvv"
+    ansible_config     : "test/ansible.cfg"
+    idempotency_test   : False
+    sudo               : True
+    #chef_bootstrap_url : False
+    #extra_vars        : "@kitchen_vars.yml"
+
+platforms:
+    - name: Ubuntu-precise
+      driver:
+        box: ubuntu/precise64
+    - name: Debian-jessie
+      driver:
+        box: debian/jessie64
+    - name: Debian-wheezy
+      driver:
+        box: debian/wheezy64
+    - name: Ubuntu-trusty
+      driver:
+        box: ubuntu/trusty64
+
+suites:
+  - name: alfred_all
+    provisioner:
+      playbook: "test/application/alfred_all.yml"
+      extra_vars: {'kitchen_connection': 'smart'}
+  - name: alfred_pure
+    provisioner:
+      playbook: "test/application/alfred_pure.yml"
+      extra_vars: {'kitchen_connection': 'smart'}

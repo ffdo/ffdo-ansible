@@ -1,0 +1,7 @@
+---
+- name         : Install alfred-json from source
+  hosts        : all
+  gather_facts : yes
+  connection   : "{{ kitchen_connection | default('local') }}"
+  roles        :
+                 - "ansible-alfred-json"

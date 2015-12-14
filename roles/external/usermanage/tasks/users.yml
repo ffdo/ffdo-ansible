@@ -1,0 +1,31 @@
+---
+- name: users | Create users
+  user:
+    force=yes
+    append=True
+  args: "{{ item }}"
+  with_items: cuser.users_db | default([])
+  when: cuser.users_db is defined
+
+- name: users | Manage public key for users
+  authorized_key:
+     user="{{ item.0.user | default(item.0.name) }}"
+     manage_dir="yes"
+  args: "{{ item.1 }}"
+  with_subelements:
+      - cuser.key_db | default([])
+      - keys
+  register: keyrc
+  failed_when: "'failed' in keyrc and 'getpwnam' not in keyrc.msg"
+  when: cuser.key_db is defined
+
+- name: users | Manage private key for users
+  copy:
+     content="{{ item.privkey }}"
+     dest="{{ item.home | default(usermanage_default_home_dir_prefix + "/" + item.user ) }}/{{ usermanage_priv_key_suffix}}"
+     mode=0600
+     owner="{{ item.user }}"
+  with_items: usermanage_users_privkey
+  when: usermanage_users_privkey is defined
+#  no_log: True
+

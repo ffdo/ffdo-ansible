@@ -1,0 +1,9 @@
+---
+- name         : Install and configure fastd
+  hosts        : localhost
+  gather_facts : yes
+  connection   : "{{ kitchen_connection | default('local') }}"
+  vars_files   :
+                 - "fastd_pkg_vars.yml"
+  roles        :
+                 - "ansible-fastd"

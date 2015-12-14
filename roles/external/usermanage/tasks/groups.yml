@@ -1,0 +1,7 @@
+---
+
+- name: groups | Create groups
+  group:
+  args: "{{ item }}"
+  with_items: usermanage_groupsdb | default(default_temp_solution)
+  when: usermanage_groupsdb

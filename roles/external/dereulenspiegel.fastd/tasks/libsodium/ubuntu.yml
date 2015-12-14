@@ -1,0 +1,9 @@
+- name: Install libsodium via apt
+  when: repo_universe_factory_available
+  apt: name={{item}} state=latest update_cache=yes
+  with_items:
+  - libsodium13
+  - libsodium-dev
+
+- include: source.yml
+  when: not repo_universe_factory_available

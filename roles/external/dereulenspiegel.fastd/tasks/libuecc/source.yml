@@ -1,0 +1,13 @@
+- name: Create dirs
+  file: dest={{item}} state=directory
+  with_items:
+  - "{{libuecc_repo_dir}}"
+  - "{{libuecc_build_dir}}"
+
+- name: Checkout
+  git: repo={{libuecc_repo}} dest={{libuecc_repo_dir}}/libuecc accept_hostkey=yes version={{libuecc_version}}
+
+- name: Build and install libuecc
+  shell: cmake {{libuecc_repo_dir}}/libuecc && make && make install
+  args:
+    chdir: "{{libuecc_build_dir}}"

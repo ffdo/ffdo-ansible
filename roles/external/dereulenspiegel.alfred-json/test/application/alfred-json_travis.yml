@@ -1,0 +1,7 @@
+---
+- name         : Install alfde-json from source on Travis CI
+  hosts        : localhost
+  gather_facts : yes
+  connection   : "{{ kitchen_connection | default('local') }}"
+  roles        :
+                 - "ansible-alfred-json"

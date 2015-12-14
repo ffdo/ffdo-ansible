@@ -1,0 +1,36 @@
+---
+# tasks file for repo-universe-factory
+
+- name: Check architecture
+  when: ansible_architecture != 'i386' and ansible_architecture != 'amd64' and ansible_architecture !='x86_64'
+  set_fact: 
+    repo_universe_factory_unsupported_architecture: true
+
+- name: Check Distro
+  when: ansible_distribution != "Debian" and ansible_distribution != "Ubuntu"
+  set_fact:
+    repo_universe_factory_unsupported_distro: true
+
+- set_fact:
+    repo_universe_factory_available: true
+  when: not repo_universe_factory_unsupported_distro and not repo_universe_factory_unsupported_architecture
+
+- set_fact:
+    repo_universe_factory_available: false
+  when: repo_universe_factory_unsupported_distro or repo_universe_factory_unsupported_architecture
+
+- name: Add GPG key for Wheezy backports
+  when: ansible_distribution_release == 'wheezy' and repo_universe_factory_available
+  apt_key: keyserver=pgpkeys.mit.edu id=8B48AD6246925553
+
+- name: Add Wheezy backports
+  when: ansible_distribution_release == 'wheezy' and repo_universe_factory_available
+  apt_repository: repo='deb http://http.debian.net/debian wheezy-backports main' state=present update_cache=yes
+
+- name: Add Universe Factory GPG Key
+  when: repo_universe_factory_available
+  apt_key: keyserver=pgpkeys.mit.edu id=16EF3F64CB201D9C
+
+- name: Add Universe Factory Apt Repository 
+  when: repo_universe_factory_available
+  apt_repository: repo='deb http://repo.universe-factory.net/debian/ sid main' state=present update_cache=yes

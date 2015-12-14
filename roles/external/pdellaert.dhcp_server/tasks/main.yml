@@ -1,0 +1,53 @@
+---
+# Loading vars
+- name: Add the OS specific varibles
+  include_vars: "{{ ansible_os_family }}.yml"
+
+# Install DHCP server
+- name: Install the required  packages in Redhat derivatives
+  yum: name={{ dhcp_server_package }} state=installed
+  when: ansible_os_family == 'RedHat'
+
+- name: Install the required packages in Debian derivatives
+  apt: name={{ dhcp_server_package }} state=installed update_cache=yes
+  when: ansible_os_family == 'Debian'
+
+- name: Install the required packages in ArchLinux derivatives
+  pacman: name={{ dhcp_server_package }} state=installed update_cache=yes
+  when: ansible_os_family == 'Archlinux'
+
+# Configuring AppArmor if requested
+- name: Check if the /etc/apparmor.d/local folder exists
+  stat: path=/etc/apparmor.d/local
+  when: configure_apparmor
+  register: apparmor_local
+
+- name: Configure AppArmor to allow dhcpd access to temporary ansible files for configuration checking
+  copy: src=apparmor/usr.sbin.dhcpd dest=/etc/apparmor.d/local/usr.sbin.dhcpd owner=root group=root mode=0644
+  when: configure_apparmor and apparmor_local.stat.exists
+  notify:
+    - restart apparmor
+
+- meta: flush_handlers
+
+# Set desired permissions on /etc/dhcp or use defaults
+- name: Set permissions on /etc/dhcp
+  file: path=/etc/dhcp state=directory mode={{ dhcp_dir_mode | default("0750") }}
+  when: "ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'"
+
+# Generate configuration
+- name: Generate dhcpd.conf
+  template: src=dhcpd.conf.j2 dest={{ dhcp_server_config }} owner=root group=root mode=0644 validate='/usr/sbin/dhcpd -t -cf %s'
+  notify:
+    - restart dhcpd
+
+# Generate service configuration
+- name: Generate DHCP service conf
+  template: src=service.conf.{{ ansible_os_family }}.j2 dest={{ dhcp_service_config }} owner=root group=root
+  when: ansible_os_family == 'Debian' or (ansible_os_family == 'RedHat' and ansible_distribution_major_version < '7')
+  notify:
+    - restart dhcpd
+
+# Enable DHCP server
+- name: Start the dhcp services DHCP
+  service: name={{ dhcp_service }} state=started enabled=yes

@@ -1,0 +1,17 @@
+- name: Install libuecc via Apt
+  when: repo_universe_factory_available
+  apt: name={{item}} state=latest update_cache=yes
+  with_items:
+  - libuecc0
+  - libuecc-dev
+
+- name: Install libuecc build dependencies
+  when: not repo_universe_factory_available
+  apt: name={{item}} state=present
+  with_items:
+  - cmake
+  - build-essential
+  - git
+
+- include: source.yml
+  when: not repo_universe_factory_available

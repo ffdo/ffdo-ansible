@@ -1,6 +1,6 @@
 ANSIBLE=ansible-playbook -i inventory
 
-.PHONY: setup test update endpoints baseline manage-users vpc-deploy check-playbooks
+.PHONY: setup test update manage-users check-playbooks
 
 setup:
 	./extensions/setup/setup.sh

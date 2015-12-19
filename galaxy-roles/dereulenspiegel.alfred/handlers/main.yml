@@ -1,5 +1,0 @@
----
-# handlers file for alfred
-
-- name: Mount all
-  shell: mount -a

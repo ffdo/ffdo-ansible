@@ -1,5 +1,0 @@
----
-# handlers file for fastd
-
-- name: Restart fastd
-  service: name=fastd state=restarted

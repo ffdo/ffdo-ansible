@@ -1,7 +1,2 @@
 ---
 # defaults file for map-server
-supervisor_services:
-  - name: alfred
-    command: /usr/local/sbin/alfred -m -i alfred0
-  - name: batadv-vis
-    command: /usr/local/sbin/batadv-vis -s

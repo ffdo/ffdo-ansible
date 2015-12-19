@@ -16,3 +16,6 @@ check-playbooks:
 
 manage-users:
 	$(ANSIBLE) playbooks/manage-users.yml
+
+mapserver:
+	$(ANSIBLE) playbooks/mapserver.yml

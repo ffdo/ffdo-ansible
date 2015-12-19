@@ -1,0 +1,16 @@
+---
+
+- name: Ensure supervisor is installed
+  apt:
+    name: supervisor
+    state: present
+
+- name: Install supervisor config
+  template:
+    src: supervisor.j2
+    dest: "{{gluon_collector_supervisor_config_path}}/gluon-collector.conf"
+
+- name: Ensure gluon-collector is enabled and started
+  supervisorctl:
+    name: gluon-collector
+    state: started

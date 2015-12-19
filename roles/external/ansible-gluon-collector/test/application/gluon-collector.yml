@@ -1,0 +1,12 @@
+---
+- name         : Install and configure gluon-collector
+  hosts        : all
+  gather_facts : yes
+  vars         :
+    gluon_collector_receivers:
+    - type: announced
+      port: 12123
+      interface: eth0
+  connection   : "{{ kitchen_connection | default('local') }}"
+  roles        :
+                 - "ansible-gluon-collector"

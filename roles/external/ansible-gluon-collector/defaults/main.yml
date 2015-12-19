@@ -1,0 +1,21 @@
+---
+# defaults file for ansible-gluon-collector
+
+gluon_collector_http_port: 8079
+gluon_collector_http_address: "[::]"
+gluon_collector_store_type: bolt
+gluon_collector_base_path: /opt/gluon-collector
+gluon_collector_db_path: "{{gluon_collector_base_path}}/collector.db"
+gluon_collector_config_path: "{{gluon_collector_base_path}}/gluon-collector.yml"
+gluon_collector_expire_nodes: 365
+gluon_collector_log_level: warn
+gluon_collector_log_path: "{{gluon_collector_base_path}}/collector.log"
+gluon_collector_interval_statistics: 300
+gluon_collector_interval_nodeinfo: 1800
+gluon_collector_interval_expire: 3
+gluon_collector_user: gluon-collector 
+gluon_collector_group: gluon-collector
+gluon_collector_version: "v1.1"
+gluon_collector_download_url: "https://github.com/ffdo/node-informant/releases/download/{{gluon_collector_version}}/gluon-collector"
+gluon_collector_use_supervisor: true
+gluon_collector_supervisor_config_path: /etc/supervisor/conf.d

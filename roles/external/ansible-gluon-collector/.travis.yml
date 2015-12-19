@@ -1,0 +1,24 @@
+---
+language: python
+python: "2.7"
+
+env:
+- ANSIBLE_CONFIG=test/ansible.cfg
+
+before_install:
+  # Make sure everything's up to date.
+  - sudo apt-get update -qq
+  - sudo apt-get install -qq python-apt python-pycurl git python-pip ruby ruby-dev build-essential autoconf
+  - gem install bundler
+
+install:
+  - sudo pip install ansible
+
+
+script:
+    - ansible --version
+    - 'ansible-playbook --syntax-check --list-tasks -i "localhost," test/application/gluon-collector.yml'
+
+
+after_success:
+    - echo "Success"

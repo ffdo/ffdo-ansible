@@ -1,0 +1,8 @@
+---
+# handlers file for ansible-gluon-collector
+
+- name: Restart gluon-collector
+  when: gluon_collector_use_supervisor
+  supervisorctl:
+    name: gluon-collector
+    state: restarted

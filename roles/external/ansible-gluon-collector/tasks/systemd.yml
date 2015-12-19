@@ -1,0 +1,12 @@
+---
+
+- name: Generate systemd service
+  template:
+    src: systemd.j2
+    dest: /etc/systemd/system/gluon-collector.service
+
+- name: Ensure gluon-collector is started and enabled via systemd
+  service:
+    name: gluon-collector
+    state: started
+    enabled: yes

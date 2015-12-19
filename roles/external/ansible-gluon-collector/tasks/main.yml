@@ -1,0 +1,54 @@
+---
+# tasks file for ansible-gluon-collector
+
+- when: ansible_machine != "x86_64"
+  set_fact: gluon_collector_download_url="{{gluon_collector_download_url}}-386"
+
+- name: Create Group for gluon-collector 
+  group:
+    name: "{{gluon_collector_group}}"
+    state: present
+    system: yes
+
+- name: Create user for gluon-collector 
+  user: 
+    name: "{{gluon_collector_user}}" 
+    createhome: no 
+    home: "{{gluon_collector_base_path}}"
+    system: yes
+    state: present
+    groups: "{{gluon_collector_group}}"
+
+- name: Create install directory for gluon-collector 
+  file:
+    dest: "{{gluon_collector_base_path}}" 
+    state: directory 
+    owner: "{{gluon_collector_user}}"
+    group: "{{gluon_collector_group}}"
+
+- name: Create gluon-collector configuration
+  template: 
+    src: config.j2
+    dest: "{{gluon_collector_base_path}}/gluon-collector.yml"
+    owner: "{{gluon_collector_user}}"
+    group: "{{gluon_collector_group}}"
+    mode: "u=rw,g=rw,o=r"
+  notify: Restart gluon-collector
+
+- name: Download gluon-collector 
+  get_url:
+    dest: "{{gluon_collector_base_path}}/gluon-collector"
+    url: "{{gluon_collector_download_url}}"
+
+- name: Set permission on gluon-collector executable
+  file:
+    dest: "{{gluon_collector_base_path}}/gluon-collector"
+    owner: "{{gluon_collector_user}}"
+    group: "{{gluon_collector_group}}"
+    mode: "u=rwx,g=rw,o=r"
+
+- when: gluon_collector_use_supervisor
+  include: supervisor.yml
+
+- when: not gluon_collector_use_supervisor
+  include: systemd.yml

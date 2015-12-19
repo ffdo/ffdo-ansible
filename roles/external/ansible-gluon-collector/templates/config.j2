@@ -1,0 +1,25 @@
+receiver: 
+{% for receiver in gluon_collector_receivers %}                
+- type: {{receiver.type}}        
+  interface: "{{receiver.interface}}"      
+  port: {{receiver.port}}       
+{% endfor %}
+
+interval:
+  statistics: {{gluon_collector_interval_statistics}}         
+  nodeinfo: {{gluon_collector_interval_nodeinfo}}          
+  expire: {{gluon_collector_interval_expire}}              
+
+logger:     
+  level: "{{gluon_collector_log_level}}"           
+  file: "{{gluon_collector_log_path}}"
+
+store:
+  type: "{{gluon_collector_store_type}}"            
+  path: "{{gluon_collector_db_path}}" 
+  expireNodesAfterDays: {{gluon_collector_expire_nodes}} 
+
+http:             
+  port: {{gluon_collector_http_port}}              
+  address: "{{gluon_collector_http_address}}"
+   

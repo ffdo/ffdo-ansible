@@ -1,0 +1,17 @@
+---
+galaxy_info:
+  author: Till Klocke
+  description: Install and configure gluon-collector
+  company: Freifunk Dortmund
+  license: MIT
+  min_ansible_version: 1.9
+  platforms:
+  - name: Ubuntu
+    versions:
+    - trusty
+  - name: Debian
+    versions:
+    - jessie
+  categories:
+  - monitoring
+dependencies: []

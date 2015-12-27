@@ -6,17 +6,8 @@
   with_items:
   - batctl
 
-- name: Add universe factory GPG repo key
+- include: ubuntu.yml
   when: ansible_distribution == 'Ubuntu'
-  apt_key: keyserver=pgpkeys.mit.edu id=16EF3F64CB201D9C
-
-- name: Add universe factory repo to get batman-adv kernel module for Ubuntu
-  when: ansible_distribution == 'Ubuntu'
-  apt_repository: repo='deb http://repo.universe-factory.net/debian/ sid main' state=present update_cache=yes
-
-- name: Install B.A.T.M.A.N. kernel module
-  when: ansible_distribution == "Ubuntu"
-  apt: name=batman-adv-dkms state=present
 
 - name: Enable batman module on boot
   lineinfile: dest=/etc/modules line=batman_adv

@@ -62,7 +62,7 @@ Vagrant.configure("2") do |config|
     end
 
     node.vm.provision :ansible do |ansible|
-      ansible.playbook = "playbook.yml"
+      ansible.playbook = "playbooks/mapserver.yml"
 
       ansible.groups = {
         "mapservers" => ["mapserver"]

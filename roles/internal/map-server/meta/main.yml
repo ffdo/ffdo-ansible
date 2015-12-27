@@ -18,7 +18,5 @@ galaxy_info:
   - system
   - web
 dependencies:
-- batman
 - jdauphant.nginx
 - meshviewer
-- supernode-interfaces

@@ -1,4 +1,6 @@
 ---
 - hosts: mapservers
   roles:
+  - batman
+  - supernode-interfaces
   - map-server

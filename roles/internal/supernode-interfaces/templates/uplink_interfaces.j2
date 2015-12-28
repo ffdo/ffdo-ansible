@@ -1,0 +1,23 @@
+## Uplink-Tunnel zum FFRG/FFRL-Backbone
+
+{% if supernode_uplinks is defined %}
+{% for uplink in supernode_uplinks %}
+{% if uplink.comment is defined %}
+# {{uplink.comment}}
+{% endif %}
+auto {{uplink.name}}
+iface {{uplink.name}} inet tunnel
+    mode gre
+    address {{uplink.address}}
+    dstaddr {{uplink.dstaddr}}
+    netmask {{uplink.netmask}}
+    local {{supernode_local_ip|ipaddr('address')}}
+    endpoint {{uplink.endpoint}}
+    mtu 1400
+    ttl 64
+
+iface {{uplink.name}} inet6 static
+    address {{uplink.address_v6}}
+
+{% endfor %}
+{% endif %}

@@ -1,11 +1,30 @@
 ---
 # tasks file for supernode-interfaces
 
-- include: debian.yml
-  when: ansible_distribution == 'Debian'
+- name: Install supernode specific sysctl config
+  template: src=supernode.sysctl.j2 dest=/etc/sysctl.d/supernode.conf
+  register: supernode_sysctl_installed
 
-- include: debian.yml
-  when: ansible_distribution == 'Ubuntu'
+- name: Load sysctl variables
+  when: supernode_sysctl_installed|changed
+  shell: sysctl -p /etc/sysctl.d/supernode.conf || true
+
+- name: Ensure interface definitions from other files are included
+  lineinfile:
+    dest: /etc/network/interfaces
+    line: "source /etc/network/interfaces.d/*.cfg"
+
+- name: Install interface definitions
+  template:
+    dest: "/etc/network/interfaces.d/{{item.file}}"
+    src: "{{item.template}}"
+  with_items:
+  - file: mesh.cfg
+    template: mesh_interfaces.j2
+  - file: backbone.cfg
+    template: backbone_interfaces.j2
+  - file: uplink.cfg
+    template: uplink_interfaces.j2
 
 - name: Install bird.conf
   template: src=bird.conf.j2 dest={{bird_config_dir}}/bird.conf

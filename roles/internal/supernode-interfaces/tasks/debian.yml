@@ -1,16 +1,4 @@
-- name: Install network config
-  when: supernode_interfaces is defined
-  template: src=interfaces.j2 dest=/etc/network/interfaces
-  register: network_template_installed
-#  notify: Restart network
 
-- name: Install supernode specific sysctl config
-  template: src=supernode.sysctl.j2 dest=/etc/sysctl.d/supernode.conf
-  register: supernode_sysctl_installed
-
-- name: Load sysctl variables
-  when: supernode_sysctl_installed|changed
-  shell: sysctl -p /etc/sysctl.d/supernode.conf || true
 
 - name: Restart network
   when: network_template_installed|changed

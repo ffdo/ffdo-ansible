@@ -1,0 +1,12 @@
+---
+# tasks file for mesh-interfaces
+
+- name: Install interface definitions
+  template:
+    dest: "/etc/network/interfaces.d/{{item.file}}"
+    src: "{{item.template}}"
+  with_items:
+  - file: mesh.cfg
+    template: mesh_interfaces.j2
+  - file: backbone.cfg
+    template: gre-tunnel.j2

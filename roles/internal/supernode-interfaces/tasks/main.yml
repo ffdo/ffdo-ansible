@@ -19,10 +19,6 @@
     dest: "/etc/network/interfaces.d/{{item.file}}"
     src: "{{item.template}}"
   with_items:
-  - file: mesh.cfg
-    template: mesh_interfaces.j2
-  - file: backbone.cfg
-    template: backbone_interfaces.j2
   - file: uplink.cfg
     template: uplink_interfaces.j2
 

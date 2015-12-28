@@ -1,7 +1,8 @@
 Vagrant.configure("2") do |config|
 
   N = 2
-  box_name = "ARTACK/debian-jessie"
+  # box_name = "ARTACK/debian-jessie"
+  box_name = "debian/jessie64"
   (1..N).each do |machine_id|
     config.vm.define "node0#{machine_id}" do |node|
       node.vm.box = box_name
@@ -16,7 +17,7 @@ Vagrant.configure("2") do |config|
       end
 
       node.vm.provision :ansible do |ansible|
-        ansible.playbook = "playbook.yml"
+        ansible.playbook = "playbooks/supernode.yml"
 
         ansible.groups = {
           "supernodes" => ["node01", "node02"],
@@ -25,6 +26,7 @@ Vagrant.configure("2") do |config|
     end
   end
 
+=begin
   U = 1
   (1..U).each do |machine_id|
     config.vm.define "uplink0#{machine_id}" do |node|
@@ -48,6 +50,7 @@ Vagrant.configure("2") do |config|
       end
     end
   end
+=end
 
   config.vm.define "mapserver" do |node|
     node.vm.box = box_name

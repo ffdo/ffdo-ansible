@@ -1,7 +1,12 @@
-{% for meshlink in supernode_mesh_backbones %}
-protocol bgp {{meshlink.name}} from ibgp {
-        neighbor {{meshlink.address_v6}} as {{supernode_as}};
+#
+# This file is managed by ansible. Do not edit by hand!
+#
+
+{% for host in hostvars %}
+{% if host['ansible_fqdn'] != ansible_fqdn %}
+protocol bgp {{host['ansible_hostname']}} from ibgp {
+        neighbor {{host.mesh_ipv6}} as {{supernode_as}};
         default bgp_med 4;
 }
-
+{% endif %}
 {% endfor %}

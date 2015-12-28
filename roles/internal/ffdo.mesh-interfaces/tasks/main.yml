@@ -1,6 +1,11 @@
 ---
 # tasks file for mesh-interfaces
 
+- name: Ensure interface definitions from other files are included
+  lineinfile:
+    dest: /etc/network/interfaces
+    line: "source /etc/network/interfaces.d/*.cfg"
+
 - name: Install interface definitions
   template:
     dest: "/etc/network/interfaces.d/{{item.file}}"

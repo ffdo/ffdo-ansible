@@ -1,0 +1,7 @@
+---
+
+- hosts: supernodes
+  sudo: true
+  roles:
+  - batman
+  - ff-supernode

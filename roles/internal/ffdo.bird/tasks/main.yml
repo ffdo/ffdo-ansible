@@ -1,13 +1,16 @@
 ---
-# tasks file for bird
+# tasks file for ffdo.bird
 
-- include_vars: "{{ ansible_distribution }}-{{ ansible_distribution_release }}.yml"
+- name: Ensure bird include dirs exists
+  file:
+    dest: /etc/{{item}}
+    state: directory
+  with_items:
+  - bird.d
+  - bird6.d
 
-- include: debian.yml
-  when: ansible_distribution == "Debian"
-
-- include: debian.yml
-  when: ansible_distribution == "Ubuntu"
+- name: Ensure bird routing daemon is installed
+  apt: name=bird state=present
 
 - name: Create bird config dir 
   file: name={{bird_config_dir}} state=directory

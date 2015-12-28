@@ -23,9 +23,9 @@
     template: uplink_interfaces.j2
 
 - name: Install bird.conf
-  template: src=bird.conf.j2 dest={{bird_config_dir}}/bird.conf
+  template: src=bird.conf.j2 dest=/etc/bird.d/uplinks.conf
   notify: Restart bird daemons
 
 - name: Install bird6.conf
-  template: src=bird6.conf.j2 dest={{bird_config_dir}}/bird6.conf
+  template: src=bird6.conf.j2 dest=/etc/bird6.d/bird6.conf
   notify: Restart bird daemons

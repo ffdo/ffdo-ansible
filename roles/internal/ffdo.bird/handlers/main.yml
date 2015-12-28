@@ -1,5 +1,5 @@
 ---
-# handlers file for bird
+# handlers file for ffdo.bird
 
 - name: Restart bird daemons
   service: name={{item}} state=restarted

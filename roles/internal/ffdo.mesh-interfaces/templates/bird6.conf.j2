@@ -1,0 +1,7 @@
+{% for meshlink in supernode_mesh_backbones %}
+protocol bgp {{meshlink.name}} from ibgp {
+        neighbor {{meshlink.address_v6}} as {{supernode_as}};
+        default bgp_med 4;
+}
+
+{% endfor %}

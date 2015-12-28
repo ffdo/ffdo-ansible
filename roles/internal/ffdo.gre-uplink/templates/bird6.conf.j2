@@ -2,41 +2,6 @@
 # This file is managed by ansible. Do not edit by hand!
 #
 
-log syslog all;
-router id {{supernode_mesh_ipv4|ipaddr('address')}};
-
-protocol static uplink_hostroute {
-   import all;
-   export all;
-}
-
-protocol direct {
-        interface "*";
-}
-
-protocol kernel {
-        persist;
-        device routes;
-        scan time 20;
-        import all;
-        export all;
-        kernel table 42;
-}
-
-protocol device {
-        scan time 10;
-}
-
-template bgp ibgp {
-        source address {{supernode_mesh_ipv6|ipaddr('address')}};
-        local as {{supernode_as}};
-        import all;
-        export all;
-        next hop self;
-        direct;
-        gateway direct;
-}
-
 {% if supernode_uplinks is defined %}
 template bgp uplink {
         local as {{supernode_uplinks[0].as}};
@@ -55,11 +20,3 @@ protocol bgp {{uplink.name}} from uplink {
 
 {% endfor %}
 {% endif %}
-
-{% for meshlink in supernode_mesh_backbones %}
-protocol bgp {{meshlink.name}} from ibgp {
-        neighbor {{meshlink.address_v6}} as {{supernode_as}};
-        default bgp_med 4;
-}
-
-{% endfor %}

@@ -15,3 +15,11 @@
     template: mesh_interfaces.j2
   - file: backbone.cfg
     template: gre-tunnel.j2
+
+- name: Install bird.conf
+  template: src=bird.conf.j2 dest=/etc/bird.d/mesh.conf
+  notify: Restart bird daemons
+
+- name: Install bird6.conf
+  template: src=bird6.conf.j2 dest=/etc/bird6.d/mesh.conf
+  notify: Restart bird daemons

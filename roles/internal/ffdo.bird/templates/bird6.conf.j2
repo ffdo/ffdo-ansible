@@ -1,0 +1,40 @@
+#
+# This file is managed by ansible. Do not edit by hand!
+#
+
+log syslog all;
+router id {{mesh_ipv4|ipaddr('address')}};
+
+include "/etc/bird6.d/*.cfg"
+
+protocol static uplink_hostroute {
+   import all;
+   export all;
+}
+
+protocol direct {
+        interface "*";
+}
+
+protocol kernel {
+        persist;
+        device routes;
+        scan time 20;
+        import all;
+        export all;
+        kernel table 42;
+}
+
+protocol device {
+        scan time 10;
+}
+
+template bgp ibgp {
+        source address {{mesh_ipv6|ipaddr('address')}};
+        local as {{supernode_as}};
+        import all;
+        export all;
+        next hop self;
+        direct;
+        gateway direct;
+}

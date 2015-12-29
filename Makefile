@@ -19,3 +19,6 @@ manage-users:
 
 mapserver:
 	$(ANSIBLE) playbooks/mapserver.yml
+
+supernodes:
+	$(ANSIBLE) playbooks/supernode.yml

@@ -3,4 +3,4 @@
   roles:
   - ffdo.batman
   - ffdo.mesh-interfaces
-  - map-server
+  - ffdo.mapserver

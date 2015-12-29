@@ -1,0 +1,29 @@
+server {
+  listen 80;
+  listen [::]:80;
+
+
+  # ssl
+  listen 443 ssl;
+        listen [::]:443 ssl;
+  ssl_certificate {{mapserver_ssl_cert_path}};
+  ssl_certificate_key {{mapserver_ssl_key_path}};
+  ssl_dhparam /etc/nginx/dhparams.pem;
+
+  server_name wiki.ffdo.de;
+  root /var/www;
+  index index.html;
+
+  if ($scheme = http){
+                rewrite ^ https://wiki.ffdo.de$request_uri? permanent;
+        }
+  location / {
+    proxy_pass        http://127.0.0.1:55001/;
+          proxy_set_header  X-Real-IP  $remote_addr;
+          proxy_redirect off;
+  }
+  location /_NOWIKI {
+    deny all;
+  }
+
+}

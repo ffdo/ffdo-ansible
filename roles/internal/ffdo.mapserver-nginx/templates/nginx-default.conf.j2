@@ -1,0 +1,67 @@
+server {
+  listen 80 default_server;
+  listen [::]:80 default_server;
+
+
+  # ssl
+  listen 443 ssl;
+        listen [::]:443 ssl;
+  ssl_certificate {{mapserver_ssl_cert_path}};
+  ssl_certificate_key {{mapserver_ssl_key_path}};
+  ssl_dhparam /etc/nginx/dhparams.pem;
+
+  server_name _;
+  root /var/www;
+  index index.html;
+
+  location = / {
+    return 302 /meshviewer/;
+  }
+
+  location /meshviewer {
+    alias {{meshviewer_install_directory}};
+    try_files $uri $uri/ =404;
+    gzip on;
+    gzip_comp_level 2;
+    gzip_types application/json application/javascript text/css;
+    gzip_vary on;
+  }
+
+  location /meshviewer-test {
+    alias /srv/meshviewer-test;
+    try_files $uri $uri/ =404;
+                gzip on;
+                gzip_comp_level 2;
+                gzip_types application/json application/javascript text/css;
+                gzip_vary on;
+  }
+
+        location /grafana {
+    if ($scheme != "https") {
+      rewrite ^ https://map.ffdo.de$request_uri permanent;
+    }
+                include proxy_params;
+                proxy_pass http://127.0.0.1:3000/;
+                rewrite  ^/grafana/(.*)  /$1 break;
+                proxy_set_header Host $host;
+
+        }
+
+  location /data {
+    alias /srv/ffmap-data;
+    gzip on;
+    gzip_comp_level 2;
+    gzip_types application/json;
+    gzip_vary on;
+  }
+
+# location /wiki {
+#   if ($scheme = http){
+#                 rewrite ^ https://map.do.freifunk.ruhr$request_uri? permanent;
+#         }
+#   proxy_pass        http://127.0.0.1:5001/;
+#         proxy_set_header  X-Real-IP  $remote_addr;
+#         proxy_redirect off;
+# }
+
+}

@@ -5,7 +5,9 @@
   "comment": "Till Klocke (till.klocke@gmail.com)",
   "system": false,
   "groups": [
-    "sudo"
+    "sudo",
+    "adm",
+    "systemd-journal"
   ],
   "ssh_keys": [
     "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQD+TYXciE/JuTehDwUEzixbR3dX5u0yMVhR3rHncFKi+2hDKd0KbXpcOK/vgUZqf+sM0zpA9nyoEDMMO+1m+ptfs1aZPaNiBhUZKpOqdwS8b5QfXmhuyKF1AQuXExaJLQIPuse6l/BbUKL/u5KehPqAIVzMnxTMcGRT7oxgmzIOYxXSGkZSNx8IXRbQX8eRJwXgDStJ9z6iiXRqzveYpoEGHra5OeSeN/hCkeM8OIQyZZQNmBwInUk/rCxvNOZwnUH+SuqitgUgDWl8i/LSsHu5DqhIr+tPUD2iDofsXqQJYZZXGbYSCPHegKOCmA5TV72ghJtLAZJKlwaAek91f/UMQGQuHsvi6YYPUKQIpj8q03+MdyjSVYoFyJTu3VPbTpozVMsI0WbA5U2hhyWPQIqITZGH6FyIh+zY89TPDli90GWRGLsO2o8DV/QPBY/iKeU3PeaRfNHVKWNLUlt+FusmJhBcHopJuT2ThmYpU4bDleH9xihX9iAKtxv4MqnaN2CqndUuwyqTPrda1h7u0I2P1au7zCa6SMgDKW4pbuPGEOm8Z3O/RJQFh/9+NNkrI5av+AP/9UvOAfVY3x/oU2+nz5zMSl2v1fZA5lmhWdudMqh//PtrBqdr3XKNdxVkF7bOqJBahzqky8xnL93kymTNtaCIS40aPvW/j8dEIEsFsQ== MacBookAir Till\n",

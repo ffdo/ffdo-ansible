@@ -4,6 +4,9 @@
 - include_vars: "{{ ansible_distribution }}-{{ansible_distribution_release }}.yml"
   when: ansible_distribution_release == 'wheezy' and ansible_distribution == 'Debian'
 
+- name: Ensure package resolvconf is absent
+  apt: name=resolvconf stage=absent purge=yes
+
 - name: Install custom resolv.conf
   template: src=resolv.conf.j2 dest=/etc/resolv.conf
 

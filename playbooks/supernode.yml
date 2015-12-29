@@ -1,9 +1,9 @@
 ---
 
+- include: mesh.yml
+
 - hosts: supernodes
   sudo: true
   roles:
-  - ffdo.batman
-  - ffdo.mesh-interfaces
   - ffdo.peering
   - ffdo.supernode

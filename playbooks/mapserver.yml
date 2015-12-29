@@ -1,6 +1,7 @@
 ---
+
+- include: mesh.yml
+
 - hosts: mapservers
   roles:
-  - ffdo.batman
-  - ffdo.mesh-interfaces
   - ffdo.mapserver

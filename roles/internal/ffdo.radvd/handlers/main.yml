@@ -1,0 +1,5 @@
+---
+# handlers file for ffdo.radvd
+
+- name: Restart radvd
+  service: name=radvd state=restarted

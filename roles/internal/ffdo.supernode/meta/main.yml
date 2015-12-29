@@ -17,7 +17,7 @@ galaxy_info:
 dependencies:
 - dereulenspiegel.fastd
 - ffdo.dhcp
-- debops.radvd
+- ffdo.radvd
 - dereulenspiegel.alfred
 - ff-unbound
 - jdauphant.unbound

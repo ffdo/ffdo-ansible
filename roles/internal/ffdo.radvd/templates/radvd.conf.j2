@@ -1,0 +1,15 @@
+interface bat0
+{
+    AdvSendAdvert on;
+    IgnoreIfMissing on;
+    MaxRtrAdvInterval 600;
+    MinDelayBetweenRAs 10;
+    AdvLinkMTU 1280;
+    prefix {{mesh_ipv6}}
+    {
+    };
+
+    RDNSS {{mesh_ipv6|ipaddr('address')}}
+{
+    };
+};

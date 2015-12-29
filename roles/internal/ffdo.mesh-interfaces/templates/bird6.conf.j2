@@ -5,7 +5,7 @@
 {% for host in groups['all'] %}
 {% if hostvars[host]['inventory_hostname'] != inventory_hostname %}
 protocol bgp {{hostvars[host]['inventory_hostname_short']}} from ibgp {
-        neighbor {{hostvars[host].mesh_ipv6}} as {{supernode_as}};
+        neighbor {{hostvars[host].mesh_ipv6}} as {{as}};
         default bgp_med 4;
 }
 {% endif %}

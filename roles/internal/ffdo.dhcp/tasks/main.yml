@@ -1,0 +1,15 @@
+---
+# tasks file for ffdo-dhcp
+
+- name: Ensure ISC DHCPD is installed
+  apt: name=isc-dhcp-server state=present
+
+- name: Install dhcpd.conf
+  template:
+    src: dhcpd.conf.j2
+    dest: /etc/dhcp/dhcpd.conf
+  notify:
+  - Restart dhcpd
+
+- name: Ensure dhcpd is started and enabled
+  service: name=isc-dhcp-server state=started enabled=yes

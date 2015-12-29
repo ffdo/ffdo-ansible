@@ -1,0 +1,5 @@
+---
+# handlers file for ffdo-dhcp
+
+- name: Restart dhcpd
+  service: name=isc-dhcp-server state=restarted

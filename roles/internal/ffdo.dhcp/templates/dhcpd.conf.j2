@@ -1,0 +1,24 @@
+ddns-update-style none;
+log-facility local7;
+authoritative;
+
+default-lease-time 600;
+max-lease-time 7200;
+
+# suppress wpad DHCPINFORM requests from MSFT devices
+# See https://lists.isc.org/pipermail/dhcp-users/2013-September/017193.html
+option wpad code 252 = text;
+option wpad "\n\000";
+class "MSFT" {
+  match if substring(option vendor-class-identifier, 0, 4) = "MSFT";
+  option dhcp-parameter-request-list = concat(option dhcp-parameter-request-list, fc);
+}
+
+option interface-mtu 1280;
+
+subnet {{mesh_ipv4|ipaddr('network')}} netmask {{mesh_ipv4|ipaddr('netmask')}} {
+  range {{dhcp_range_start}} {{dhcp_range_end}};
+  option routers {{mesh_ipv4|ipaddr('address')}};
+  option domain-name-servers {{mesh_ipv4|ipaddr('address')}};
+  option ntp-servers {{mesh_ipv4|ipaddr('address')}};
+}

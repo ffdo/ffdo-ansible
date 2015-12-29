@@ -2,3 +2,6 @@
 # defaults file for ff-dns
 
 ffruhr_update_server: 2a03:2260:50:1::14
+ffruhr_dns_servers:
+- 85.14.255.33
+- 151.80.64.190

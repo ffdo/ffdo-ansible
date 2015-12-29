@@ -1,0 +1,4 @@
+---
+# defaults file for ff-dns
+
+ffruhr_update_server: 2a03:2260:50:1::14

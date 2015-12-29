@@ -1,7 +1,0 @@
----
-- name: restart unbound
-  service: name=unbound state=restarted
-
-- name: reload unbound
-  service: name=unbound state=reloaded
-

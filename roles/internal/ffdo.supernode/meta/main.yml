@@ -19,5 +19,4 @@ dependencies:
 - ffdo.dhcp
 - ffdo.radvd
 - dereulenspiegel.alfred
-- ff-unbound
-- jdauphant.unbound
+- ffdo.unbound

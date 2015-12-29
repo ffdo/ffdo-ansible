@@ -2,8 +2,6 @@
   version: v1.4.1
   name: usermanage
 
-- src: jdauphant.unbound
-
 - src: dereulenspiegel.fastd
 
 - src: dereulenspiegel.alfred

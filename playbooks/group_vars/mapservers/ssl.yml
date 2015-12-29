@@ -1,3 +1,6 @@
+
+mapserver_ssl_key_path: /etc/nginx/ssl/wiki.ffdo.de.key
+mapserver_ssl_cert_path: /etc/nginx/ssl/wiki.ffdo.de.crt
 mapserver_use_pregenerated_dh_params: false
 mapserver_ssl_private_key: |
     -----BEGIN RSA PRIVATE KEY-----

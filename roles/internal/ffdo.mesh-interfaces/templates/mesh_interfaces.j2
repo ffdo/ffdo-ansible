@@ -32,7 +32,7 @@ iface bat0 inet static
     down ip link del dev alfred0
 
 iface bat0 inet6 static
-    address {{supernode_mesh_ipv6}}
+    address {{mesh_ipv6}}
     pre-up ip -6 rule add from {{mesh_ipv6|ipaddr('cidr')}} table 42
     pre-up ip -6 rule add to {{mesh_ipv6|ipaddr('cidr')}} table 42
     post-down ip -6 rule del from {{mesh_ipv6|ipaddr('cidr')}} table 42

@@ -27,3 +27,13 @@ nginx_sites:
               gzip_types application/json;
               gzip_vary on;
       }
+  - location /grafana {
+      if ($scheme != "https") {
+        rewrite ^ https://map.ffdo.de$request_uri permanent;
+      }
+                include proxy_params;
+                proxy_pass http://127.0.0.1:3000/;
+                rewrite  ^/grafana/(.*)  /$1 break;
+                proxy_set_header Host $host;
+
+      }

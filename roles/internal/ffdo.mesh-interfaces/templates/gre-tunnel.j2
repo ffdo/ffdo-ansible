@@ -1,8 +1,8 @@
 {% for host in hostvars %}
-{% if host['ansible_fqdn'] != ansible_fqdn %}
-auto {{host['ansible_fqdn']}}
-iface {{host['ansible_fqdn']}} inet manual
-    pre-up ip link add $IFACE type gretap local {{ansible_default_ipv4.address}} remote {{host['ansible_default_ipv4']['address']}} dev {{ansible_default_ipv4.alias}}
+{% if hostvars[host]['ansible_fqdn'] != ansible_fqdn %}
+auto {{hostvars[host]['ansible_fqdn']}}
+iface {{hostvars[host]['ansible_fqdn']}} inet manual
+    pre-up ip link add $IFACE type gretap local {{ansible_default_ipv4.address}} remote {{hostvars[host]['ansible_default_ipv4']['address']}} dev {{ansible_default_ipv4.alias}}
     pre-up ip link set up dev $IFACE
     up batctl if add $IFACE
     post-down ip link set down dev $IFACE

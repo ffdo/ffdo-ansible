@@ -1,0 +1,3 @@
+---
+# defaults file for map-server
+mapserver_use_pregenerated_dh_params: false

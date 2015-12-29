@@ -4,8 +4,9 @@
 
 - src: dereulenspiegel.fastd
 
-- src: dereulenspiegel.alfred
-  version: v1.1
+- src: https://github.com/dereulenspiegel/ansible-alfred.git
+  name: dereulenspiegel.alfred
+  version: v1.2
 
 - src: dereulenspiegel.alfred-json
 

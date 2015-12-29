@@ -29,18 +29,6 @@
 - name: Install verify shell script
   template: src=fastd-blacklist.sh.j2 dest=/etc/fastd/fastd-blacklist.sh mode="u=rwx,g=rx,o=r"
 
-- name: Install systemd services
-  template: src={{item}}.service.j2 dest=/etc/systemd/system/{{item}}.service
-  with_items:
-  - alfred
-  - batadv-vis
-
-- name: Enable and start systemd services
-  service: name={{item}} enabled=yes state=started
-  with_items:
-  - alfred
-  - batadv-vis
-
 - name: Install ntp.conf
   template: src=ntp.conf.j2 dest=/etc/ntp.conf
 

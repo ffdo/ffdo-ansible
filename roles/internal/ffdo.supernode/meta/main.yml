@@ -15,10 +15,7 @@ galaxy_info:
   categories:
   - networking
 dependencies:
-- usermanage
 - dereulenspiegel.fastd
-- batman
-- supernode-interfaces
 - pdellaert.dhcp_server
 - debops.radvd
 - dereulenspiegel.alfred

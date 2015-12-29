@@ -2,67 +2,8 @@
 # vars file for ff-supernode
 fastd_use_rng: true
 
-dhcp_interfaces: bat0
-dhcp_common_default_lease_time: 600
-dhcp_common_max_lease_time: 7200
-dhcp_common_ddns_update_style: none
-dhcp_common_authoritative: true
-dhcp_common_log_facility: local7
-dhcp_common_options:
-  - wpad code 252 = text
-  - 'wpad "\n\000"'
-  - interface-mtu 1280
-dhcp_subnets:
-  - base: "{{supernode_mesh_ipv4|ipaddr('network')}}"
-    netmask: "{{supernode_mesh_ipv4|ipaddr('netmask')}}"
-    routers: "{{supernode_mesh_ipv4|ipaddr('address')}}"
-    range_start: "{{supernode_dhcp_range_start}}"
-    range_end: "{{supernode_dhcp_range_end}}"
-    domain_nameservers: "{{supernode_mesh_ipv4|ipaddr('address')}}, {{supernode_other_nameserver}}"
-    ntp_servers: "{{supernode_mesh_ipv4|ipaddr('address')}}, {{supernode_other_ntp_server}}"
-dhcp_classes:
-  - name: MSFT
-    rule: 'match if substring(option vendor-class-identifier, 0, 4) = "MSFT"'
-    options:
-      - opt: 'dhcp-parameter-request-list = concat(option dhcp-parameter-request-list, fc)'
-
-radvd_default_interface: 'bat0'
-radvd_default_interface_options: |
-  AdvSendAdvert on;
-  IgnoreIfMissing on;
-  MaxRtrAdvInterval 600;
-  MinDelayBetweenRAs 10;
-  AdvLinkMTU 1280;
-  prefix {{supernode_mesh_ipv6|ipaddr('subnet')}}
-  {
-  };
-  RDNSS {{supernode_mesh_ipv6|ipaddr('address')}} 
-  {
-  };
-
 supervisor_services:
   - name: alfred
     command: /usr/local/sbin/alfred -i alfred0
   - name: batadv-vis
     command: /usr/local/sbin/batadv-vis -s
-
-unbound_configuration:
-    - verbosity: 1
-    - do-ip4: "yes"
-    - do-ip6: "yes"
-    - num-threads: 1
-    - pidfile: "/var/run/unbound.pid"
-    - logfile: "{{unbound_logfile}}"
-    - module-config: '"iterator"'
-
-unbound_forward_zone_active : true
-unbound_forward_zone:
-  - 151.80.64.190
-  - 85.14.255.33
-unbound_interfaces:
-  - 0.0.0.0
-  - ::0
-unbound_access_control:
-  - 10.233.0.0/16 allow
-  - "2a03:2260:50:5::/64 allow"
-  - "fe80::/10 allow"

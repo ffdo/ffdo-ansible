@@ -7,9 +7,6 @@
 - src: dereulenspiegel.alfred
   version: v1.1
 
-- src: https://github.com/ffdo/ansible-gluon-collector.git
-  version: v1.0
-
 - src: dereulenspiegel.alfred-json
 
 - src: jdauphant.nginx

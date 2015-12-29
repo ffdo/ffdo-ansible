@@ -50,5 +50,4 @@ galaxy_info:
   - monitoring
   - web
 dependencies:
-- ansible-gluon-collector
 - laggyluke.nodejs

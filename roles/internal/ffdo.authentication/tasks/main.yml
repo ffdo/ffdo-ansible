@@ -1,0 +1,37 @@
+---
+# tasks file for ffdo.authentication
+
+- name: Ensure sudo is installed
+  apt: name=sudo state=present
+
+- name: Ensure that sudo works without tty
+  lineinfile:
+    dest: "/etc/sudoers"
+    regexp: "^Defaults\\s+requiretty.*$"
+    line: "# Defaults    requiretty"
+    validate: 'visudo -cf %s'
+
+- name: Disable password based sudo for users in group sudo and enable password less sudo
+  lineinfile:
+    dest: "/etc/sudoers"
+    regexp: '^%sudo'
+    line: "%sudo ALL=(ALL) NOPASSWD: ALL"
+    validate: 'visudo -cf %s'
+
+- name: Update SSH configuration
+  replace: >
+    dest=/etc/ssh/sshd_config
+    regexp="^([\#\s]*)?{{item.key}}\s+([\w_-]+)"
+    replace="{{item.key}} {{item.value}}"
+    backup=yes
+  with_items:
+  - key: PermitRootLogin
+    value: without-password
+  - key: PasswordAuthentication
+    value: 'no'
+  - key: ChallengeResponseAuthentication
+    value: 'no'
+  - key: PrintLastLog
+    value: 'no'
+  notify:
+  - reload ssh

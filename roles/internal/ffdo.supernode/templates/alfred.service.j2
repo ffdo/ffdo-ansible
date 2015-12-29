@@ -1,0 +1,10 @@
+[Unit]
+Description=Almighty Lightweight Fact Remote Exchange Daemon
+
+[Service]
+ExecStart=/usr/local/sbin/alfred -i alfred0
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+

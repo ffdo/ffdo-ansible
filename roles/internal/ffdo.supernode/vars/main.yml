@@ -1,9 +1,3 @@
 ---
 # vars file for ff-supernode
 fastd_use_rng: true
-
-supervisor_services:
-  - name: alfred
-    command: /usr/local/sbin/alfred -i alfred0
-  - name: batadv-vis
-    command: /usr/local/sbin/batadv-vis -s

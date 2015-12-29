@@ -53,8 +53,8 @@ restrict 127.0.0.1
 restrict ::1
 
 # allow from ff-do-subnets
-restrict {{supernode_mesh_ipv4|ipaddr('network')}} mask {{supernode_mesh_ipv4|ipaddr('netmask')}} kod notrap nomodify nopeer noquery
-restrict {{supernode_mesh_ipv6|ipaddr('network')}} mask {{supernode_mesh_ipv6|ipaddr('netmask')}} kod notrap nomodify nopeer noquery
+restrict {{mesh_ipv4|ipaddr('network')}} mask {{mesh_ipv4|ipaddr('netmask')}} kod notrap nomodify nopeer noquery
+restrict {{mesh_ipv6|ipaddr('network')}} mask {{mesh_ipv6|ipaddr('netmask')}} kod notrap nomodify nopeer noquery
 
 # Clients from this (example!) subnet have unlimited access, but only if
 # cryptographically authenticated.

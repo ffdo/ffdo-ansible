@@ -20,9 +20,6 @@
   - python3
   - python3-pip
 
-- name: Start and enable supervisor
-  service: name=supervisor state=started enabled=yes
-
 - name: Install crontab to update the blacklist
   cron:
     name: Update blacklist
@@ -32,10 +29,17 @@
 - name: Install verify shell script
   template: src=fastd-blacklist.sh.j2 dest=/etc/fastd/fastd-blacklist.sh mode="u=rwx,g=rx,o=r"
 
-- name: Create supervisor services
-  template: src=supervisor.service.j2 dest=/etc/supervisor/conf.d/{{item.name}}.conf
-  with_items: "{{supervisor_services}}"
-  notify: Restart supervisor
+- name: Install systemd services
+  template: src={{item}}.service.j2 dest=/etc/systemd/system/{{item}}.service
+  with_items:
+  - alfred
+  - batadv-vis
+
+- name: Enable and start systemd services
+  service: name={{item}} enabled=yes state=started
+  with_items:
+  - alfred
+  - batadv-vis
 
 - name: Install ntp.conf
   template: src=ntp.conf.j2 dest=/etc/ntp.conf
@@ -53,4 +57,3 @@
 
 - name: Install nodeinfo cron job
   template: src=nodeinfo.cron.j2 dest=/etc/cron.d/nodeinfo
-  notify: Restart cron

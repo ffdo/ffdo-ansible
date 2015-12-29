@@ -1,5 +1,2 @@
 ---
 # handlers file for map-server
-
-- name: Restart supervisor
-  service: name=supervisor state=restarted

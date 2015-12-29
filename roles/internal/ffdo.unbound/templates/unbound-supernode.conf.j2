@@ -9,8 +9,8 @@ server:
 
 local-zone: "services.ffdo.de." static
 {% for host in groups['supernodes'] %}
-local-data: "{{loop.index}}.ntp.services.ffdo.de. A {{host.mesh_ipv4|ipaddr('address')}}"
-local-data: "{{loop.index}}.ntp.services.ffdo.de. AAAA {{host.mesh_ipv6|ipaddr('address')}}"
+local-data: "{{loop.index}}.ntp.services.ffdo.de. A {{hostvars[host].mesh_ipv4|ipaddr('address')}}"
+local-data: "{{loop.index}}.ntp.services.ffdo.de. AAAA {{hostvars[host].mesh_ipv6|ipaddr('address')}}"
 {% endfor %}
 local-data: "update.services.ffdo.de. AAAA {{ffruhr_update_server}}"
 

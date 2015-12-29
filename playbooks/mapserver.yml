@@ -1,6 +1,6 @@
 ---
 - hosts: mapservers
   roles:
-  - batman
-  - supernode-interfaces
+  - ffdo.batman
+  - ffdo.mesh-interfaces
   - map-server

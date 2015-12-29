@@ -3,5 +3,7 @@
 - hosts: supernodes
   sudo: true
   roles:
-  - batman
-  - ff-supernode
+  - ffdo.batman
+  - ffdo.mesh-interfaces
+  - ffdo.gre-uplink
+  - ffdo.supernode

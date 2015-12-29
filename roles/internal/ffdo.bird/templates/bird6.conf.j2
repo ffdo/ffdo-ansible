@@ -5,7 +5,7 @@
 log syslog all;
 router id {{routerid}};
 
-include "/etc/bird6.d/*.cfg"
+include "/etc/bird6.d/*.cfg";
 
 protocol static uplink_hostroute {
    import all;

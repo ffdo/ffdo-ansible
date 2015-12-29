@@ -1,0 +1,4 @@
+mesh_mac: 00:16:3e:7f:3b:9e
+bat_mac: 00:16:3e:04:49:a2
+mesh_ipv4: 10.42.8.1/16
+mesh_ipv6: fdec:16a3:681b:865c::8/64

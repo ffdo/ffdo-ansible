@@ -1,5 +1,0 @@
-
-
-- name: Restart network
-  when: network_template_installed|changed
-  shell: "ifdown --exclude=lo --exclude={{supernode_public_interface}} -a && ifup --exclude=lo --exclude={{supernode_public_interface}} -a"

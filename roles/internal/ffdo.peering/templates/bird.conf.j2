@@ -1,0 +1,14 @@
+#
+# This file is managed by ansible. Do not edit by hand!
+#
+
+{% if peers is defined %}
+{% for peer in peers %}
+protocol bgp {{peer.name}} from ibgp {
+        source address {{peer.source_ip4}};
+        neighbor {{peer.peer_ip4}} as {{peer.as}};
+        default bgp_med 2;
+};
+
+{% endfor %}
+{% endif %}

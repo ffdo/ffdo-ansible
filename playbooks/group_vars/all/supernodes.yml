@@ -1,16 +1,5 @@
 supernode_top_domain: ff.test
 supernodes:
-  - name: node01
-    public_ip: 192.168.77.21/24
-    mesh_ip_v4: 10.42.0.8/16
-    mesh_ip_v6: fdec:16a3:681b:865c::8/64
-    mesh_mac: 96:48:76:b5:a3:61
-    bat_mac: f2:43:13:c0:d7:06
-    dhcp_range_start: 10.42.0.32
-    dhcp_range_end: 10.42.5.254
-    public_interface: eth1
-    uplink_tunnel_ip: 172.16.42.2/30
-    uplink_tunnel_ip_v6: fd30:db1d:2377:4143::2/64
   - name: node02
     public_ip: 192.168.77.22/24
     mesh_ip_v4: 10.42.0.16/16

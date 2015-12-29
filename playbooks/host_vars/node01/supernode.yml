@@ -1,0 +1,6 @@
+mesh_mac: 96:48:76:b5:a3:61
+bat_mac: f2:43:13:c0:d7:06
+mesh_ipv4: 10.42.0.8/16
+mesh_ipv6: fdec:16a3:681b:865c::8/64
+dhcp_range_start: 10.42.0.32
+dhcp_range_end: 10.42.5.254

@@ -5,5 +5,6 @@
 - hosts: supernodes
   sudo: true
   roles:
+  - ffdo.authentication
   - ffdo.peering
   - ffdo.supernode

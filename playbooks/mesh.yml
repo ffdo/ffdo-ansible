@@ -2,5 +2,6 @@
 
 - hosts: all
   roles:
+  - ffdo.authentication
   - ffdo.batman
   - ffdo.mesh-interfaces

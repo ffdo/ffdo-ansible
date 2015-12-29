@@ -1,4 +1,4 @@
-mesh_ip_v4: 10.42.0.1/16
-mesh_ip_v6: fdec:16a3:681b:865c::1/64
 mesh_mac: 00:16:3e:07:46:d1
 bat_mac: 00:16:3e:27:8f:11
+mesh_ipv4: 10.42.0.1/16
+mesh_ipv6: fdec:16a3:681b:865c::1/64

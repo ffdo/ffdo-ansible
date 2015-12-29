@@ -1,0 +1,2 @@
+as: '65403'
+routerid: "{{mesh_ipv4|ipaddr('address')}}"

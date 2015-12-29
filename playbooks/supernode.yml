@@ -5,5 +5,5 @@
   roles:
   - ffdo.batman
   - ffdo.mesh-interfaces
-  - ffdo.gre-uplink
+  - ffdo.peering
   - ffdo.supernode

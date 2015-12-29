@@ -3,7 +3,7 @@
 #
 
 log syslog all;
-router id {{mesh_ipv4|ipaddr('address')}};
+router id {{routerid}};
 
 include "/etc/bird6.d/*.cfg"
 
@@ -30,8 +30,8 @@ protocol device {
 }
 
 template bgp ibgp {
+        local as {{as}};
         source address {{mesh_ipv6|ipaddr('address')}};
-        local as {{supernode_as}};
         import all;
         export all;
         next hop self;

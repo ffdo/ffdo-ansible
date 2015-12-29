@@ -1,0 +1,21 @@
+peers:
+  - name: ffrg-25
+    as: '65079'
+    source_ip4: 10.0.6.2
+    peer_ip4: 10.0.6.1
+    source_ip6: 2a03:2260:50:5a::2
+    peer_ip6: 2a03:2260:50:5a::1
+    gre:
+      ip: 10.0.6.2/30
+      ip6: 2a03:2260:50:5a::2/64
+      endpoint: 5.39.121.115
+  - name: ffrg11
+    as: '65079'
+    source_ip4: 10.0.6.6
+    peer_ip4: 10.0.6.5
+    source_ip6: 2a03:2260:50:5b::2
+    peer_ip6: 2a03:2260:50:5b::1
+    gre:
+      ip: 10.0.6.6/30
+      ip6: 2a03:2260:50:5b::2/64
+      endpoint: 85.14.244.128

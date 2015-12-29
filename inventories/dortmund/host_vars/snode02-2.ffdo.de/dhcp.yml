@@ -1,0 +1,2 @@
+dhcp_range_start: 10.42.33.1
+dhcp_range_end: 10.42.39.254

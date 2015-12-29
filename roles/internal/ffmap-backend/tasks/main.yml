@@ -22,4 +22,3 @@
 
 - name: Add ffmap-backend cron entry
   template: src=ffmap-backend.cron.j2 dest=/etc/cron.d/ffmap-backend
-  notify: Restart cron

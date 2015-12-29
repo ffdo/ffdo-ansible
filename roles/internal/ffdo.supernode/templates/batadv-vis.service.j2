@@ -1,0 +1,10 @@
+[Unit]
+Description=batman-adv visualization (vis)
+
+[Service]
+ExecStart=/usr/local/sbin/batadv-vis -s
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+

@@ -22,6 +22,3 @@
   apt: name=linux-image-amd64 default_release=wheezy-backports state=latest
   when: ansible_distribution_release == 'wheezy'
   notify: Reboot machine
-
-- name: Start and enable supervisor
-  service: name=supervisor state=started enabled=yes

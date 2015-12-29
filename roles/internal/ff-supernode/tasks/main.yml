@@ -4,11 +4,24 @@
 - include_vars: "{{ ansible_distribution }}-{{ansible_distribution_release }}.yml"
   when: ansible_distribution_release == 'wheezy' and ansible_distribution == 'Debian'
 
-- include: debian.yml
-  when: ansible_distribution == 'Debian'
+- name: Install custom resolv.conf
+  template: src=resolv.conf.j2 dest=/etc/resolv.conf
 
-- include: debian.yml
-  when: ansible_distribution == 'Ubuntu'
+- name: Make sure necessary tools are installed
+  apt: name={{item}} state=present
+  with_items:
+  - wget
+  - ntp
+  - git
+
+- name: Install dependencies for ffrl tools
+  apt: name={{item}}
+  with_items:
+  - python3
+  - python3-pip
+
+- name: Start and enable supervisor
+  service: name=supervisor state=started enabled=yes
 
 - name: Install crontab to update the blacklist
   cron:

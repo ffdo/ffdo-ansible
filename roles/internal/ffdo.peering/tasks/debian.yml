@@ -1,4 +1,0 @@
----
-- name: Restart network
-  when: network_template_installed|changed
-  shell: "ifdown --exclude=lo --exclude={{ansible_default_ipv4.alias}} -a && ifup --exclude=lo --exclude={{ansible_default_ipv4.alias}} -a"

@@ -2,10 +2,10 @@
 # This file is managed by ansible. Do not edit by hand!
 #
 
-{% for host in hostvars %}
-{% if hostvars[host]['ansible_fqdn'] != ansible_fqdn %}
-protocol bgp {{hostvars[host]['ansible_hostname']}} from ibgp {
-        neighbor {{host.mesh_ipv6}} as {{supernode_as}};
+{% for host in groups['all'] %}
+{% if hostvars[host]['inventory_hostname'] != inventory_hostname %}
+protocol bgp {{hostvars[host]['inventory_hostname_short']}} from ibgp {
+        neighbor {{hostvars[host].mesh_ipv6}} as {{supernode_as}};
         default bgp_med 4;
 }
 {% endif %}

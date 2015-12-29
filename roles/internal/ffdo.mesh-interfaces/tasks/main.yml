@@ -1,20 +1,9 @@
 ---
 # tasks file for mesh-interfaces
 
-- name: Ensure interface definitions from other files are included
-  lineinfile:
-    dest: /etc/network/interfaces
-    line: "source /etc/network/interfaces.d/*.cfg"
-
-- name: Install interface definitions
-  template:
-    dest: "/etc/network/interfaces.d/{{item.file}}"
-    src: "{{item.template}}"
-  with_items:
-  - file: mesh.cfg
-    template: mesh_interfaces.j2
-  - file: backbone.cfg
-    template: gre-tunnel.j2
+- template: 
+    src: test.j2
+    dest: /etc/test-hosts.info
 
 - name: Install bird.conf
   template: src=bird.conf.j2 dest=/etc/bird.d/mesh.conf
@@ -23,3 +12,18 @@
 - name: Install bird6.conf
   template: src=bird6.conf.j2 dest=/etc/bird6.d/mesh.conf
   notify: Restart bird daemons
+
+- name: Ensure interface definitions from other files are included
+  lineinfile:
+    dest: /etc/network/interfaces
+    line: "source /etc/network/interfaces.d/*.cfg"
+
+- name: Install mesh interface definitions
+  template:
+    dest: "/etc/network/interfaces.d/mesh.cfg"
+    src: "mesh_interfaces.j2"
+
+- name: Install gre tunnel definitions
+  template:
+    dest: "/etc/network/interfaces.d/backbone.cfg"
+    src: "gre-tunnel.j2"

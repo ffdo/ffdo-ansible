@@ -1,15 +1,9 @@
 ---
 # tasks file for meshviewer
 
-- include_vars: "{{ ansible_os_family}}.yml"
-
 - name: Install build dependencies
   apt: name={{item}} state=present
   with_items: "{{meshviewer_build_dependencies}}"
-
-#- name: Fix annoying bug debians node package
-#  when: ansible_os_family == 'Debian'
-#  file: dest=/usr/bin/node src=/usr/bin/nodejs state=link
 
 - name: Create meshviewer install directory
   file: name={{meshviewer_install_directory}} state=directory
@@ -35,15 +29,6 @@
   args:
     chdir: "{{meshviewer_build_directory}}"
 
-- name: Install frontend dependencies
-  command: node_modules/.bin/bower --allow-root --config.interactive=false install
-  args:
-    chdir: "{{meshviewer_build_directory}}/"
-    creates: "{{meshviewer_build_directory}}/bower_components"
-
-- name: Install build config
-  template: src=config.js.j2 dest="{{meshviewer_build_directory}}/config.js"
-
 - name: Build meshviewer
   command: node_modules/.bin/grunt
   args:
@@ -52,3 +37,6 @@
 
 - name: Copy meshviewer into install directory
   shell: cp -r {{meshviewer_build_directory}}/build/* {{meshviewer_install_directory}}
+
+- name: Install build config
+  template: src=config.js.j2 dest="{{meshviewer_build_directory}}/config.js"

@@ -19,4 +19,4 @@ galaxy_info:
   - web
 dependencies:
 - ffdo.mapserver-nginx
-- meshviewer
+- ffdo.meshviewer

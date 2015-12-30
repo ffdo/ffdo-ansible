@@ -40,3 +40,6 @@
 
 - name: Install build config
   template: src=config.js.j2 dest="{{meshviewer_build_directory}}/config.js"
+
+- name: Copy config
+  template: src=config.js.j2 dest="{{meshviewer_install_directory}}/config.js"

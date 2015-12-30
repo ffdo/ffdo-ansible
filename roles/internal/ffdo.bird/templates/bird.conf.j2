@@ -5,8 +5,6 @@
 log syslog all;
 router id {{routerid}};
 
-include "/etc/bird.d/*.cfg";
-
 protocol direct {
         interface "*";
 };
@@ -22,10 +20,4 @@ protocol device {
         scan time 8;
 };
 
-template bgp ibgp {
-        local as {{as}};
-        import all;
-        export all;
-        next hop self;
-        multihop 64;
-};
+include "/etc/bird.d/*.cfg";

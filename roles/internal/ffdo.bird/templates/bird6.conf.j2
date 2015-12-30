@@ -5,8 +5,6 @@
 log syslog all;
 router id {{routerid}};
 
-include "/etc/bird6.d/*.cfg";
-
 protocol static uplink_hostroute {
    import all;
    export all;
@@ -29,12 +27,5 @@ protocol device {
         scan time 10;
 }
 
-template bgp ibgp {
-        local as {{as}};
-        source address {{mesh_ipv6|ipaddr('address')}};
-        import all;
-        export all;
-        next hop self;
-        direct;
-        gateway direct;
-}
+
+include "/etc/bird6.d/*.cfg";

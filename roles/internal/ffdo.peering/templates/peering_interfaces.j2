@@ -1,8 +1,8 @@
 {% if peers is defined %}
 {% for peer in peers %}
 {% if peer.gre is defined %}
-auto gre-{{peer.name}}
-iface gre-{{peer.name}} inet tunnel
+auto peer-{{peer.name}}
+iface peer-{{peer.name}} inet tunnel
     mode gre
     address {{peer.gre.ip|ipaddr('address')}}
     dstaddr {{peer.peer_ip4}}
@@ -12,7 +12,7 @@ iface gre-{{peer.name}} inet tunnel
     mtu 1400
     ttl 64
 
-iface gre-{{peer.name}} inet6 static
+iface peer-{{peer.name}} inet6 static
     address {{peer.gre.ip6}}
 
 {% endif %}

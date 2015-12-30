@@ -1,6 +1,6 @@
 INVENTORY?=dortmund
 
-ANSIBLE=ansible-playbook -i inventories/$(INVENTORY)
+ANSIBLE=ansible-playbook -s -i inventories/$(INVENTORY)
 
 .PHONY: setup test update manage-users check-playbooks
 

@@ -1,16 +1,15 @@
 {% if peers is defined %}
 {% for peer in peers %}
-{% if peer.gre is defined %}
+{% if peer.gre_endpoint is defined %}
 auto peer-{{peer.name}}
 iface peer-{{peer.name}} inet tunnel
     mode gre
-    address {{peer.gre.ip|ipaddr('address')}}
+    address {{peer.source_ip4}}
     dstaddr {{peer.peer_ip4}}
-    netmask {{peer.gre.ip|ipaddr('netmask')}}
     local {{ansible_default_ipv4.address}}
-    endpoint {{peer.gre.endpoint}}
-    mtu 1400
+    endpoint {{peer.gre_endpoint}}
     ttl 64
+    mtu 1400
 
 iface peer-{{peer.name}} inet6 static
     address {{peer.gre.ip6}}

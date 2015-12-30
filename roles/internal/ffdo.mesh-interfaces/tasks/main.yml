@@ -1,10 +1,6 @@
 ---
 # tasks file for mesh-interfaces
 
-- template: 
-    src: test.j2
-    dest: /etc/test-hosts.info
-
 - name: Install bird.conf
   template: src=bird.conf.j2 dest=/etc/bird/conf.d/mesh.conf
   notify: Reload bird daemons
@@ -12,11 +8,6 @@
 - name: Install bird6.conf
   template: src=bird6.conf.j2 dest=/etc/bird/conf6.d/mesh.conf
   notify: Reload bird daemons
-
-- name: Ensure interface definitions from other files are included
-  lineinfile:
-    dest: /etc/network/interfaces
-    line: "source /etc/network/interfaces.d/*.cfg"
 
 - name: Install mesh interface definitions
   template:

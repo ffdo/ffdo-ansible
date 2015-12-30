@@ -1,0 +1,11 @@
+[program:gluon-collector]
+command={{gluon_collector_base_path}}/gluon-collector -config {{gluon_collector_config_path}}
+autostart=true
+autorestart=true
+startretries=10
+user={{gluon_collector_user}}
+directory={{gluon_collector_base_path}}
+redirect_stderr=true
+stdout_logfile={{gluon_collector_log_path}}
+stdout_logfile_maxbytes=5MB
+stdout_logfile_backups=10

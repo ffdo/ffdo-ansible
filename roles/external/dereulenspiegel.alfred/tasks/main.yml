@@ -5,9 +5,12 @@
   when: ansible_os_family == 'Debian'
 
 - name: Download alfred source code
+  register: alfred_source_downloaded
   get_url: dest=/usr/src url={{alfred_source_url}}
 
 - name: Extract alfred source code
+  when: alfred_source_downloaded|changed
+  register: alfred_source_extracted
   unarchive: src=/usr/src/alfred-{{alfred_version}}.tar.gz dest=/usr/src copy=no
 
 - name: Copy libcap patch to src directory
@@ -27,6 +30,7 @@
   when: not alfred_vis
 
 - name: Compile and install alfred
+  when: alfred_source_extracted|changed
   shell: "make {{alfred_config_gps|default('')}} {{alfred_config_vis|default('')}} && make {{alfred_config_gps|default('')}} {{alfred_config_vis|default('')}} install"
   args:
     chdir: /usr/src/alfred-{{alfred_version}}

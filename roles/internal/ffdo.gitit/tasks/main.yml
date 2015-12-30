@@ -12,7 +12,7 @@
     group: "{{gitit_group}}"
 
 - name: Ensure prerequisites for gitit are instaled
-  apt: name={{item}} state=present
+  apt: name={{item}} state=present update_cache=yes cache_valid_time=3600
   with_items:
   - git
   - gitit

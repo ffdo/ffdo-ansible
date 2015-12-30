@@ -2,7 +2,7 @@
 # tasks file for ffdo.mapserver-nginx
 
 - name: Ensure nginx is installed
-  apt: name=nginx state=present
+  apt: name=nginx state=present update_cache=yes cache_valid_time=3600
 
 - name: Install openssl to generate DH params
   apt: name=openssl state=present

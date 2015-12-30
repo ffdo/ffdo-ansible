@@ -2,7 +2,7 @@
 # tasks file for ffdo.bird
 
 - name: Ensure bird routing daemon is installed
-  apt: name=bird state=present
+  apt: name=bird state=present update_cache=yes cache_valid_time=3600
 
 - name: Ensure bird config dir exists
   file: name={{bird_config_dir}} state=directory

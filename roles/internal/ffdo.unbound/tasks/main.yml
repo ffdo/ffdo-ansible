@@ -2,7 +2,7 @@
 # tasks file for ff-dns
 
 - name: Ensure unbound is installed
-  apt: name=unbound state=present
+  apt: name=unbound state=present update_cache=yes cache_valid_time=3600
 
 - name: Ensure unbound config already exists
   file: dest=/etc/unbound/unbound.conf.d state=directory recurse=yes

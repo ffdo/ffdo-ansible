@@ -2,7 +2,7 @@
 # tasks file for ffdo-dhcp
 
 - name: Ensure ISC DHCPD is installed
-  apt: name=isc-dhcp-server state=present
+  apt: name=isc-dhcp-server state=present update_cache=yes cache_valid_time=3600
 
 - name: Install dhcpd.conf
   template:

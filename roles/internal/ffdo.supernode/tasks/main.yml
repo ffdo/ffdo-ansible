@@ -5,7 +5,7 @@
   when: ansible_distribution_release == 'wheezy' and ansible_distribution == 'Debian'
 
 - name: Make sure necessary tools are installed
-  apt: name={{item}} state=present
+  apt: name={{item}} state=present update_cache=yes cache_valid_time=3600
   with_items:
   - wget
   - ntp

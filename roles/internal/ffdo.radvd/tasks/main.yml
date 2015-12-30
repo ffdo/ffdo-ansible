@@ -2,7 +2,7 @@
 # tasks file for ffdo.radvd
 
 - name: Ensure radvd is installed
-  apt: name=radvd state=present
+  apt: name=radvd state=present update_cache=yes cache_valid_time=3600
 
 - name: Install radvd config
   template:

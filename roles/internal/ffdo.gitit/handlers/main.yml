@@ -1,0 +1,5 @@
+---
+# handlers file for ffdo.gitit
+
+- name: Restart gitit
+  service: name=gitit state=reloaded

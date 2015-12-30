@@ -36,7 +36,7 @@ server {
                 gzip_vary on;
   }
 
-        location /grafana {
+  location /grafana {
     if ($scheme != "https") {
       rewrite ^ https://map.ffdo.de$request_uri permanent;
     }
@@ -45,7 +45,7 @@ server {
                 rewrite  ^/grafana/(.*)  /$1 break;
                 proxy_set_header Host $host;
 
-        }
+  }
 
   location /data {
     alias /srv/ffmap-data;
@@ -53,6 +53,11 @@ server {
     gzip_comp_level 2;
     gzip_types application/json;
     gzip_vary on;
+  }
+
+  location /data-announced {
+    proxy_pass  http://127.0.0.1:{{gluon_collector_http_port}};
+    proxy_redirect  off;
   }
 
 # location /wiki {

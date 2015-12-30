@@ -41,10 +41,14 @@
   with_items:
   - src: nginx-default.conf.j2
     dest: /etc/nginx/sites-available/default
-  - src: nginx-wiki.conf.j2
-    dest: /etc/nginx/sites-available/wiki
   notify:
   - Restart nginx
+
+- name: Activate nginx configurations
+  file:
+    src: /etc/nginx/sites-available/default
+    dest: /etc/nginx/sites-enabled/default
+    state: link
 
 - name: Ensure nginx is started and enabled
   service: name=nginx state=started enabled=yes

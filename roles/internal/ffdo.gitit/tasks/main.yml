@@ -58,10 +58,10 @@
     state: directory
     owner: "{{gitit_user}}"
 
-- name: Clone wiki repo
-  git:
-    src: "{{gitit_wiki_repo}}"
-    dest: "{{gitit_data_dir}}/wikidata"
+#- name: Clone wiki repo
+#  git:
+#    src: "{{gitit_wiki_repo}}"
+#    dest: "{{gitit_data_dir}}/wikidata"
 
 # TODO restore user data
 

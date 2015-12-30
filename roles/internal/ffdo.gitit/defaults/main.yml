@@ -1,7 +1,7 @@
 ---
 # defaults file for ffdo.gitit
 
-gitit_data_dir: /src/gitit
+gitit_data_dir: /srv/gitit
 gitit_user: gitit
 gitit_group: gitit
 gitit_wiki_title: Freifunk-Dortmund-Wiki

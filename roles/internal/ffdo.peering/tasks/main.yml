@@ -24,8 +24,8 @@
 
 - name: Install bird.conf
   template: src=bird.conf.j2 dest=/etc/bird/conf.d/peering.conf
-  notify: Restart bird daemons
+  notify: Reload bird daemons
 
 - name: Install bird6.conf
-  template: src=bird6.conf.j2 dest=/etc/bird/conf6.d/peering6.conf
-  notify: Restart bird daemons
+  template: src=bird6.conf.j2 dest=/etc/bird/conf6.d/peering.conf
+  notify: Reload bird daemons

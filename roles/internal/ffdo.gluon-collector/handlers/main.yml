@@ -1,2 +1,5 @@
 ---
 # handlers file for ffdo.gluon-collector
+
+- name: Restart gluon-collector
+  service: name=gluon-collector state=restarted

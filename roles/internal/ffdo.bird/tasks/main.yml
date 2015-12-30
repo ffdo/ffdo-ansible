@@ -1,19 +1,17 @@
 ---
 # tasks file for ffdo.bird
 
-- name: Ensure bird include dirs exists
-  file:
-    dest: /etc/{{item}}
-    state: directory
-  with_items:
-  - bird.d
-  - bird6.d
-
 - name: Ensure bird routing daemon is installed
   apt: name=bird state=present
 
-- name: Create bird config dir 
+- name: Ensure bird config dir exists
   file: name={{bird_config_dir}} state=directory
+
+- name: Ensure bird include dirs exists
+  file: name={{bird_config_dir}}/{{item}} state=directory
+  with_items:
+    - conf.d
+    - conf6.d
 
 - name: Install bird.conf
   template: src=bird.conf.j2 dest={{bird_config_dir}}/bird.conf

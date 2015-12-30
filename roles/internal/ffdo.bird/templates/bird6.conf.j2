@@ -27,5 +27,4 @@ protocol device {
         scan time 10;
 }
 
-
-include "/etc/bird6.d/*.cfg";
+include "{{bird_config_dir}}/conf6.d/*.conf";

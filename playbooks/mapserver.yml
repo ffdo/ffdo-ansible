@@ -6,3 +6,4 @@
 - hosts: mapservers
   roles:
   - ffdo.mapserver
+  - ffdo.gitit

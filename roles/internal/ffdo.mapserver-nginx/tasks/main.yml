@@ -28,7 +28,9 @@
 
 - name: Generate strong dhparams
   when: not mapserver_use_pregenerated_dh_params
-  shell: openssl dhparam -out /etc/nginx/dhparams.pem 4096 creates=/etc/nginx/dhparams.pem
+  shell: openssl dhparam -out /etc/nginx/dhparams.pem 4096 
+  args:
+    creates: /etc/nginx/dhparams.pem
   notify:
   - Restart nginx
 

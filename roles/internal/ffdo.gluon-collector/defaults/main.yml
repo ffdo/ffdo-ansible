@@ -2,7 +2,7 @@
 # defaults file for ffdo.gluon-collector
 
 gluon_collector_http_port: 8080
-gluon_collector_http_address: "[::1]"
+gluon_collector_http_address: "127.0.0.1"
 gluon_collector_store_type: bolt
 gluon_collector_base_path: /opt/gluon-collector
 gluon_collector_db_path: "{{gluon_collector_base_path}}/collector.db"

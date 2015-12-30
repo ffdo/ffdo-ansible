@@ -29,7 +29,7 @@
 - name: Create gluon-collector configuration
   template: 
     src: config.j2
-    dest: "{{gluon_collector_base_path}}/gluon-collector.yml"
+    dest: "/etc/gluon-collector.yaml"
     owner: "{{gluon_collector_user}}"
     group: "{{gluon_collector_group}}"
     mode: "u=rw,g=rw,o=r"
@@ -48,9 +48,14 @@
     mode: "u=rwx,g=rw,o=r"
 
 - name: Generate systemd service
+  register: gluon_collector_systemd
   template:
     src: systemd.j2
     dest: /etc/systemd/system/gluon-collector.service
+
+- name: Systemd deamon-reload
+  when: gluon_collector_systemd|changed
+  shell: systemctl daemon-reload
 
 - name: Ensure gluon-collector is started and enabled via systemd
   service:

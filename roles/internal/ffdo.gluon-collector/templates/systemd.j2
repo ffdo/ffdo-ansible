@@ -2,7 +2,7 @@
 Description=gluon-collector
 
 [Service]
-ExecStart={{gluon_collector_base_path}}/gluon-collector -config {{gluon_collector_config_path}}
+ExecStart={{gluon_collector_base_path}}/gluon-collector -config /etc/gluon-collector.yaml
 Restart=on-failure
 User={{gluon_collector_user}}
 

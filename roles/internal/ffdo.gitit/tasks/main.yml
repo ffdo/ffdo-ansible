@@ -72,6 +72,14 @@
   notify:
   - Restart nginx
 
+- name: Activate nginx configurations
+  file:
+    src: /etc/nginx/sites-available/wiki
+    dest: /etc/nginx/sites-enabled/wiki
+    state: link
+  notify:
+  - Restart nginx
+
 - name: Install systemd unit
   register: gitit_systemd_unit
   template:

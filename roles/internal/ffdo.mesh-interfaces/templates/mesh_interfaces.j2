@@ -31,6 +31,7 @@ iface bat0 inet static
     down ip link set down dev alfred0
     down ip link del dev alfred0
 
+{% if mesh_ipv6 is defined %}
 iface bat0 inet6 static
     address {{mesh_ipv6}}
     pre-up ip -6 rule add from {{mesh_ipv6|ipaddr('cidr')}} table 42
@@ -38,3 +39,4 @@ iface bat0 inet6 static
     post-down ip -6 rule del from {{mesh_ipv6|ipaddr('cidr')}} table 42
     post-down ip -6 rule del to {{mesh_ipv6|ipaddr('cidr')}} table 42
     #pre-up ebtables -A FORWARD -p IPv6 -i $IFACE --ip6-proto ipv6-icmp --ip6-icmp-type router-advertisement -j DROP
+{% endif %}

@@ -5,3 +5,4 @@
   - ffdo.hostname
   - ffdo.resolvconf
   - ffdo.authentication
+  - ffdo.sysctl

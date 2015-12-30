@@ -54,7 +54,9 @@ restrict ::1
 
 # allow from ff-do-subnets
 restrict {{mesh_ipv4|ipaddr('network')}} mask {{mesh_ipv4|ipaddr('netmask')}} kod notrap nomodify nopeer noquery
+{% if mesh_ipv6 is defined %}
 restrict {{mesh_ipv6|ipaddr('network')}} mask {{mesh_ipv6|ipaddr('netmask')}} kod notrap nomodify nopeer noquery
+{% endif %}
 
 # Clients from this (example!) subnet have unlimited access, but only if
 # cryptographically authenticated.

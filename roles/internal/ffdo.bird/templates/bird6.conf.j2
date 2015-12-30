@@ -5,15 +5,6 @@
 log syslog all;
 router id {{routerid}};
 
-protocol static uplink_hostroute {
-   import all;
-   export all;
-}
-
-protocol direct {
-        interface "*";
-}
-
 protocol kernel {
         persist;
         device routes;
@@ -24,7 +15,7 @@ protocol kernel {
 }
 
 protocol device {
-        scan time 10;
+        scan time 8;
 }
 
 include "{{bird_config_dir}}/conf6.d/*.conf";

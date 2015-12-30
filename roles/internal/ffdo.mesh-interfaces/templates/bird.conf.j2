@@ -2,6 +2,12 @@
 # This file is managed by ansible. Do not edit by hand!
 #
 
+protocol direct {
+        interface "bat*";
+        interface "peer-*";
+        interface "lo";
+};
+
 template bgp ibgp {
         local as {{as}};
         import all;

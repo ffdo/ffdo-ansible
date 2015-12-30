@@ -1,0 +1,23 @@
+---
+# tasks file for ffdo.gitolite
+
+- name: Ensure gitolite user is there
+  user: name=gitolite createhome=yes system=yes
+
+- name: Ensure gitolite is installed
+  apt: name=gitolite3 state=present update_cache=yes cache_valid_time=3600
+
+- name: Create gitolite admin key
+  copy:
+    content: {{gitolite_admin_key}}
+    dest: /tmp/git-admin.pub
+
+- name: Install gitolite 
+  shell: su - {{gitolite}} -c "gl-setup /tmp/git-admin.pub"
+  args:
+    chdir: /home/gitolite
+
+- name: Remove obsolete key file
+  file:
+    dest: /tmp/git-admin.pub
+    state: absent

@@ -15,7 +15,7 @@ template bgp ibgp {
 {% for host in groups['all'] %}
 {% if hostvars[host]['inventory_hostname'] != inventory_hostname %}
 protocol bgp {{hostvars[host]['inventory_hostname_short']}} from ibgp {
-        neighbor {{hostvars[host].mesh_ipv6}} as {{as}};
+        neighbor {{hostvars[host].mesh_ipv6|ipaddr('address')}} as {{as}};
         default bgp_med 4;
 }
 {% endif %}

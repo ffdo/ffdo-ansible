@@ -1,0 +1,9 @@
+---
+# tasks file for ffdo.resolvconf
+
+- name: Ensure package resolvconf is absent
+  apt: name=resolvconf state=absent purge=yes
+
+- name: Install custom resolv.conf
+  template: src=resolv.conf.j2 dest=/etc/resolv.conf
+

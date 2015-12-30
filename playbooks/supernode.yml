@@ -1,10 +1,9 @@
 ---
 
+- include: common.yml
 - include: mesh.yml
 
 - hosts: supernodes
-  sudo: true
   roles:
-  - ffdo.authentication
-  - ffdo.peering
   - ffdo.supernode
+  - ffdo.peering

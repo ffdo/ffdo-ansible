@@ -1,8 +1,8 @@
 ---
 
+- include: common.yml
 - include: mesh.yml
 
 - hosts: mapservers
   roles:
-  - ffdo.authentication
   - ffdo.mapserver

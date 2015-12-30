@@ -5,9 +5,12 @@
   when: ansible_os_family == 'Debian'
 
 - name: Download alfred source code
+  register: alfred_source_downloaded
   get_url: dest=/usr/src url={{alfred_source_url}}
 
 - name: Extract alfred source code
+  when: alfred_source_downloaded|changed
+  register: alfred_source_extracted
   unarchive: src=/usr/src/alfred-{{alfred_version}}.tar.gz dest=/usr/src copy=no
 
 - name: Copy libcap patch to src directory
@@ -27,31 +30,21 @@
   when: not alfred_vis
 
 - name: Compile and install alfred
+  when: alfred_source_extracted|changed
   shell: "make {{alfred_config_gps|default('')}} {{alfred_config_vis|default('')}} && make {{alfred_config_gps|default('')}} {{alfred_config_vis|default('')}} install"
   args:
     chdir: /usr/src/alfred-{{alfred_version}}
 
-- name: Install init script and defaults for alfred
-  template: src="{{item.src}}" dest="{{item.dest}}" mode="{{item.mode}}"
+- name: Install systemd services
+  template: src={{item}}.service.j2 dest=/etc/systemd/system/{{item}}.service
   with_items:
-  - src: alfred.init.j2
-    dest: /etc/init.d/alfred
-    mode: "u=rwx,g=r,o=r"
-  - src: alfred.default.j2
-    dest: /etc/default/alfred
-    mode: "u=rw,g=r,o=r"
+  - alfred
 
-- name: Install init script and defaults for batadv-vis
+- name: Install systemd services
   when: alfred_vis is defined and alfred_vis
-  template: src="{{item.src}}" dest="{{item.dest}}" mode="{{item.mode}}"
+  template: src={{item}}.service.j2 dest=/etc/systemd/system/{{item}}.service
   with_items:
-  - src: batadv-vis.init.j2
-    dest: /etc/init.d/batadv-vis
-    mode: "u=rwx,g=r,o=r"
-  - src: batadv-vis.default.j2
-    dest: /etc/default/batadv-vis
-    mode: "u=rw,g=r,o=r"
-
+  - batadv-vis
 
 - name: Start and enable alfred
   service: name=alfred state=started enabled=yes

@@ -24,12 +24,6 @@ iface bat0 inet static
     pre-up echo 120 > /sys/class/net/$IFACE/mesh/hop_penalty
     post-down ip rule del from {{mesh_ipv4}} table 42
     post-down ip rule del to {{mesh_ipv4}} table 42
-    # Paralleles Macvlan-Interface mit fixer MTU fuer Alfred
-    up ip link add link $IFACE alfred0 type macvlan
-    up ip link set dev alfred0 mtu 1280
-    up ip link set up dev alfred0
-    down ip link set down dev alfred0
-    down ip link del dev alfred0
 
 {% if mesh_ipv6 is defined %}
 iface bat0 inet6 static

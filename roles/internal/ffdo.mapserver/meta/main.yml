@@ -18,7 +18,6 @@ galaxy_info:
   - system
   - web
 dependencies:
-- dereulenspiegel.alfred
 - ffdo.gluon-collector
 - ffdo.mapserver-nginx
 - ffdo.meshviewer

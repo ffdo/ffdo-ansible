@@ -40,5 +40,3 @@
 - name: Clone ffrl tools
   git: repo={{supernode_freifunk_tools_repo}} dest={{supernode_freifunk_tools_dir}}
 
-- name: Install nodeinfo cron job
-  template: src=nodeinfo.cron.j2 dest=/etc/cron.d/nodeinfo

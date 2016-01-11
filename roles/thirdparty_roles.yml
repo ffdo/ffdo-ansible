@@ -4,12 +4,6 @@
 
 - src: dereulenspiegel.fastd
 
-- src: https://github.com/dereulenspiegel/ansible-alfred.git
-  name: dereulenspiegel.alfred
-  version: v1.4
-
-- src: dereulenspiegel.alfred-json
-
 - src: jdauphant.nginx
 
 - src: laggyluke.nodejs

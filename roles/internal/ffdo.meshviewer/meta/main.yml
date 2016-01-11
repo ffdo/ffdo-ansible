@@ -50,5 +50,4 @@ galaxy_info:
   - monitoring
   - web
 dependencies:
-- ffmap-backend
 - laggyluke.nodejs

@@ -18,5 +18,4 @@ dependencies:
 - dereulenspiegel.fastd
 - ffdo.dhcp
 - ffdo.radvd
-- dereulenspiegel.alfred
 - ffdo.unbound

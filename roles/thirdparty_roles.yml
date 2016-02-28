@@ -1,9 +1,0 @@
-- src: https://github.com/AutomationWithAnsible/ansible-usermanage.git
-  version: v1.4.1
-  name: usermanage
-
-- src: dereulenspiegel.fastd
-
-- src: jdauphant.nginx
-
-- src: laggyluke.nodejs

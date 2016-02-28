@@ -16,8 +16,8 @@
 #     - gateway-nat
     - service-dns
     - service-ntp
-#     - service-ra
-#     - service-dhcp
+    - service-ra
+    - service-dhcp
 
 # - hosts: mapservers
 #   roles:

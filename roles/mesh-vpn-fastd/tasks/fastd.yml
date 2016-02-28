@@ -1,0 +1,34 @@
+---
+
+- name: Ensure Universe Factory repository key is installed
+  apt_key:
+    id: CB201D9C
+    data: "{{ lookup('file', 'fastd.gpg') }}"
+
+- name: Add Universe Factory Apt Repository 
+  apt_repository: repo='deb http://repo.universe-factory.net/debian/ sid main'
+
+- name: Install fastd via Apt
+  apt: name=fastd
+
+- name: Add fastd user
+  user: name=fastd system=yes home=/etc/fastd createhome=no
+
+- name: Create fastd config directories
+  file: path=/etc/fastd/{{item.name}}/dummy state=directory
+  with_items: "{{fastd_instances}}"
+
+- name: Create fastd configs
+  template: src=fastd.conf.j2 dest=/etc/fastd/{{item.name}}/fastd.conf
+  with_items: "{{fastd_instances}}"
+  notify: Restart fastd
+
+- name: Create fastd secrets
+  copy: 
+    content: 'secret "{{item.secret}}";\n'
+    dest: /etc/fastd/{{item.name}}/secret.conf
+  with_items: "{{fastd_instances}}"
+  notify: Restart fastd
+
+- name: Autostart fastd
+  service: name=fastd enabled=yes state=started

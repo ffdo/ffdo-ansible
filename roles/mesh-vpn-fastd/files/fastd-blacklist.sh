@@ -1,9 +1,5 @@
 #!/bin/bash
 
-#
-# This file is managed by ansible. Do not edit by hand!
-#
-
 PEER_KEY=$1
 
 if /bin/grep -Fq $PEER_KEY /etc/fastd/fastd-blacklist.json; then

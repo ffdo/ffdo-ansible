@@ -1,11 +1,15 @@
 ---
 
+- name: Ensure blacklist file exists
+  file: name=/etc/fastd/fastd-blacklist.json state=touch owner=fastd
+
 - name: Install crontab to update the blacklist
   cron:
-    name: Update blacklist
+    name: Update fastd blacklist
+    cron_file: fastd-blacklist
+    user: fastd
     minute: '*/5'
-    job: wget -q -O /etc/fastd/fastd-blacklist.json https://raw.githubusercontent.com/ffruhr/fastdbl/master/fastd-blacklist.json
+    job: curl -s -o /etc/fastd/fastd-blacklist.json https://raw.githubusercontent.com/ffruhr/fastdbl/master/fastd-blacklist.json
 
 - name: Install verify shell script
-  template: src=fastd-blacklist.sh.j2 dest=/etc/fastd/fastd-blacklist.sh mode="u=rwx,g=rx,o=r"
-
+  copy: src=fastd-blacklist.sh dest=/etc/fastd/fastd-blacklist.sh mode="u=rwx,g=rx,o=rx"

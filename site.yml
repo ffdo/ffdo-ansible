@@ -9,9 +9,9 @@
     - mesh-interfaces
     - mesh-routing
 
-# - hosts: supernodes
-#   roles:
-#     - mesh-vpn-fastd
+- hosts: supernodes
+  roles:
+    - mesh-vpn-fastd
 #     - gateway-peering
 #     - gateway-nat
 #     - service-dns

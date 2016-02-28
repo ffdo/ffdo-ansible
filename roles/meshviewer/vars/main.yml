@@ -1,6 +1,0 @@
----
-# vars file for meshviewer
-
-meshviewer_build_dependencies:
-- ruby-sass
-- git

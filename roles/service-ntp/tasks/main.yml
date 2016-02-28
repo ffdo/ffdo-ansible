@@ -1,0 +1,10 @@
+---
+
+- name: Make sure necessary tools are installed
+  apt: name={{item}} state=present update_cache=yes cache_valid_time=3600
+  with_items:
+  - ntp
+
+- name: Install ntp.conf
+  template: src=ntp.conf.j2 dest=/etc/ntp.conf
+

@@ -1,9 +1,0 @@
----
-
-- include: common.yml
-- include: mesh.yml
-
-- hosts: supernodes
-  roles:
-  - ffdo.supernode
-  - ffdo.peering

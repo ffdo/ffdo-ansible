@@ -1,6 +1,0 @@
----
-
-- hosts: all
-  roles:
-  - ffdo.batman
-  - ffdo.mesh-interfaces

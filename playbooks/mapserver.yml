@@ -1,9 +1,0 @@
----
-
-- include: common.yml
-- include: mesh.yml
-
-- hosts: mapservers
-  roles:
-  - ffdo.mapserver
-  - ffdo.gitit

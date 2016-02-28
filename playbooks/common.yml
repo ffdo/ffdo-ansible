@@ -1,8 +1,0 @@
----
-
-- hosts: all
-  roles:
-  - ffdo.hostname
-  - ffdo.resolvconf
-  - ffdo.authentication
-  - ffdo.sysctl

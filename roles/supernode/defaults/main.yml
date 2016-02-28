@@ -1,6 +1,0 @@
----
-# defaults file for ff-supernode
-supernode_local_ip: "{{ansible_default_ipv4.address}}"
-supernode_freifunk_tools_repo: https://github.com/ffrl/ff-tools.git
-supernode_freifunk_tools_dir: /src/ff-tools
-supernode_pip_executable: pip3

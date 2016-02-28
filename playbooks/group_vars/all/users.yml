@@ -1,4 +1,0 @@
----
-usermanage_user_source_files:
-- path: "../databags/users/"
-  databag: true

@@ -1,0 +1,25 @@
+---
+- hosts: all
+  roles:
+    - common-net
+    - common-repos
+    - common-auth
+    - common-system
+    - mesh-interfaces
+    - mesh-routing
+
+- hosts: supernodes
+  roles:
+    - mesh-vpn-fastd
+    - peering
+    - service-ra
+    - service-dhcp
+    - service-dns
+    - service-ntp
+
+- hosts: mapservers
+  roles:
+    - service-map
+    - service-wiki
+    - service-gitolite
+    - service-images

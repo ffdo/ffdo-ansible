@@ -1,0 +1,8 @@
+---
+- name: ensure journal directory exists
+  file: path=/var/log/journal state=directory group=systemd-journal mode=2755
+  notify: restart journald
+
+- name: ensure rsyslog is not installed
+  apt: name=rsyslog state=absent purge=yes
+  notify: remove syslog files

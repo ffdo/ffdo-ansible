@@ -1,5 +1,4 @@
 ---
-# handlers file for ffdo.authentication
 
 - name: reload ssh
   service: name=ssh state=reloaded

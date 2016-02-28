@@ -1,0 +1,10 @@
+---
+- name: ensure ca-certificates and ssl-cert is installed
+  apt: name={{ item }} install_recommends=no
+  with_items:
+    - ca-certificates
+    - ssl-cert
+    - apt-transport-https
+
+- name: ensure custom dhparam is installed
+  copy: src=dhparam.pem dest=/etc/ssl/private/dhparam.pem

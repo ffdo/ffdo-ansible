@@ -1,0 +1,20 @@
+---
+
+- name: Ensure admin users exist
+  user:
+    name: "{{ item.name }}"
+    uid: "{{ item.uid }}"
+    groups: adm,sudo,systemd-journal
+    shell: /bin/bash
+  with_items: users
+- name: Ensure users ssh keys exist
+  authorized_key:
+    user: "{{ item.name }}"
+    key: "{{ item.authorized | default([]) | join('\n') }}"
+  with_items: users
+- name: Ensure deprecated ssh keys are removed
+  authorized_key:
+    state: absent
+    user: "{{ item.name }}"
+    key: "{{ item.invalid | default([]) | join('\n') }}"
+  with_items: users

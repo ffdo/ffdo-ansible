@@ -1,0 +1,21 @@
+---
+- name: Ensure locales are generated
+  locale_gen: name={{ item }}
+  with_items:
+    - en_US.UTF-8
+    - de_DE.UTF-8
+    - en_US
+- name: Ensure default locale is set to en_US.UTF-8
+  copy: content='LANG="en_US.UTF-8"\n' dest=/etc/default/locale
+
+- name: Install custom bash skeleleton
+  copy: src=skel dest=/etc/
+
+- name: Ensure root bash config is unchanged
+  shell: "diff -q /etc/skel/{{ item }} /root/{{ item }} || cp /etc/skel/{{ item }} /root/{{ item }}"
+  register: shell_result
+  changed_when: "shell_result.stdout != '' and shell_result.rc == 0"
+  failed_when: "shell_result.rc != 0"
+  with_items:
+    - .bashrc
+    - .profile

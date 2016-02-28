@@ -1,0 +1,31 @@
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+source /etc/network/interfaces.d/*
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+allow-hotplug eth0
+iface eth0 inet static
+	address {{ primary_v4_address }}
+	netmask {{ primary_v4_netmask }}
+{% if primary_v4_network is defined %}
+	network {{ primary_v4_network }}
+{% endif %}
+{% if primary_v4_broadcast is defined %}
+	broadcast {{ primary_v4_broadcast }}
+{% endif %}
+	gateway {{ primary_v4_gateway }}
+{% if pointopoint is defined and pointopoint %}
+	pointopoint {{ primary_v4_gateway }}
+{% endif %}
+
+iface eth0 inet6 static
+	address {{ primary_v6_address }}
+	gateway {{ primary_v6_gateway }}
+{% if pointopoint is defined and pointopoint %}
+    pre-up ip -6 route add {{ primary_v6_gateway }} dev eth0
+{% endif %}

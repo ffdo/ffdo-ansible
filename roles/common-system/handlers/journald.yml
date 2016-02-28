@@ -1,0 +1,24 @@
+---
+
+- name: restart journald
+  service: name=systemd-journald state=restarted
+
+- name: remove syslog files
+  file: path=/var/log/{{ item }} state=absent
+  with_items:
+    - auth.log
+    - syslog
+    - cron.log
+    - daemon.log
+    - kern.log
+    - lpr.log
+    - mail.log
+    - user.log
+    - mail.info
+    - mail.warn
+    - mail.err
+    - news.crit
+    - news.err
+    - news.notice
+    - debug
+    - messages

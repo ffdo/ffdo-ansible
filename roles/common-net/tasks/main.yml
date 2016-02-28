@@ -1,0 +1,5 @@
+---
+
+- include: hostname.yml
+- include: resolvconf.yml
+- include: interfaces.yml

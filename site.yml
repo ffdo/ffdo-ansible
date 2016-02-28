@@ -19,6 +19,7 @@
 
 - hosts: mapservers
   roles:
+    - service-nginx
     - service-map
     - service-wiki
     - service-gitolite

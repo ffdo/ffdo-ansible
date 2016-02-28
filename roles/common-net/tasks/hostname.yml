@@ -1,5 +1,4 @@
 ---
-# tasks file for ffdo.hostname
 
 - name: Ensure hostname is set
   hostname: name={{ inventory_hostname_short }}

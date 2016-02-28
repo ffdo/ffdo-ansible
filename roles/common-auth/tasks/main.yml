@@ -1,30 +1,6 @@
 ---
-# tasks file for ffdo.authentication
 
-- name: Ensure sudo is installed
-  apt: name=sudo state=present update_cache=yes cache_valid_time=3600
-
-- name: Disable password based sudo for users in group sudo and enable password less sudo
-  lineinfile:
-    dest: "/etc/sudoers"
-    regexp: '^%sudo'
-    line: "%sudo ALL=(ALL) NOPASSWD: ALL"
-    validate: 'visudo -cf %s'
-
-- name: Update SSH configuration
-  replace: >
-    dest=/etc/ssh/sshd_config
-    regexp="^([\#\s]*)?{{item.key}}\s+([\w_-]+)"
-    replace="{{item.key}} {{item.value}}"
-    backup=yes
-  with_items:
-  - key: PermitRootLogin
-    value: without-password
-  - key: PasswordAuthentication
-    value: 'no'
-  - key: ChallengeResponseAuthentication
-    value: 'no'
-  - key: PrintLastLog
-    value: 'no'
-  notify:
-  - reload ssh
+- include: environment.yml
+- include: sudo.yml
+- include: users.yml
+- include: ssh.yml

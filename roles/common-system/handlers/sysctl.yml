@@ -1,0 +1,4 @@
+---
+
+- name: Load sysctl variables
+  shell: sysctl -p /etc/sysctl.d/system.conf || true

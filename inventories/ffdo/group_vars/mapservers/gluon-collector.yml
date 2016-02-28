@@ -1,6 +1,0 @@
-gluon_collector_http_port: 8080
-gluon_collector_http_address: "[::1]"
-gluon_collector_receivers:
-- type: announced
-  port: 21214
-  interface: bat0

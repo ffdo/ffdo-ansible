@@ -1,0 +1,32 @@
+---
+
+- name: Ensure bird repository key is installed
+  apt_key:
+    id: 4A7A714D
+    data: "{{ lookup('file', 'bird.gpg') }}"
+
+- name: Ensure bird Debian repository is installed
+  apt_repository: repo='deb http://bird.network.cz/debian {{ ansible_lsb.codename|lower }} main'
+
+- name: Ensure bird routing daemon is installed
+  apt: name=bird install_recommends=no
+
+- name: Ensure bird include dirs exists
+  file: name={{bird_config_dir}}/{{item}} state=directory
+  with_items:
+    - conf.d
+    - conf6.d
+
+- name: Install bird.conf
+  template: src=bird.conf.j2 dest={{bird_config_dir}}/bird.conf
+  notify: Reload bird daemons
+
+- name: Install bird6.conf
+  template: src=bird6.conf.j2 dest={{bird_config_dir}}/bird6.conf
+  notify: Reload bird daemons
+
+- name: Enable and start bird and bird6
+  service: name={{item}} state=started enabled=yes
+  with_items:
+    - bird
+    - bird6

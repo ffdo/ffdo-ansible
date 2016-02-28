@@ -1,21 +1,35 @@
-#
-# This file is managed by ansible. Do not edit by hand!
-#
-
 log syslog all;
 router id {{routerid}};
 
+protocol static uplink_hostroute {
+    import all;
+    export all;
+};
+
+protocol direct {
+    interface "*";
+};
+
 protocol kernel {
-        persist;
-        device routes;
-        scan time 20;
-        import all;
-        export all;
-        kernel table 42;
-}
+    persist;
+    device routes;
+    scan time 20;
+    import all;
+    export all;
+    kernel table 42;
+};
 
 protocol device {
-        scan time 8;
+        scan time 10;
 }
 
-include "{{bird_config_dir}}/conf6.d/*.conf";
+protocol static {
+    preference 1;
+    route ::/0 unreachable;
+};
+
+protocol static {
+    route {{ ipv6_network }} via "lo";
+};
+
+include "/etc/bird/conf6.d/*.conf";

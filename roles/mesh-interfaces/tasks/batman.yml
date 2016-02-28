@@ -1,13 +1,7 @@
 ---
-# tasks file for batman
 
-- name: Install B.A.T.M.A.N. ctl via APT
-  apt: name={{item}} state=present update_cache=yes cache_valid_time=3600
-  with_items:
-  - batctl
-
-- include: ubuntu.yml
-  when: ansible_distribution == 'Ubuntu'
+- name: Ensure batctl is installed
+  apt: name=batctl
 
 - name: Enable batman module on boot
   lineinfile: dest=/etc/modules line=batman_adv
@@ -15,4 +9,7 @@
 - name: Load batman-adv kernel module
   modprobe: name=batman_adv state=present
 
-# TODO make sure bat14 mode is used
+- name: Install batman-adv mesh interface definition
+  template:
+    dest: "/etc/network/interfaces.d/10_batman.cfg"
+    src: "batman.cfg.j2"

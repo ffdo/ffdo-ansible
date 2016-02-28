@@ -1,20 +1,4 @@
 ---
-# tasks file for mesh-interfaces
 
-- name: Install bird.conf
-  template: src=bird.conf.j2 dest=/etc/bird/conf.d/mesh.conf
-  notify: Reload bird daemons
-
-- name: Install bird6.conf
-  template: src=bird6.conf.j2 dest=/etc/bird/conf6.d/mesh.conf
-  notify: Reload bird daemons
-
-- name: Install mesh interface definitions
-  template:
-    dest: "/etc/network/interfaces.d/mesh.cfg"
-    src: "mesh_interfaces.j2"
-
-- name: Install gre tunnel definitions
-  template:
-    dest: "/etc/network/interfaces.d/backbone.cfg"
-    src: "gre-tunnel.j2"
+- include: batman.yml
+- include: tunnel.yml

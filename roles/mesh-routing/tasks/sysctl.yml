@@ -1,10 +1,5 @@
 ---
-# tasks file for sysctl
 
-- name: Install router specific sysctl config
-  template: src=sysctl.conf.j2 dest=/etc/sysctl.d/supernode.conf
-  register: supernode_sysctl_installed
-
-- name: Load sysctl variables
-  when: supernode_sysctl_installed|changed
-  shell: sysctl -p /etc/sysctl.d/supernode.conf || true
+- name: Install routing specific sysctl variables
+  copy: src=sysctl.conf dest=/etc/sysctl.d/routing.conf
+  notify: Load sysctl variables

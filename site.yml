@@ -1,4 +1,5 @@
 ---
+
 - hosts: all
   roles:
     - common-net
@@ -8,19 +9,20 @@
     - mesh-interfaces
     - mesh-routing
 
-- hosts: supernodes
-  roles:
-    - mesh-vpn-fastd
-    - peering
-    - service-ra
-    - service-dhcp
-    - service-dns
-    - service-ntp
+# - hosts: supernodes
+#   roles:
+#     - mesh-vpn-fastd
+#     - gateway-peering
+#     - gateway-nat
+#     - service-dns
+#     - service-ntp
+#     - service-ra
+#     - service-dhcp
 
-- hosts: mapservers
-  roles:
-    - service-nginx
-    - service-map
-    - service-wiki
-    - service-gitolite
-    - service-images
+# - hosts: mapservers
+#   roles:
+#     - service-nginx
+#     - service-map
+#     - service-wiki
+#     - service-gitolite
+#     - service-images

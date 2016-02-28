@@ -1,4 +1,0 @@
----
-# vars file for ffdo.bird
-
-bird_config_dir: /etc/bird

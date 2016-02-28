@@ -6,4 +6,4 @@
 - name: Ensure nameservers are set in resolv.conf
   copy:
     dest: /etc/resolv.conf
-    content: "{% for ip in network.nameservers %}nameserver {{ ip }}\n{% endfor %}"
+    content: "{% for ip in nameservers %}nameserver {{ ip }}\n{% endfor %}"

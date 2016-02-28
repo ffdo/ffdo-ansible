@@ -1,0 +1,17 @@
+protocol direct {
+        interface "bat*";
+        interface "mesh-*";
+        interface "lo";
+}
+
+protocol ospf IGP {
+        area 0.0.0.0 {
+                interface "mesh-*";
+                interface "lo" {
+                        stub;
+                };
+        };
+
+        import all;
+        export none;
+}

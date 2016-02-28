@@ -4,4 +4,5 @@
 - include: crypto.yml
 - include: time.yml
 - include: journald.yml
+- include: kernel.yml
 - include: tools.yml

@@ -12,17 +12,17 @@
   apt: name=bird install_recommends=no
 
 - name: Ensure bird include dirs exists
-  file: name={{bird_config_dir}}/{{item}} state=directory
+  file: name=/etc/bird/{{item}} state=directory
   with_items:
     - conf.d
     - conf6.d
 
 - name: Install bird.conf
-  template: src=bird.conf.j2 dest={{bird_config_dir}}/bird.conf
+  template: src=bird.conf.j2 dest=/etc/bird/bird.conf
   notify: Reload bird daemons
 
 - name: Install bird6.conf
-  template: src=bird6.conf.j2 dest={{bird_config_dir}}/bird6.conf
+  template: src=bird6.conf.j2 dest=/etc/bird/bird6.conf
   notify: Reload bird daemons
 
 - name: Enable and start bird and bird6
@@ -30,3 +30,4 @@
   with_items:
     - bird
     - bird6
+

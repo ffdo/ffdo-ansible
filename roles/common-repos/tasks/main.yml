@@ -1,8 +1,10 @@
 ---
 
 - name: Ensure deb-src ist disabled in sources.list
-  replace: dest=/etc/apt/sources.list regexp='^(deb-src .*)$' replace='#\1' backup=yes
+  replace: dest=/etc/apt/sources.list regexp='^(deb-src .*)$' replace='#\1'
 
+- name: Ensure lsb-release is installed
+  apt: name=lsb-release
 - name: Ensure Debian backports repository is installed
   apt_repository: repo='deb http://ftp.de.debian.org/debian {{ ansible_lsb.codename|lower }}-backports main'
 

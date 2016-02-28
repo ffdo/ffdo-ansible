@@ -1,5 +1,4 @@
 ---
-# handlers file for ff-dns
 
 - name: Restart unbound
   service: name=unbound state=restarted

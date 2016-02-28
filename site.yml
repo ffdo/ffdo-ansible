@@ -14,8 +14,8 @@
     - mesh-vpn-fastd
 #     - gateway-peering
 #     - gateway-nat
-#     - service-dns
-#     - service-ntp
+    - service-dns
+    - service-ntp
 #     - service-ra
 #     - service-dhcp
 

@@ -30,5 +30,6 @@
   with_items: "{{fastd_instances}}"
   notify: Restart fastd
 
-- name: Autostart fastd
-  service: name=fastd enabled=yes state=started
+- name: Ensure fastd is enabled
+  service: name=fastd enabled=yes
+  notify: Restart fastd

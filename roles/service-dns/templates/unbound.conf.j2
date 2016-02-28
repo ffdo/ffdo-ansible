@@ -1,10 +1,25 @@
-# Unbound configuration file for Debian.
-#
-# See the unbound.conf(5) man page.
-#
-# See /usr/share/doc/unbound/examples/unbound.conf for a commented
-# reference config file.
-#
-# The following line includes additional configuration files from the
-# /etc/unbound/unbound.conf.d directory.
-include: "/etc/unbound/unbound.conf.d/*.conf"
+server:
+	# Disables DNSSEC
+	module-config: "iterator"
+	interface: 0.0.0.0
+	interface: ::0
+	access-control: {{ipv4_network}} allow
+	access-control: {{ipv6_network}} allow
+	access-control: fe80::/10 allow
+
+local-zone: "services.ffdo.de." static
+{% for host in groups['supernodes'] %}
+local-data: "{{loop.index}}.ntp.services.ffdo.de. A {{hostvars[host].mesh_ipv4|ipaddr('address')}}"
+local-data: "{{loop.index}}.ntp.services.ffdo.de. AAAA {{hostvars[host].mesh_ipv6|ipaddr('address')}}"
+{% endfor %}
+{% for host in groups['supernodes'] %}
+local-data: "ntp.services.ffdo.de. A {{hostvars[host].mesh_ipv4|ipaddr('address')}}"
+local-data: "ntp.services.ffdo.de. AAAA {{hostvars[host].mesh_ipv6|ipaddr('address')}}"
+{% endfor %}
+local-data: "update.services.ffdo.de. AAAA {{update_server}}"
+
+forward-zone:
+	name: .
+{% for forwarder in forwarders %}
+	forward-addr: {{forwarder}}
+{% endfor %}

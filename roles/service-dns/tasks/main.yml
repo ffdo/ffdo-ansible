@@ -1,21 +1,12 @@
 ---
-# tasks file for ff-dns
 
 - name: Ensure unbound is installed
-  apt: name=unbound state=present update_cache=yes cache_valid_time=3600
+  apt: name=unbound
 
-- name: Ensure unbound config already exists
-  file: dest=/etc/unbound/unbound.conf.d state=directory recurse=yes
+- name: Install unbound configuration
+  template: src=unbound.conf.j2 dest=/etc/unbound/unbound.conf.d/supernode.conf
+  notify: Restart unbound
 
-- name: Install unbound configs
-  template: src={{item.src}} dest={{item.dest}}
-  with_items:
-  - src: unbound.conf.j2
-    dest: /etc/unbound/unbound.conf
-  - src: unbound-supernode.conf.j2
-    dest: /etc/unbound/unbound.conf.d/supernode.conf
-  notify:
-  - Restart unbound
-
-- name: Ensure unbound is started and enabled
-  service: name=unbound state=started enabled=yes
+- name: Ensure unbound is enabled
+  service: name=unbound enabled=yes
+  notify: Restart unbound

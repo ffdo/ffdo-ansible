@@ -3,5 +3,5 @@
 - name: Ensure hostname is set
   hostname: name={{ inventory_hostname_short }}
 
-- name: Ensure /etc/hosts entry for hostname exists
-  lineinfile: dest=/etc/hosts regexp="^127\\.0\\.1\\.1" line="127.0.1.1 {{ inventory_hostname }} {{ inventory_hostname_short }}"
+- name: ensure hostname is configured in /etc/hosts
+  template: src=hosts.j2 dest=/etc/hosts

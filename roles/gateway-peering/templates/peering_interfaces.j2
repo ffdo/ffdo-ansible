@@ -6,7 +6,7 @@ iface peer-{{peer.name}} inet tunnel
     mode gre
     address {{peer.source_ip4}}
     dstaddr {{peer.peer_ip4}}
-    local {{ansible_default_ipv4.address}}
+    local {{primary_v4_address}}
     endpoint {{peer.gre_endpoint}}
     ttl 64
     mtu 1400

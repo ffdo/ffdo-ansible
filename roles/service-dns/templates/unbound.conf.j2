@@ -9,12 +9,12 @@ server:
 
 local-zone: "services.ffdo.de." static
 {% for host in groups['supernodes'] %}
-local-data: "{{loop.index}}.ntp.services.ffdo.de. A {{hostvars[host].mesh_ipv4|ipaddr('address')}}"
-local-data: "{{loop.index}}.ntp.services.ffdo.de. AAAA {{hostvars[host].mesh_ipv6|ipaddr('address')}}"
+local-data: "{{loop.index}}.ntp.services.ffdo.de. A {{hostvars[host].batman_mesh_ipv4|ipaddr('address')}}"
+local-data: "{{loop.index}}.ntp.services.ffdo.de. AAAA {{hostvars[host].batman_mesh_ipv6|ipaddr('address')}}"
 {% endfor %}
 {% for host in groups['supernodes'] %}
-local-data: "ntp.services.ffdo.de. A {{hostvars[host].mesh_ipv4|ipaddr('address')}}"
-local-data: "ntp.services.ffdo.de. AAAA {{hostvars[host].mesh_ipv6|ipaddr('address')}}"
+local-data: "ntp.services.ffdo.de. A {{hostvars[host].batman_mesh_ipv4|ipaddr('address')}}"
+local-data: "ntp.services.ffdo.de. AAAA {{hostvars[host].batman_mesh_ipv6|ipaddr('address')}}"
 {% endfor %}
 local-data: "update.services.ffdo.de. AAAA {{update_server}}"
 

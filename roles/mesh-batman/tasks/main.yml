@@ -11,5 +11,10 @@
 
 - name: Install batman-adv mesh interface definition
   template:
-    dest: "/etc/network/interfaces.d/10_batman.cfg"
+    dest: "/etc/network/interfaces.d/40_batman.cfg"
     src: "batman.cfg.j2"
+
+- name: Install gretap tunnel definitions
+  template:
+    dest: "/etc/network/interfaces.d/45_batman-tunnel.cfg"
+    src: "batman-tunnel.cfg.j2"

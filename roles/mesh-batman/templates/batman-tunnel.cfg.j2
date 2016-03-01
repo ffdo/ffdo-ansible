@@ -1,0 +1,13 @@
+{% for host in groups['all'] %}
+{% if hostvars[host] is defined %}
+{% if hostvars[host]['inventory_hostname'] != inventory_hostname %}
+auto batman-{{hostvars[host]['inventory_hostname_short']}}
+iface batman-{{hostvars[host]['inventory_hostname_short']}} inet manual
+    pre-up ip link add $IFACE type gretap local {{primary_v4_address}} remote {{hostvars[host]['ansible_ssh_host']}} dev {{ primary_interface }}
+    pre-up ip link set up dev $IFACE
+    up batctl if add $IFACE
+    post-down ip link set down dev $IFACE
+    post-down ip link del dev $IFACE
+{% endif %}
+{% endif %}
+{% endfor %}

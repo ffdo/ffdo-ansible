@@ -2,4 +2,3 @@
 
 - include: sysctl.yml
 - include: bird.yml
-- include: igp.yml

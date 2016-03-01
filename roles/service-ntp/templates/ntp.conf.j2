@@ -10,7 +10,7 @@ driftfile /var/lib/ntp/ntp.drift
 # listen on if
 interface ignore wildcard
 interface listen bat0
-interface listen eth0
+interface listen {{ primary_interface }}
 
 # Enable this if you want statistics to be logged.
 #statsdir /var/log/ntpstats/
@@ -54,9 +54,7 @@ restrict ::1
 
 # allow from ff-do-subnets
 restrict {{ipv4_network|ipaddr('network')}} mask {{ipv4_network|ipaddr('netmask')}} kod notrap nomodify nopeer noquery
-{% if mesh_ipv6 is defined %}
 restrict {{ipv6_network|ipaddr('network')}} mask {{ipv6_network|ipaddr('netmask')}} kod notrap nomodify nopeer noquery
-{% endif %}
 
 # Clients from this (example!) subnet have unlimited access, but only if
 # cryptographically authenticated.

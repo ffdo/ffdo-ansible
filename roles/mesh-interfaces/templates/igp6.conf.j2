@@ -1,4 +1,4 @@
-protocol static blackhole_mynetwork {
+protocol static bh_mynet {
     preference 1;
     route {{ ipv6_network }} blackhole;
 };
@@ -12,5 +12,5 @@ protocol ospf IGP_OSPF {
     };
 
     import all;
-    export filter static_routes;
+    export where source != RTS_STATIC;
 }

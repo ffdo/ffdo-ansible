@@ -1,8 +1,8 @@
-protocol direct direct_bat0 {
+protocol direct bat0 {
 	interface "bat0";
 }
 
-protocol radv radv_bat0 {
+protocol radv ra_bat0 {
 	interface "bat0";
 	rdnss {{mesh_ipv6_address|ipaddr('address')}};
 {% for host in groups['supernodes'] %}

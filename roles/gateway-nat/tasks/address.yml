@@ -1,0 +1,6 @@
+---
+
+- name: Install NAT IP address dummy interface
+  template:
+    dest: "/etc/network/interfaces.d/10_nat-address.cfg"
+    src: "nat-address.cfg.j2"

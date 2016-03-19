@@ -1,6 +1,6 @@
 template bgp uplink {
-        local as {{as}};
-        import where net ~ [::/0];
+        local as {{ as }};
+        import where net ~ ::/0;
         export where net ~ {{ ipv6_network }};
 }
 

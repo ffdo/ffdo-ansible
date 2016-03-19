@@ -1,9 +1,5 @@
 ---
 
-# - name: Install OSPF IGP configuration for bird
-#   template: src=igp.conf.j2 dest=/etc/bird/conf.d/igp.conf
-#   notify: Reload bird daemons
-
 - name: Install OSPF IGP configuration for bird6
   template: src=igp6.conf.j2 dest=/etc/bird/conf6.d/igp6.conf
   notify: Reload bird daemons

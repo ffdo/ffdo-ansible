@@ -22,3 +22,7 @@
 - name: Install IPv6 routing to bat0
   template: src=batman6.conf.j2 dest=/etc/bird/conf6.d/batman6.conf
   notify: Reload bird daemons
+
+- name: Install IPv4 routing to bat0
+  template: src=batman.conf.j2 dest=/etc/bird/conf.d/batman.conf
+  notify: Reload bird daemons

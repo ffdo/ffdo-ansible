@@ -15,7 +15,7 @@
 - hosts: supernodes
   roles:
     - gateway-peering
-#     - gateway-nat
+    - gateway-nat
     - mesh-batman
     - mesh-vpn-fastd
     - service-ntp

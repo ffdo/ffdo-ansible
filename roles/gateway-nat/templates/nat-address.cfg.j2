@@ -1,0 +1,12 @@
+auto nat0
+iface nat0 inet static
+    address {{ nat_ipv4|ipaddr('address') }}
+    netmask 255.255.255.255
+    pre-up ip link add $IFACE type dummy
+    pre-up ip link set up dev $IFACE
+    pre-up ip rule add from {{ nat_ipv4 }} table 42
+    pre-up ip rule add to {{ nat_ipv4 }} table 42
+    post-down ip rule del from {{ nat_ipv4 }} table 42
+    post-down ip rule del to {{ nat_ipv4 }} table 42
+    post-down ip link set down dev $IFACE
+    post-down ip link del dev $IFACE

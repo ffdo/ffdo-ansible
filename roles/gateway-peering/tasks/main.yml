@@ -11,7 +11,3 @@
 - name: Install Bird6 configuration for eBGP
   template: src=peering6.conf.j2 dest=/etc/bird/conf6.d/peering6.conf
   notify: Reload bird daemons
-
-# - name: Install Bird configuration for eBGP
-#   template: src=peering.conf.j2 dest=/etc/bird/conf.d/peering.conf
-#   notify: Reload bird daemons

@@ -1,0 +1,5 @@
+---
+
+- name: Install IPv4 BGP configuration for bird
+  template: src=nat.conf.j2 dest=/etc/bird/conf.d/nat.conf
+  notify: Reload bird daemons

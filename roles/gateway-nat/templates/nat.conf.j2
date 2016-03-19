@@ -1,0 +1,18 @@
+protocol direct nat0 {
+	interface "nat0";
+}
+
+template bgp uplink {
+        local as {{ as }};
+        import where net ~ 0.0.0.0/0;
+        export where net ~ {{ nat_ipv4 }};
+};
+
+{% if peers is defined %}
+{% for peer in peers %}
+protocol bgp '{{ peer.name }}' from uplink {
+        neighbor {{ peer.peer_ipv4 }} as {{ peer.as }};
+};
+
+{% endfor %}
+{% endif %}

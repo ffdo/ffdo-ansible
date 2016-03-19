@@ -4,15 +4,16 @@
 auto peer-{{peer.name}}
 iface peer-{{peer.name}} inet tunnel
     mode gre
-    address {{peer.source_ip4}}
-    dstaddr {{peer.peer_ip4}}
-    local {{primary_v4_address}}
-    endpoint {{peer.gre_endpoint}}
     ttl 64
     mtu 1400
+    netmask 255.255.255.255
+    address {{peer.source_ipv4}}
+    dstaddr {{peer.peer_ipv4}}
+    local {{primary_v4_address}}
+    endpoint {{peer.gre_endpoint}}
 
 iface peer-{{peer.name}} inet6 static
-    address {{peer.gre.ip6}}
+    address {{peer.source_ipv6}}
 
 {% endif %}
 {% endfor %}

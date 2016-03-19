@@ -6,7 +6,7 @@
     dest: "/etc/network/interfaces.d/{{item.file}}"
     src: "{{item.template}}"
   with_items:
-  - file: peering.cfg
+  - file: 30_peering.cfg
     template: peering_interfaces.j2
 
 # - name: Install bird.conf

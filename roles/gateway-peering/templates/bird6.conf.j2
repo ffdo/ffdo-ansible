@@ -14,7 +14,7 @@ template bgp uplink {
 {% if peers is defined %}
 {% for peer in peers %}
 protocol bgp {{peer.name}} from uplink {
-        neighbor {{peer.peer_ip6}} as {{peer.as}};
+        neighbor {{peer.peer_ipv6}} as {{peer.as}};
         default bgp_med 2;
 }
 

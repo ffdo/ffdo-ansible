@@ -18,12 +18,13 @@
 #     - gateway-nat
     - mesh-batman
     - mesh-vpn-fastd
-    - service-dns
     - service-ntp
+    - service-dns
     - service-dhcp
 
 # - hosts: mapservers
 #   roles:
+#     - common-ntpclient
 #     - service-nginx
 #     - service-map
 #     - service-wiki

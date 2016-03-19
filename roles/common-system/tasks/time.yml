@@ -6,9 +6,3 @@
 - name: ensure timezone is set to CET
   command: timedatectl set-timezone CET
   when: ansible_date_time.tz != "CET"
-
-- name: ensure NTP is enabled
-  shell: "timedatectl | grep 'NTP enabled: yes' || timedatectl set-ntp 1"
-  register: ntp_shell_result
-  changed_when: "ntp_shell_result.stdout == '' and ntp_shell_result.rc == 0"
-  failed_when: "ntp_shell_result.rc != 0"

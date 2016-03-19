@@ -1,17 +1,16 @@
-protocol direct {
-        interface "bat*";
+protocol static blackhole_mynetwork {
+    preference 1;
+    route {{ ipv6_network }} blackhole;
+};
+
+protocol ospf IGP_OSPF {
+    area 0.0.0.0 {
         interface "mesh-*";
-        interface "lo";
-}
-
-protocol ospf IGP {
-        area 0.0.0.0 {
-                interface "bat-*";
-                interface "lo" {
-                        stub;
-                };
+        interface "local0" {
+            stub;
         };
+    };
 
-        import all;
-        export none;
+    import all;
+    export filter static_routes;
 }

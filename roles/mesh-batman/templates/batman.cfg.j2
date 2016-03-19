@@ -1,8 +1,8 @@
 # batman-adv mesh interface
 
 # Dummy-Interface als MainIF mit manueller MAC fuer batman-adv
-auto meshdummy0
-iface meshdummy0 inet manual
+auto batman-dummy0
+iface batman-dummy0 inet manual
     pre-up ip link add $IFACE type dummy
     pre-up ip link set address {{batman_mesh_mac}} dev $IFACE
     pre-up ip link set up dev $IFACE
@@ -27,4 +27,3 @@ iface bat0 inet static
 
 iface bat0 inet6 static
     address {{batman_mesh_ipv6}}
-    #pre-up ebtables -A FORWARD -p IPv6 -i $IFACE --ip6-proto ipv6-icmp --ip6-icmp-type router-advertisement -j DROP

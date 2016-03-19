@@ -6,7 +6,10 @@
     - common-repos
     - common-auth
     - common-system
-    - common-routing
+
+- hosts: mesh
+  roles:
+    - mesh-routing
     - mesh-interfaces
 
 - hosts: supernodes

@@ -1,6 +1,11 @@
-iface lo inet6 static
+auto local0
+iface local0 inet6 static
     address {{mesh_ipv6_address}}
+    pre-up ip link add $IFACE type dummy
+    pre-up ip link set up dev $IFACE
     pre-up ip -6 rule add from {{ipv6_network}} table 42
     pre-up ip -6 rule add to {{ipv6_network}} table 42
     post-down ip -6 rule del from {{ipv6_network}} table 42
     post-down ip -6 rule del to {{ipv6_network}} table 42
+    post-down ip link set down dev $IFACE
+    post-down ip link del dev $IFACE

@@ -12,6 +12,8 @@
     - psmisc
     - ngrep
     - aptitude
+    - iperf
+    - pv
 
 - name: Ensure vim is default editor
   alternatives: name=editor path=/usr/bin/vim.basic

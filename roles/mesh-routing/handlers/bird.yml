@@ -1,0 +1,7 @@
+---
+
+- name: Reload bird daemons
+  service: name={{item}} state=reloaded
+  with_items:
+  - bird
+  - bird6

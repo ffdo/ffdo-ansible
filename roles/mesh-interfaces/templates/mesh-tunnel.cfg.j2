@@ -2,10 +2,10 @@
 {% if hostvars[host]['inventory_hostname'] != inventory_hostname %}
 auto mesh-{{hostvars[host]['inventory_hostname_short']}}
 iface mesh-{{hostvars[host]['inventory_hostname_short']}} inet manual
-    pre-up ip link add $IFACE type ip6gre local {{primary_v6_address|ipaddr('address')}} remote {{hostvars[host]['primary_v6_address']|ipaddr('address')}} dev {{ primary_interface }}
+    pre-up ip link add $IFACE type ip6gretap remote {{hostvars[host]['primary_v6_address']|ipaddr('address')}} local {{primary_v6_address|ipaddr('address')}} key 1 dev {{ primary_interface }}
     pre-up ip link set up dev $IFACE
     post-down ip link set down dev $IFACE
     post-down ip link del dev $IFACE
-
 {% endif %}
 {% endfor %}
+	

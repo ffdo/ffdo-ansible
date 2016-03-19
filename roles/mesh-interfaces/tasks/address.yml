@@ -1,0 +1,6 @@
+---
+
+- name: Install mesh IP address bound to loopback
+  template:
+    dest: "/etc/network/interfaces.d/10_mesh_address.cfg"
+    src: "mesh-address.cfg.j2"

@@ -1,4 +1,3 @@
-{% if mesh_ipv6 is defined %}
 interface bat0
 {
     AdvSendAdvert on;
@@ -6,12 +5,11 @@ interface bat0
     MaxRtrAdvInterval 600;
     MinDelayBetweenRAs 10;
     AdvLinkMTU 1280;
-    prefix {{mesh_ipv6}}
+    prefix {{batman_mesh_ipv6}}
     {
     };
 
-    RDNSS {{mesh_ipv6|ipaddr('address')}}
+    RDNSS {{batman_mesh_ipv6|ipaddr('address')}}
     {
     };
 };
-{% endif %}

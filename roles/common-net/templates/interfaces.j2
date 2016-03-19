@@ -8,8 +8,8 @@ auto lo
 iface lo inet loopback
 
 # The primary network interface
-allow-hotplug eth0
-iface eth0 inet static
+allow-hotplug {{ primary_interface }}
+iface {{ primary_interface }} inet static
 	address {{ primary_v4_address }}
 	netmask {{ primary_v4_netmask }}
 {% if primary_v4_network is defined %}
@@ -19,13 +19,13 @@ iface eth0 inet static
 	broadcast {{ primary_v4_broadcast }}
 {% endif %}
 	gateway {{ primary_v4_gateway }}
-{% if pointopoint is defined and pointopoint %}
+{% if primary_pointopoint %}
 	pointopoint {{ primary_v4_gateway }}
 {% endif %}
 
-iface eth0 inet6 static
+iface {{ primary_interface }} inet6 static
 	address {{ primary_v6_address }}
 	gateway {{ primary_v6_gateway }}
-{% if pointopoint is defined and pointopoint %}
-    pre-up ip -6 route add {{ primary_v6_gateway }} dev eth0
+{% if primary_pointopoint %}
+    pre-up ip -6 route add {{ primary_v6_gateway }} dev {{ primary_interface }}
 {% endif %}

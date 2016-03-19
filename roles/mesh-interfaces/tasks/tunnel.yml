@@ -1,6 +1,6 @@
 ---
 
-- name: Install gretap tunnel definitions
+- name: Install mesh tunnel definitions
   template:
     dest: "/etc/network/interfaces.d/20_mesh-tunnel.cfg"
     src: "mesh-tunnel.cfg.j2"

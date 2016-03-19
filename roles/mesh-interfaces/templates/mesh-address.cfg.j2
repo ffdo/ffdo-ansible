@@ -1,0 +1,6 @@
+iface lo inet6 static
+    address {{mesh_ipv6_address}}
+    pre-up ip -6 rule add from {{ipv6_network}} table 42
+    pre-up ip -6 rule add to {{ipv6_network}} table 42
+    post-down ip -6 rule del from {{ipv6_network}} table 42
+    post-down ip -6 rule del to {{ipv6_network}} table 42

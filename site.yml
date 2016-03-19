@@ -6,18 +6,19 @@
     - common-repos
     - common-auth
     - common-system
+    - common-routing
     - mesh-interfaces
-    - mesh-routing
 
 - hosts: supernodes
   roles:
-    - mesh-vpn-fastd
 #     - gateway-peering
 #     - gateway-nat
+    - mesh-batman
+    - mesh-vpn-fastd
     - service-dns
     - service-ntp
-#     - service-ra
-#     - service-dhcp
+    - service-ra
+    - service-dhcp
 
 # - hosts: mapservers
 #   roles:

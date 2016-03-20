@@ -2,6 +2,7 @@
 - name: ensure ca-certificates and ssl-cert is installed
   apt: name={{ item }} install_recommends=no
   with_items:
+    - haveged
     - ca-certificates
     - ssl-cert
     - apt-transport-https

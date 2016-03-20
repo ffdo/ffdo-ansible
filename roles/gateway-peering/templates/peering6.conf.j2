@@ -1,13 +1,21 @@
+define Prefer_BGP_to_OSPF = 160;
+
+filter f_prefer_bgp_to_ospf {
+    if ! (net ~ {{ ipv6_network }})
+    then preference = Prefer_BGP_to_OSPF;
+    accept;
+}
+
 template bgp uplink {
-        local as {{ as }};
-        import where net ~ ::/0;
-        export where net ~ {{ ipv6_network }};
+    local as {{ as }};
+    import filter f_prefer_bgp_to_ospf;
+    export where net ~ {{ ipv6_network }};
 }
 
 {% if peers is defined %}
 {% for peer in peers %}
 protocol bgp '{{ peer.name }}' from uplink {
-        neighbor {{ peer.peer_ipv6|ipaddr('address') }} as {{ peer.as }};
+    neighbor {{ peer.peer_ipv6|ipaddr('address') }} as {{ peer.as }};
 }
 
 {% endfor %}

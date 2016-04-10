@@ -1,8 +1,8 @@
 {% if peers is defined %}
 {% for peer in peers %}
 {% if peer.gre_endpoint is defined %}
-auto peer-{{peer.name}}
-iface peer-{{peer.name}} inet tunnel
+auto {{peer.name}}
+iface {{peer.name}} inet tunnel
     mode gre
     ttl 64
     mtu 1400
@@ -12,7 +12,7 @@ iface peer-{{peer.name}} inet tunnel
     local {{primary_v4_address}}
     endpoint {{peer.gre_endpoint}}
 
-iface peer-{{peer.name}} inet6 static
+iface {{peer.name}} inet6 static
     address {{peer.source_ipv6}}
 
 {% endif %}

@@ -1,0 +1,4 @@
+# Configuration for netfilter-persistent
+# Plugins may extend this file or have their own
+
+FLUSH_ON_STOP=0

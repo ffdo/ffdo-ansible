@@ -16,6 +16,7 @@
   roles:
     - gateway-peering
     - gateway-nat
+    - gateway-iptables
     - mesh-batman
     - mesh-vpn-fastd
     - service-ntp

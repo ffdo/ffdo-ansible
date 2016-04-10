@@ -1,0 +1,24 @@
+---
+
+- name: Ensure iptables and iptables-persistent are installed
+  apt: name={{ item }} install_recommends=no
+  with_items:
+    - iptables
+    - iptables-persistent
+  notify:
+    - Restart netfilter-persistent
+
+- name: Configure netfilter-persistent
+  copy: src=netfilter-persistent.default dest=/etc/default/netfilter-persistent
+  notify:
+    - Restart netfilter-persistent
+
+- name: Install IPv6 iptables rules
+  template: src=rules.v6.j2 dest=/etc/iptables/rules.v6
+  notify:
+    - Restart netfilter-persistent
+
+- name: Install IPv4 iptables rules
+  template: src=rules.v4.j2 dest=/etc/iptables/rules.v4
+  notify:
+    - Restart netfilter-persistent

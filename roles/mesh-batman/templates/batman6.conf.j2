@@ -4,10 +4,7 @@ protocol direct bat0 {
 
 protocol radv ra_bat0 {
 	interface "bat0";
-	rdnss {{mesh_ipv6_address|ipaddr('address')}};
 {% for host in groups['supernodes'] %}
-{% if hostvars[host]['inventory_hostname'] != inventory_hostname %}
-	rdnss {{ hostvars[host]['mesh_ipv6_address']|ipaddr('address')}};
-{% endif %}
+	rdnss {{hostvars[host].batman_mesh_ipv6|ipaddr('address')}};
 {% endfor %}
 }

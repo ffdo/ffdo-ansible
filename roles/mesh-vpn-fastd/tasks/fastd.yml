@@ -24,9 +24,7 @@
   notify: Restart fastd
 
 - name: Create fastd secrets
-  copy: 
-    content: 'secret "{{item.secret}}";\n'
-    dest: /etc/fastd/{{item.name}}/secret.conf
+  template: src=secret.conf.j2 dest=/etc/fastd/{{item.name}}/secret.conf
   with_items: "{{fastd_instances}}"
   notify: Restart fastd
 

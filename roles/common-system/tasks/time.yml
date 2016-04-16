@@ -5,4 +5,4 @@
 
 - name: ensure timezone is set to CET
   command: timedatectl set-timezone CET
-  when: ansible_date_time.tz != "CET"
+  when: ansible_date_time.tz not in ['CET','CEST']

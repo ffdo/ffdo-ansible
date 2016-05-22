@@ -6,7 +6,7 @@
     data: "{{ lookup('file', 'bird.gpg') }}"
 
 - name: Ensure bird Debian repository is installed
-  apt_repository: repo='deb http://bird.network.cz/debian {{ ansible_lsb.codename|lower }} main'
+  apt_repository: repo='deb http://bird.network.cz/debian {{ ansible_distribution_release }} main'
 
 - name: Ensure bird routing daemon is installed
   apt: name=bird install_recommends=no

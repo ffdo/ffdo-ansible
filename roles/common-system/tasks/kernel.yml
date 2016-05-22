@@ -1,4 +1,4 @@
 ---
 
 - name: Ensure latest backports kernel is installed
-  apt: name=linux-image-amd64 state=latest default_release={{ ansible_lsb.codename|lower }}-backports install_recommends=no
+  apt: name=linux-image-amd64 state=latest default_release={{ ansible_distribution_release }}-backports install_recommends=no

@@ -16,6 +16,7 @@
     - pv
     - bwm-ng
     - rsync
+    - git
 
 - name: Ensure vim is default editor
   alternatives: name=editor path=/usr/bin/vim.basic

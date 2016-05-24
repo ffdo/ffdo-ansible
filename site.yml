@@ -43,4 +43,4 @@
 - hosts: buildservers
   roles:
     - common-ntpclient
-    # - common-docker
+    - common-docker

@@ -1,0 +1,11 @@
+---
+- name: ensure nginx is installed
+  apt: name=nginx-full state=latest default_release={{ ansible_distribution_release }}-backports install_recommends=no
+
+- name: ensure nginx default configuration is disabled
+  file: name=/etc/nginx/sites-enabled/default state=absent
+  notify: reload nginx
+
+- name: ensure nginx ssl parameters are installed
+  copy: src=ssl.conf dest=/etc/nginx/ssl.conf
+  notify: reload nginx

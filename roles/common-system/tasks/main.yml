@@ -1,5 +1,6 @@
 ---
 
+- include: rclocal.yml
 - include: sysctl.yml
 - include: crypto.yml
 - include: time.yml

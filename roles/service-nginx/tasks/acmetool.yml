@@ -1,0 +1,11 @@
+---
+- name: ensure acmetool repository key is installed
+  apt_key:
+    id: EDB58DFA
+    data: "{{ lookup('file', 'acmetool.gpg') }}"
+
+- name: ensure acmetool apt repository is installed
+  apt_repository: repo='deb http://ppa.launchpad.net/hlandau/rhea/ubuntu xenial main'
+
+- name: ensure acmetool is installed
+  apt: name=acmetool install_recommends=no

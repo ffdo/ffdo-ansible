@@ -12,22 +12,35 @@
     - mesh-routing
     - mesh-interfaces
 
+- hosts: batman
+  roles:
+    - mesh-batman
+
 - hosts: supernodes
   roles:
     - gateway-peering
     - gateway-nat
     - gateway-iptables
-    - mesh-batman
     - mesh-vpn-fastd
     - service-ntp
     - service-dns
     - service-dhcp
 
-# - hosts: mapservers
-#   roles:
-#     - common-ntpclient
-#     - service-nginx
-#     - service-map
-#     - service-wiki
-#     - service-gitolite
-#     - service-images
+- hosts: mapservers
+  roles:
+    - common-ntpclient
+    - service-nginx
+    # - service-map
+    # - service-wiki
+    # - service-gitolite
+
+- hosts: imageservers
+  roles:
+    - common-ntpclient
+    - service-nginx
+    # - service-images
+
+- hosts: buildservers
+  roles:
+    - common-ntpclient
+    # - common-docker

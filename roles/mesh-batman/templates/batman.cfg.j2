@@ -20,7 +20,9 @@ iface bat0 inet static
     pre-up ip rule add to {{batman_mesh_ipv4}} table 42
     pre-up batctl it 5000
     pre-up batctl bl 0
+{% if batman_gateway %}
     pre-up batctl gw server 48mbit/48mbit
+{% endif %}
     pre-up echo 120 > /sys/class/net/$IFACE/mesh/hop_penalty
     post-down ip rule del from {{batman_mesh_ipv4}} table 42
     post-down ip rule del to {{batman_mesh_ipv4}} table 42

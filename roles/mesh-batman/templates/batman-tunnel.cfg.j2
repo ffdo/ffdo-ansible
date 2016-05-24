@@ -1,4 +1,4 @@
-{% for host in groups['supernodes'] %}
+{% for host in groups['batman'] %}
 {% if hostvars[host]['inventory_hostname'] != inventory_hostname %}
 auto batman-{{hostvars[host]['inventory_hostname_short']}}
 iface batman-{{hostvars[host]['inventory_hostname_short']}} inet manual

@@ -7,5 +7,11 @@
 - name: ensure docker apt repository is installed
   apt_repository: repo='deb https://apt.dockerproject.org/repo debian-{{ ansible_distribution_release }} main'
 
+- name: ensure /data/docker exists
+  file: name=/data/docker state=directory
+
+- name: ensure modified docker.service is installed
+  copy: src=docker.service dest=/etc/systemd/system/docker.service
+
 - name: ensure docker is installed
   apt: name=docker-engine install_recommends=no

@@ -1,0 +1,26 @@
+gogs_group: gogs
+gogs_user: gogs
+gogs_home: /opt/gogs
+
+gogs_version: 0.9.97
+gogs_os: linux
+gogs_arch: amd64
+gogs_archive_format: tar.gz
+gogs_package_name: "gogs_v{{ gogs_version }}_{{ gogs_os }}_{{gogs_arch}}.{{ gogs_archive_format }}"
+gogs_package_url: "https://dl.gogs.io/{{ gogs_package_name }}"
+gogs_archive: "{{ ansible_env.HOME }}/{{ gogs_package_name }}"
+
+gogs_repo_dir: "{{ gogs_home }}/repo"
+gogs_config_file: "{{ gogs_home }}/gogs/custom/conf/app.ini"
+gogs_sqlite_path: "{{ gogs_home }}/db"
+
+gogs_cfg_app_name: FFDO git service
+gogs_cfg_mode: prod # Either "dev", "prod" or "test"
+gogs_cfg_offline_mode: true
+gogs_markdown_hard_line_break: false
+gogs_cfg_secret_key: "please_change_this"
+
+# server
+gogs_protocol: http
+gogs_domain: git.ffdo.de
+gogs_port: 3000

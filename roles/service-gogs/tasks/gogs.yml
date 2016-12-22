@@ -1,0 +1,96 @@
+
+- name: create group
+  become: yes
+  group:
+    name: "{{ gogs_group }}"
+    system: yes
+    state: present
+
+- name: create user
+  become: yes
+  user:
+    name: "{{ gogs_user }}"
+    home: "{{ gogs_home }}"
+    group: "{{ gogs_group }}"
+    system: yes
+    createhome: yes
+    state: present
+
+- name: gogs prereqs
+  become: yes
+  apt: name={{item}} state=present update_cache=yes
+  with_items:
+    - openssh-server
+    - git
+
+- name: download gogs binary package
+  get_url:
+    url: "{{ gogs_package_url }}"
+    dest: "{{ gogs_archive }}"
+    mode: 0644
+
+- name: create gogs repo dir if necessary
+  become: yes
+  file:
+    dest: "{{ gogs_repo_dir }}"
+    owner: "{{ gogs_user }}"
+    group: "{{ gogs_group }}"
+    mode: 0755
+    state: directory
+
+- name: create gogs db dir if necessary
+  become: yes
+  file:
+    dest: "{{ gogs_sqlite_path }}"
+    owner: "{{ gogs_user }}"
+    group: "{{ gogs_group }}"
+    mode: 0755
+    state: directory
+
+- name: unarchive install package
+  become: yes
+  unarchive:
+    src: "{{ gogs_archive }}"
+    dest: "{{ gogs_home }}"
+    owner: "{{ gogs_user }}"
+    group: "{{ gogs_group }}"
+    copy: no
+
+- name: create gogs custom conf dir
+  become: yes
+  file:
+    dest: "{{ gogs_home }}/gogs/custom/conf"
+    owner: "{{ gogs_user }}"
+    group: "{{ gogs_group }}"
+    mode: 0755
+    state: directory
+
+- name: Ensure gogs config is up to date
+  become: yes
+  template:
+    src: app.ini.j2
+    dest: "{{ gogs_config_file }}"
+    owner: '{{ gogs_user }}'
+    group: '{{ gogs_group }}'
+    mode: 0640
+  notify:
+    - Restart gogs
+
+- name: Ensure gogs systemd unit is up to date
+  register: gogssystend
+  become: yes
+  template:
+    src: gogs.service.j2
+    dest: /etc/systemd/system/service.gogs
+
+- name: Reload systemd
+  when: gogssystend|changed
+  shell: systemctl daemon-reload
+  notify:
+    - Restart gogs
+
+- name: Ensure gogs service is started and enabled
+  service:
+    name: gogs
+    state: started
+    enabled: yes

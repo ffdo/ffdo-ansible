@@ -1,0 +1,2 @@
+- include: gogs.yml
+- include: nginx.yml

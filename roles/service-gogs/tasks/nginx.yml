@@ -1,0 +1,11 @@
+- name: Ensure nginx configuration is up to date
+  template:
+    src: gogs_nginx.conf.j2
+    dest: /etc/nginx/sites-available/gogs.conf 
+
+- name: Ensure gogs configuration for nginx is enabled
+  file: 
+    state: link
+    dest: /etc/nginx/sites-enabled/gogs.conf
+    src: /etc/nginx/sites-available/gogs.conf 
+  notify: Reload nginx

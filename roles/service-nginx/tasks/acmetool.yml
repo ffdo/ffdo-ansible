@@ -10,16 +10,12 @@
 - name: ensure acmetool is installed
   apt: name=acmetool install_recommends=no
 
-- name: Ensure acmetool config is up to date
+- name: Ensure acmetool response file is up to date
+  rehister: responsefile
   template: 
     src: acme_config.j2
-    dest: /var/lib/acme/conf/target
+    dest: /var/lib/acme/responses.yml
 
-- name: Ensure acmetool cronjob is installed
-  cron:
-    name: "Renew Let's Encrypt certificates"
-    job: /usr/bin/acmetool --batch reconcile
-    hour: 3
-    minute: 30
-    day: 1
-
+- name: Setup acmetool
+  when: responsefile|changed
+  shell: /usr/bin/acmetool quickstart --batch --response-file=/var/lib/acme/responses.yml

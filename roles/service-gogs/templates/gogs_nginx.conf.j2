@@ -3,7 +3,7 @@ server {
   listen          [::]:443 ssl http2 default_server;
   server_name     {{ gogs_domain }};
 
-  include /etc/nginx/ssl.conf
+  include /etc/nginx/ssl.conf;
 
   ssl_certificate /var/lib/acme/live/{{ gogs_domain }}/fullchain;
   ssl_certificate_key /var/lib/acme/live/{{ gogs_domain }}/privkey;

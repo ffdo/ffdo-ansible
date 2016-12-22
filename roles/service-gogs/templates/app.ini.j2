@@ -69,8 +69,8 @@ DISABLE_ROUTER_LOG = false
 ; not forget to export the private key):
 ; $ openssl pkcs12 -in cert.pfx -out cert.pem -nokeys
 ; $ openssl pkcs12 -in cert.pfx -out key.pem -nocerts -nodes
-; CERT_FILE = {{ gogs_ssl_cert }}
-; KEY_FILE = {{ gogs_ssl_key }}
+; CERT_FILE = 
+; KEY_FILE = 
 ; Upper level of template and static file path
 ; default is the path where Gogs is executed
 STATIC_ROOT_PATH =
@@ -85,9 +85,9 @@ LANDING_PAGE = home
 ; Either "mysql", "postgres" or "sqlite3", it's your choice
 DB_TYPE = sqlite3
 ; HOST = 127.0.0.1:5432
-; NAME = {{ pg_dbname }}
-; USER = {{ pg_user }}
-; PASSWD = `{{ pg_password }}`
+; NAME = 
+; USER = 
+; PASSWD = ``
 ; For "postgres" only, either "disable", "require" or "verify-full"
 ; SSL_MODE = disable
 PATH = 

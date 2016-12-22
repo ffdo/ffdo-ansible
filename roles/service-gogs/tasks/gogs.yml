@@ -18,7 +18,7 @@
 
 - name: gogs prereqs
   become: yes
-  apt: name={{item}} state=present update_cache=yes
+  apt: name={{item}} state=present update_cache=yes cache_valid_time=86400
   with_items:
     - openssh-server
     - git
@@ -84,12 +84,14 @@
     dest: /etc/systemd/system/service.gogs
 
 - name: Reload systemd
+  become: yes
   when: gogssystend|changed
   shell: systemctl daemon-reload
   notify:
     - Restart gogs
 
 - name: Ensure gogs service is started and enabled
+  become: yes
   service:
     name: gogs
     state: started

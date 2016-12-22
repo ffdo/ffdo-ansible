@@ -1,4 +1,5 @@
 - name: Ensure nginx configuration is up to date
+  become: yes
   template:
     src: "{{ item.src }}"
     dest: "/etc/nginx/sites-available/{{ item.dest }}"
@@ -9,11 +10,13 @@
       dest: gogs_unsecure.conf
 
 - name: Ensure unsecure nginx configuration is up to date
+  become: yes
   template:
     src: gogs_unsecure.conf.j2
     dest: /etc/nginx/sites-available/gogs_unsecure.conf
 
 - name: Ensure unsecure gogs configuration for nginx is enabled
+  become: yes
   file: 
     state: link
     dest: /etc/nginx/sites-enabled/gogs_unsecure.conf
@@ -21,20 +24,25 @@
   notify: Reload nginx
 
 - name: Ensure nginx is running
+  become: yes
   service:
     name: nginx
     state: started
 
 - stat:
     path: "/var/lib/acme/live/{{ gogs_domain }}/privkey;"
+  become: yes
   register: gogs_key_file_stat
 
 - name: Let acmetool generate a key and a certificate
+  become: yes
   when: not gogs_key_file_stat.stat.exists
   shell: /usr/bin/acmetool want --batch {{ gogs_domain }}
+  notify: Restart nginx
 
 
 - name: Ensure gogs configuration for nginx is enabled
+  become: yes
   file: 
     state: link
     dest: /etc/nginx/sites-enabled/gogs.conf

@@ -81,7 +81,7 @@
   become: yes
   template:
     src: gogs.service.j2
-    dest: /etc/systemd/system/service.gogs
+    dest: /etc/systemd/system/gogs.service
 
 - name: Reload systemd
   become: yes

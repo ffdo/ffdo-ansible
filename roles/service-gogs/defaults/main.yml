@@ -12,7 +12,7 @@ gogs_archive: "{{ ansible_env.HOME }}/{{ gogs_package_name }}"
 
 gogs_repo_dir: "{{ gogs_home }}/repo"
 gogs_config_file: "{{ gogs_home }}/gogs/custom/conf/app.ini"
-gogs_sqlite_path: "{{ gogs_home }}/db"
+gogs_sqlite_path: "{{ gogs_home }}/db/gogs.db"
 
 gogs_cfg_app_name: FFDO git service
 gogs_cfg_mode: prod # Either "dev", "prod" or "test"

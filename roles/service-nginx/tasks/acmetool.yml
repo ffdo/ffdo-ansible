@@ -11,7 +11,7 @@
   apt: name=acmetool install_recommends=no
 
 - name: Ensure acmetool response file is up to date
-  rehister: responsefile
+  register: responsefile
   template: 
     src: acme_config.j2
     dest: /var/lib/acme/responses.yml

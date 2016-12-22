@@ -1,0 +1,21 @@
+- name: Ensure restic binary is in place
+  copy:
+    src: restic_linux_amd64
+    dest: /usr/local/bin
+
+- name: Ensure restic password file exists
+  copy:
+    dest: /root/.rest.password
+    content: "{{ restic_repo_password }}"
+    mode: 0600
+
+- name: Init restic repository
+  shell: /usr/local/bin/restic -p /root/.rest.password -t {{ restic_repo }} init || true
+
+- name: Ensure restic cron jobs exist
+  cron:
+    name: Restic backups for {{ item.dir }}
+    job: /usr/local/bin/restic -p /root/.rest.password -t {{ restic_repo }} backup {{ item.dir }}
+    hour: 2
+    minute: 35
+  with_items: "{{ restic_stateful_dirs }}"

@@ -1,7 +1,7 @@
 - name: Ensure nginx configuration is up to date
   template:
-    src: {{ item.src }}
-    dest: /etc/nginx/sites-available/{{ item.dest }}
+    src: "{{ item.src }}"
+    dest: "/etc/nginx/sites-available/{{ item.dest }}"
   with_items:
     - src: gogs_nginx.conf.j2
       dest: gogs.conf

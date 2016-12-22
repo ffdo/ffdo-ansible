@@ -9,3 +9,12 @@
 
 - name: ensure acmetool is installed
   apt: name=acmetool install_recommends=no
+
+- name: Ensure acmetool cronjob is installed
+  cron:
+    name: "Renew Let's Encrypt certificates"
+    job: /usr/bin/acmetool --batch reconcile
+    hour: 3
+    minute: 30
+    day: 1
+

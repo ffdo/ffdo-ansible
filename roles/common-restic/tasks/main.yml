@@ -1,21 +1,52 @@
 - name: Ensure restic binary is in place
   copy:
     src: restic_linux_amd64
-    dest: /usr/local/bin
+    dest: /usr/local/bin/restic
+    mode: 0777
 
 - name: Ensure restic password file exists
   copy:
-    dest: /root/.rest.password
+    dest: /root/.restic.password
     content: "{{ restic_repo_password }}"
     mode: 0600
 
+- name: Check repository
+  register: restic_repo_check
+  shell: /usr/local/bin/restic -p /root/.restic.password -r {{ restic_repo }} check
+  environment: "{{ restic_repo_environment }}"
+  ignore_errors: yes
+
 - name: Init restic repository
-  shell: /usr/local/bin/restic -p /root/.rest.password -t {{ restic_repo }} init || true
+  when: restic_repo_check.rc != 0
+  shell: /usr/local/bin/restic -p /root/.restic.password -r {{ restic_repo }} init
+  environment: "{{ restic_repo_environment }}"
 
 - name: Ensure restic cron jobs exist
   cron:
     name: Restic backups for {{ item.dir }}
-    job: /usr/local/bin/restic -p /root/.rest.password -t {{ restic_repo }} backup {{ item.dir }}
+    job: /usr/local/bin/restic -p /root/.restic.password -r {{ restic_repo }} backup {{ item.dir }}
     hour: 2
     minute: 35
+    cron_file: restic
+    user: root
+  with_items: "{{ restic_stateful_dirs }}"
+
+# TODO find a more elegant way to set environment variables here
+- name: Set restic environment variables
+  cron:
+    cron_file: restic
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+    env: yes
+    user: root
+  with_items:
+    - name: "AWS_ACCESS_KEY_ID"
+      value: "{{ restic_repo_environment.AWS_ACCESS_KEY_ID }}"
+    - name: "AWS_SECRET_ACCESS_KEY"
+      value: "{{ restic_repo_environment.AWS_SECRET_ACCESS_KEY }}"
+
+- name: Create initial backup of statefule dirs
+  when: restic_backup_now
+  shell: /usr/local/bin/restic -p /root/.restic.password -r {{ restic_repo }} backup {{ item.dir }}
+  environment: "{{ restic_repo_environment }}"
   with_items: "{{ restic_stateful_dirs }}"

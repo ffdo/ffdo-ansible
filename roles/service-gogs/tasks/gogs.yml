@@ -41,7 +41,7 @@
 - name: create gogs db dir if necessary
   become: yes
   file:
-    dest: "{{ gogs_sqlite_path }}"
+    dest: "{{ gogs_sqlite_dir }}"
     owner: "{{ gogs_user }}"
     group: "{{ gogs_group }}"
     mode: 0755

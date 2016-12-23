@@ -30,7 +30,7 @@
     state: started
 
 - stat:
-    path: "/var/lib/acme/live/{{ gogs_domain }}/privkey;"
+    path: "/var/lib/acme/live/{{ gogs_domain }}/privkey"
   become: yes
   register: gogs_key_file_stat
 

@@ -1,0 +1,7 @@
+---
+dependencies:
+  - role: common-restic
+    restic_backup_now: false
+    restic_stateful_dirs:
+      - dir: "{{ gogs_repo_dir }}"
+      - dir: "{{ gogs_sqlite_path }}"

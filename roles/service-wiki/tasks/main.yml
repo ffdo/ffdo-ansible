@@ -11,6 +11,22 @@
     home: "{{gitit_data_dir}}"
     group: "{{gitit_group}}"
 
+- name: Ensure gitit ssh dir exists
+  file:
+    dest: "{{ gitit_data_dir }}/.ssh"
+    state: directory
+    mode: 0700
+    owner: "{{ gitit_user }}"
+    group: "{{ gitit_group }}"
+
+- name: Ensure gitit ssh key is up to date
+  copy:
+    content: "{{ wiki_git_private_key }}"
+    dest: "{{ gitit_data_dir }}/.ssh/id_rsa"
+    mode: 0600
+    owner: "{{ gitit_user }}"
+    group: "{{ gitit_group }}"
+
 - name: Ensure prerequisites for gitit are instaled
   apt: name={{item}} state=present update_cache=yes cache_valid_time=3600
   with_items:
@@ -58,12 +74,19 @@
     state: directory
     owner: "{{gitit_user}}"
 
-#- name: Clone wiki repo
-#  git:
-#    src: "{{gitit_wiki_repo}}"
-#    dest: "{{gitit_data_dir}}/wikidata"
+- name: Clone wiki repo
+  git:
+    repo: "{{gitit_wiki_repo}}"
+    dest: "{{gitit_data_dir}}/wikidata"
+    key_file: "{{ gitit_data_dir }}/.ssh/id_rsa"
+    accept_hostkey: yes
 
 # TODO restore user data
+
+- name: Let acmetool generate a key and a certificate
+  become: yes
+  shell: /usr/bin/acmetool want --batch {{ wiki_domain }}
+  notify: Restart nginx
 
 - name: Install nginx configs
   template:

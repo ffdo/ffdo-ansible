@@ -1,29 +1,24 @@
 server {
-  listen 80;
-  listen [::]:80;
+  listen          443 ssl http2;
+  listen          [::]:443 ssl http2;
+  server_name     {{ wiki_domain }};
 
+  include /etc/nginx/ssl.conf;
 
-  # ssl
-  listen 443 ssl;
-        listen [::]:443 ssl;
-  ssl_certificate {{mapserver_ssl_cert_path}};
-  ssl_certificate_key {{mapserver_ssl_key_path}};
-  ssl_dhparam /etc/nginx/dhparams.pem;
+  ssl_certificate /var/lib/acme/live/{{ wiki_domain }}/fullchain;
+  ssl_certificate_key /var/lib/acme/live/{{ wiki_domain }}/privkey;
 
-  server_name wiki.ffdo.de;
-  root /var/www;
-  index index.html;
+  access_log off;
 
-  if ($scheme = http){
-                rewrite ^ https://wiki.ffdo.de$request_uri? permanent;
-        }
   location / {
-    proxy_pass        http://127.0.0.1:55001/;
-          proxy_set_header  X-Real-IP  $remote_addr;
-          proxy_redirect off;
-  }
-  location /_NOWIKI {
-    deny all;
+    proxy_http_version      1.1;
+    proxy_set_header        Host $host;
+    proxy_set_header        X-Real-IP $remote_addr;
+    proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header        X-Forwarded-Proto $scheme;
+
+    proxy_pass              http://localhost:{{ gitit_port }};
+    proxy_redirect          off;
   }
 
 }

@@ -9,3 +9,16 @@
 - name: ensure nginx ssl parameters are installed
   copy: src=ssl.conf dest=/etc/nginx/ssl.conf
   notify: reload nginx
+
+- name: Ensure unsecure default configuration is up to date
+  template:
+    src: nginx_unsecure_default.conf.j2
+    dest: /etc/nginx/sites-available/unsecure_default.conf
+
+- name: Ensure unsecure default configuration is enabled 
+  become: yes
+  file: 
+    state: link
+    dest: /etc/nginx/sites-enabled/unsecure_default.conf
+    src: /etc/nginx/sites-available/unsecure_default.conf
+  notify: Reload nginx

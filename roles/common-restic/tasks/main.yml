@@ -45,8 +45,15 @@
     - name: "AWS_SECRET_ACCESS_KEY"
       value: "{{ restic_repo_environment.AWS_SECRET_ACCESS_KEY }}"
 
+# The target directory shall not already exist on the host
+- name: Restore previous backup of stateful data
+  when: not restic_backup_now and restic_restore
+  shell: /usr/local/bin/restic -p /root/.restic.password -r {{ restic_repo }} restore --path {{ item }} -t {{ item }} latest
+  environment: "{{ restic_repo_environment }}"
+  with_items: "{{ restic_stateful_dirs }}"
+
 - name: Create initial backup of statefule dirs
-  when: restic_backup_now
+  when: restic_backup_now and not restic_restore
   shell: /usr/local/bin/restic -p /root/.restic.password -r {{ restic_repo }} backup {{ item.dir }}
   environment: "{{ restic_repo_environment }}"
   with_items: "{{ restic_stateful_dirs }}"

@@ -80,7 +80,17 @@
     dest: "{{gitit_data_dir}}/wikidata"
     key_file: "{{ gitit_data_dir }}/.ssh/id_rsa"
     accept_hostkey: yes
-    umask: 002
+    umask: "002"
+
+- name: Ensure git hooks are in place
+  copy:
+    src: "{{ item }}"
+    dest: "{{ gitit_data_dir }}/wikidata/.git/hooks/{{ item }}"
+    owner: "{{gitit_user}}"
+    mode: 0776
+  with_items:
+    - post-commit
+    - post-update
 
 # TODO restore user data
 

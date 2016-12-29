@@ -3,7 +3,7 @@
 
 gitit_data_dir: /srv/gitit
 gitit_user: gitit
-gitit_group: gitit
+gitit_group: git
 gitit_wiki_title: Freifunk-Dortmund-Wiki
 gitit_wiki_repo: "gogs@git.ffdo.de:ffdo/wiki.git"
 gitit_port: 55001

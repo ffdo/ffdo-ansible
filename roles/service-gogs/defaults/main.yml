@@ -1,4 +1,4 @@
-gogs_group: gogs
+gogs_group: git
 gogs_user: gogs
 gogs_home: /opt/gogs
 

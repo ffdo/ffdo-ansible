@@ -16,6 +16,22 @@
     createhome: yes
     state: present
 
+- name: Ensure gogs ssh dir exists
+  file:
+    dest: "{{ gogs_home }}/.ssh"
+    state: directory
+    mode: 0700
+    owner: "{{ gogs_user }}"
+    group: "{{ gogs_group }}"
+
+- name: Ensure gogs ssh key is up to date
+  copy:
+    content: "{{ wiki_git_private_key }}"
+    dest: "{{ gogs_home }}/.ssh/id_rsa"
+    mode: 0600
+    owner: "{{ gogs_user }}"
+    group: "{{ gogs_group }}"
+
 - name: gogs prereqs
   become: yes
   apt: name={{item}} state=present update_cache=yes cache_valid_time=86400

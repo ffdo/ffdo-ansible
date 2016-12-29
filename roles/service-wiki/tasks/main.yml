@@ -80,6 +80,7 @@
     dest: "{{gitit_data_dir}}/wikidata"
     key_file: "{{ gitit_data_dir }}/.ssh/id_rsa"
     accept_hostkey: yes
+    umask: 002
 
 # TODO restore user data
 

@@ -11,6 +11,8 @@
 #
 # To enable this hook, make this file executable by "chmod +x post-update".
 
+umask 002
+
 git-update-server-info
 
 is_bare=$(git-config --get --bool core.bare)

@@ -6,10 +6,10 @@
 
 - name: Ensure user for gitit exists
   user: 
-    name: "{{gitit_user}}"
-    createhome: yes
-    home: "{{gitit_data_dir}}"
-    group: "{{gitit_group}}"
+    name: "{{ gitit_user }}"
+    createhome: no
+    home: "{{ gitit_data_dir }}"
+    group: "{{ gitit_group }}"
 
 - name: Ensure gitit ssh dir exists
   file:
@@ -27,8 +27,15 @@
     owner: "{{ gitit_user }}"
     group: "{{ gitit_group }}"
 
+- name: Ensure gitconfig exists
+  template:
+    src: gitconfig.j2
+    dest: "{{ gitit_data_dir }}/.gitconfig"
+    owner: "{{ gitit_user }}"
+    group: "{{ gitit_group }}"
+
 - name: Ensure prerequisites for gitit are instaled
-  apt: name={{item}} state=present update_cache=yes cache_valid_time=3600
+  apt: name={{ item }} state=present update_cache=yes cache_valid_time=3600
   with_items:
   - git
   - gitit
@@ -36,48 +43,48 @@
 - name: Install gitit configuration
   template:
     src: conf.j2
-    dest: "{{gitit_data_dir}}/gitit.conf"
-    owner: "{{gitit_user}}"
+    dest: "{{ gitit_data_dir }}/gitit.conf"
+    owner: "{{ gitit_user }}"
   notify:
   - Restart gitit
 
 - name: Ensure static content directories exists
   file:
-    dest: "{{gitit_data_dir}}/static/{{item}}"
+    dest: "{{ gitit_data_dir }}/static/{{item}}"
     state: directory
-    owner: "{{gitit_user}}"
+    owner: "{{ gitit_user }}"
   with_items:
   - css
   - img
 
 - name: Ensure template directory exists
   file:
-    dest: "{{gitit_data_dir}}/templates"
+    dest: "{{ gitit_data_dir }}/templates"
     state: directory
-    owner: "{{gitit_user}}"
+    owner: "{{ gitit_user }}"
 
 - name: Ensure custom footer exists
   template:
     src: footer.st.j2
-    dest: "{{gitit_data_dir}}/templates/footer.st"
-    owner: "{{gitit_user}}"
+    dest: "{{ gitit_data_dir }}/templates/footer.st"
+    owner: "{{ gitit_user }}"
 
 - name: Ensure custom css exists
   template:
     src: custom.css.j2
-    dest: "{{gitit_data_dir}}/static/css/custom.css"
-    owner: "{{gitit_user}}"
+    dest: "{{ gitit_data_dir }}/static/css/custom.css"
+    owner: "{{ gitit_user }}"
 
 - name: Ensure wikidata directory exists
   file:
-    dest: "{{gitit_data_dir}}/wikidata"
+    dest: "{{ gitit_data_dir }}/wikidata"
     state: directory
-    owner: "{{gitit_user}}"
+    owner: "{{ gitit_user }}"
 
 - name: Clone wiki repo
   git:
-    repo: "{{gitit_wiki_repo}}"
-    dest: "{{gitit_data_dir}}/wikidata"
+    repo: "{{ gitit_wiki_repo }}"
+    dest: "{{ gitit_data_dir }}/wikidata"
     key_file: "{{ gitit_data_dir }}/.ssh/id_rsa"
     accept_hostkey: yes
     umask: "002"
@@ -86,7 +93,7 @@
   copy:
     src: "{{ item }}"
     dest: "{{ gitit_data_dir }}/wikidata/.git/hooks/{{ item }}"
-    owner: "{{gitit_user}}"
+    owner: "{{ gitit_user }}"
     mode: 0776
   with_items:
     - post-commit

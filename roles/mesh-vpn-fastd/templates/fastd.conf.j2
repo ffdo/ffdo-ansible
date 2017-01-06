@@ -14,7 +14,7 @@ mtu 1280;
 secure handshakes yes;
 forward no;
 log to syslog level verbose;
-# status socket "/tmp/fastd-{{ item.name }}.sock";
+status socket "/tmp/fastd-{{ item.name }}.sock";
 user "fastd";
 
 on up "

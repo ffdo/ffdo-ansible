@@ -4,3 +4,4 @@
     - service-nginx
     - service-gogs
     - service-wiki
+    - service-prometheus

@@ -1,0 +1,61 @@
+---
+
+- name: Ensure prometheus group exists
+  become: yes
+  group:
+    name: "{{ prometheus_group }}"
+    system: yes
+    state: present
+
+- name: Ensure prometheus user exists
+  become: yes
+  user:
+    name: "{{ prometheus_user }}"
+    group: "{{ prometheus_group }}"
+    home: "{{ prometheus_home }}"
+    system: yes
+    createhome: yes
+    state: present
+
+- name: Download and extract prometheus {{ prometheus_version }}
+  unarchive:
+    remote_src: yes
+    src: "{{ prometheus_download_url }}"
+    dest: "{{ prometheus_home }}"
+    owner: "{{ prometheus_user }}"
+    group: "{{ prometheus_group }}"
+
+- name: Ensure link to default prometheus directory is up to date
+  file:
+    state: link
+    src: "{{ prometheus_home }}/prometheus-{{ prometheus_version }}.linux-amd64"
+    dest: "{{ prometheus_home }}/prometheus"
+
+- name: Ensure prometheus config is up to date
+  template:
+    src: prometheus_config.j2
+    dest: "{{ prometheus_home }}/config.yml"
+    owner: "{{ prometheus_user }}"
+    group: "{{ prometheus_group }}"
+  notify: Restart prometheus
+
+- name: Ensure prometheus systemd unit is up to date
+  become: yes
+  register: prometheus_systemd
+  template:
+    src: prometheus.service.j2
+    dest: /etc/systemd/system/prometheus.service
+  notify: Restart prometheus
+
+- name: Reload systemd units
+  become: yes
+  when: prometheus_systemd|changed
+  shell: systemctl daemon-reload
+
+- name: Ensure prometheus is running and enabled
+  service:
+    name: prometheus
+    state: started
+    enabled: yes
+
+- include: nginx.yml

@@ -1,0 +1,16 @@
+[Unit]
+Description=Prometheus monitoring system
+After=syslog.target
+After=network.target
+
+[Service]
+Type=simple
+User={{ prometheus_user }}
+Group={{ prometheus_group }}
+WorkingDirectory={{ prometheus_home }}
+ExecStart={{ prometheus_home }}/prometheus/prometheus -config.file {{ prometheus_home }}/config.yml -web.listen-address 127.0.0.1:9090 -web.external-url {{ prometheus_web_url }}
+Restart=always
+Environment=USER={{ prometheus_user }} HOME={{ prometheus_home }}
+
+[Install]
+WantedBy=multi-user.target

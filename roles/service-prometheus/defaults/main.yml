@@ -1,0 +1,7 @@
+prometheus_user: prometheus
+prometheus_group: prometheus
+prometheus_home: /opt/prometheus
+prometheus_version: "1.4.1"
+prometheus_download_url: "https://github.com/prometheus/prometheus/releases/download/v{{ prometheus_version }}/prometheus-{{ prometheus_version }}.linux-amd64.tar.gz"
+prometheus_domain: prometheus.ffdo.de
+prometheus_web_url: "https://{{ prometheus_domain }}"

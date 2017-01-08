@@ -1,11 +1,14 @@
 ---
 
-- name: Check if blacklist file exists
+- name: Check if global blacklist file exists
   stat: path=/etc/fastd/fastd-blacklist.json
   register: blacklist
 - name: Ensure blacklist file exists
   file: name=/etc/fastd/fastd-blacklist.json state=touch owner=fastd
   when: not blacklist.stat.exists
+
+- name: Ensure ffdo blacklist file exists
+  copy: src=ffdo-blacklist.txt dest=/etc/fastd/ffdo-blacklist.txt
 
 - name: Install crontab to update the blacklist
   cron:

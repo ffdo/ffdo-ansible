@@ -31,8 +31,6 @@
     - common-ntpclient
     - service-nginx
     # - service-map
-    # - service-wiki
-    # - service-gitolite
 
 - hosts: serviceservers
   roles:

@@ -4,4 +4,4 @@
 .kitchen.*.yml
 *.retry
 secrets
-inventories/ffdo
+inventories/

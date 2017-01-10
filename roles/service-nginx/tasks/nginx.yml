@@ -1,22 +1,28 @@
 ---
 - name: ensure nginx is installed
-  apt: name=nginx-extras state=latest default_release={{ ansible_distribution_release }}-backports install_recommends=no
+  apt: 
+    name: nginx-extras 
+    state: latest 
+    default_release: "{{ ansible_distribution_release }}-backports"
+    install_recommends: no
+    update_cache: yes
+    cache_valid_time: 86400
 
 - name: ensure nginx default configuration is disabled
   file: name=/etc/nginx/sites-enabled/default state=absent
-  notify: reload nginx
+  notify: Reload nginx
 
 - name: ensure nginx ssl parameters are installed
   copy: src=ssl.conf dest=/etc/nginx/ssl.conf
-  notify: reload nginx
+  notify: Reload nginx
 
 - name: Ensure unsecure default configuration is up to date
   template:
     src: nginx_unsecure_default.conf.j2
     dest: /etc/nginx/sites-available/unsecure_default.conf
+  notify: Reload nginx
 
 - name: Ensure unsecure default configuration is enabled 
-  become: yes
   file: 
     state: link
     dest: /etc/nginx/sites-enabled/unsecure_default.conf

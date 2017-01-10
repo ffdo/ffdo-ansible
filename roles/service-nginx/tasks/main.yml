@@ -5,7 +5,7 @@
 - name: Ensure nginx default secure config is up to date
   template:
     src: nginx_secure_default.conf.j2
-    dest: /etc/nginx/site-available/secure_default.conf
+    dest: /etc/nginx/sites-available/secure_default.conf
 
 - stat:
     path: "/var/lib/acme/live/{{ ansible_fqdn }}/privkey"
@@ -18,7 +18,7 @@
   shell: /usr/bin/acmetool want --batch {{ ansible_fqdn }}
   notify: Restart nginx
 
-- name: Ensure unsecure node_exporter configuration for nginx is enabled
+- name: Ensure secure default configuration for nginx is enabled
   become: yes
   file: 
     state: link

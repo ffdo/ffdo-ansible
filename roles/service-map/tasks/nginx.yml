@@ -4,51 +4,9 @@
 - name: Ensure nginx is installed
   apt: name=nginx state=present update_cache=yes cache_valid_time=3600
 
-- name: Install openssl to generate DH params
-  apt: name=openssl state=present
-
-- name: Ensure nginx ssl directory exists
-  file: dest=/etc/nginx/ssl/ state=directory
-
-- name: Create private ssl key from secret var
-  copy: content="{{ mapserver_ssl_private_key }}" dest="{{mapserver_ssl_key_path}}"
-  notify:
-  - Restart nginx
-
-- name: Create nginx server certificate from secret var
-  copy: content="{{ mapserver_ssl_server_cert }}" dest="{{mapserver_ssl_cert_path}}"
-  notify:
-  - Restart nginx
-
-- name: Deploy pregenerated DH params
-  when: mapserver_use_pregenerated_dh_params
-  copy: content="{{mapserver_dh_params}}" dest=/etc/nginx/dhparams.pem
-  notify:
-  - Restart nginx
-
-- name: Generate strong dhparams
-  when: not mapserver_use_pregenerated_dh_params
-  shell: openssl dhparam -out /etc/nginx/dhparams.pem 4096 
-  args:
-    creates: /etc/nginx/dhparams.pem
-  notify:
-  - Restart nginx
-
 - name: Install nginx configs
   template:
-    src: "{{item.src}}"
-    dest: "{{item.dest}}"
-  with_items:
-  - src: nginx-default.conf.j2
-    dest: /etc/nginx/sites-available/default
+    src: meshviewer.conf.j2
+    dest: /etc/nginx/site-include/{{ ansible_fqdn }}/meshviewer.conf
   notify:
-  - Restart nginx
-
-- name: Activate nginx configurations
-  file:
-    src: /etc/nginx/sites-available/default
-    dest: /etc/nginx/sites-enabled/default
-    state: link
-
-- name: Ensure nginx is started and enabled
-  service: name=nginx state=started enabled=yes
+  - Reload nginx

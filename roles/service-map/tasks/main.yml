@@ -1,1 +1,4 @@
 ---
+- include: gluon-collector.yml
+- include: meshviewer.yml
+- include: nginx.yml

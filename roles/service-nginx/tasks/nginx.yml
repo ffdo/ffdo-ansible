@@ -28,3 +28,8 @@
     dest: /etc/nginx/sites-enabled/unsecure_default.conf
     src: /etc/nginx/sites-available/unsecure_default.conf
   notify: Reload nginx
+
+- name: Ensure site include directory exists
+  file:
+    state: directory
+    dest: "/etc/nginx/site-include/{{ ansible_fqdn }}"

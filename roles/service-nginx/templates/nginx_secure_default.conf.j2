@@ -1,0 +1,14 @@
+server {
+  listen          443 ssl http2 default_server;
+  listen          [::]:443 ssl http2 default_server;
+  server_name     {{ ansible_fqdn }};
+
+  include /etc/nginx/ssl.conf;
+
+  ssl_certificate /var/lib/acme/live/{{ ansible_fqdn }}/fullchain;
+  ssl_certificate_key /var/lib/acme/live/{{ ansible_fqdn }}/privkey;
+
+  access_log off;
+
+  include /etc/nginx/site-include/{{ ansible_fqdn }}/*.conf;
+}

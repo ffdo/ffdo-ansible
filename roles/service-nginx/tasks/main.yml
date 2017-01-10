@@ -1,3 +1,27 @@
 ---
 - include: nginx.yml
 - include: acmetool.yml
+
+- name: Ensure nginx default secure config is up to date
+  template:
+    src: nginx_secure_default.conf.j2
+    dest: /etc/nginx/site-available/secure_default.conf
+
+- stat:
+    path: "/var/lib/acme/live/{{ ansible_fqdn }}/privkey"
+  become: yes
+  register: default_key_file_stat
+
+- name: Let acmetool generate a key and a certificate
+  become: yes
+  when: not default_key_file_stat.stat.exists
+  shell: /usr/bin/acmetool want --batch {{ ansible_fqdn }}
+  notify: Restart nginx
+
+- name: Ensure unsecure node_exporter configuration for nginx is enabled
+  become: yes
+  file: 
+    state: link
+    dest: /etc/nginx/sites-enabled/secure_default.conf
+    src: /etc/nginx/sites-available/secure_default.conf
+  notify: Reload nginx

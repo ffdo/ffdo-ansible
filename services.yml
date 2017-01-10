@@ -1,3 +1,9 @@
+- hosts: supernodes:mapservers
+  become: yes
+  roles:
+    - service-nginx
+    - service-node_exporter
+
 - hosts: serviceservers
   become: yes
   roles:

@@ -1,0 +1,58 @@
+---
+# tasks file for node_exporter
+
+- name: Download and unpack node_exporter
+  unarchive:
+    src: "{{ node_exporter_download_url }}"
+    dest: /tmp
+    remote_src: True
+
+- name: Copy node_exporter to /usr/local/bin
+  copy:
+    remote_src: True
+    src: "/tmp/node_exporter-{{ node_exporter_version }}.linux-{{ node_exporter_arch }}/node_exporter"
+    dest: /usr/local/bin
+    mode: 0744
+  notify: Restart node_exporter
+
+- name: Ensure systemd service is up to date
+  register: node_exporter_systemd
+  template:
+    src: node_exporter.service.j2
+    dest: /etc/systemd/system/node_exporter.service
+  notify: Restart node_exporter
+
+- name: Reload systemd
+  when: node_exporter_systemd|changed
+  shell: systemctl daemon-reload
+
+- name: Ensure node_exporter is running and enabled
+  service:
+    name: node_exporter
+    state: running
+    enabled: yes
+
+- name: Ensure node_exporter nginx config is up to date
+  template:
+    src: node_exporter_nginx.j2
+    dest: /etc/nginx/sites-available/node_exporter.conf
+  notify: Reload nginx
+
+- stat:
+    path: "/var/lib/acme/live/{{ ansible_fqdn }}/privkey"
+  become: yes
+  register: gogs_key_file_stat
+
+- name: Let acmetool generate a key and a certificate
+  become: yes
+  when: not gogs_key_file_stat.stat.exists
+  shell: /usr/bin/acmetool want --batch {{ ansible_fqdn }}
+  notify: Restart nginx
+
+- name: Ensure unsecure node_exporter configuration for nginx is enabled
+  become: yes
+  file: 
+    state: link
+    dest: /etc/nginx/sites-enabled/node_exporter.conf
+    src: /etc/nginx/sites-available/node_exporter.conf 
+  notify: Reload nginx

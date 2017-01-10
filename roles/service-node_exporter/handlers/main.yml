@@ -1,0 +1,11 @@
+---
+# handlers file for node_exporter
+
+- name: Restart node_exporter
+  service: name=node_exporter state=restarted
+
+- name: Reload nginx
+  service: name=nginx state=reloaded
+
+- name: Restart nginx
+  service: name=nginx state=restarted

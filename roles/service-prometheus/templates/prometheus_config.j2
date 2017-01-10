@@ -28,3 +28,33 @@ scrape_configs:
 {% for host in groups['mapservers'] %}
         - '{{ host }}'
 {% endfor %}
+
+  - job_name: 'imageservers'
+    scheme: https
+    bearer_token: '{{ hostvars[groups['imageservers'][0]]['node_exporter_authorization_token'] }}'
+    scrape_interval: 5s
+    static_configs:
+      - targets: 
+{% for host in groups['imageservers'] %}
+        - '{{ host }}'
+{% endfor %}
+
+  - job_name: 'buildservers'
+    scheme: https
+    bearer_token: '{{ hostvars[groups['buildservers'][0]]['node_exporter_authorization_token'] }}'
+    scrape_interval: 5s
+    static_configs:
+      - targets: 
+{% for host in groups['buildservers'] %}
+        - '{{ host }}'
+{% endfor %}
+
+  - job_name: 'serviceservers'
+    scheme: https
+    bearer_token: '{{ hostvars[groups['serviceservers'][0]]['node_exporter_authorization_token'] }}'
+    scrape_interval: 5s
+    static_configs:
+      - targets: 
+{% for host in groups['serviceservers'] %}
+        - '{{ host }}'
+{% endfor %}

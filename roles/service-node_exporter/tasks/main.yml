@@ -35,24 +35,6 @@
 - name: Ensure node_exporter nginx config is up to date
   template:
     src: node_exporter_nginx.j2
-    dest: /etc/nginx/sites-available/node_exporter.conf
+    dest: "/etc/nginx/site-include/{{ ansible_fqdn }}/node_exporter.conf"
   notify: Reload nginx
 
-- stat:
-    path: "/var/lib/acme/live/{{ ansible_fqdn }}/privkey"
-  become: yes
-  register: gogs_key_file_stat
-
-- name: Let acmetool generate a key and a certificate
-  become: yes
-  when: not gogs_key_file_stat.stat.exists
-  shell: /usr/bin/acmetool want --batch {{ ansible_fqdn }}
-  notify: Restart nginx
-
-- name: Ensure unsecure node_exporter configuration for nginx is enabled
-  become: yes
-  file: 
-    state: link
-    dest: /etc/nginx/sites-enabled/node_exporter.conf
-    src: /etc/nginx/sites-available/node_exporter.conf 
-  notify: Reload nginx

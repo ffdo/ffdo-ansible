@@ -1,5 +1,5 @@
 ---
 
 - name: Install routing specific sysctl variables
-  copy: src=sysctl.conf dest=/etc/sysctl.d/routing.conf
+  template: src=sysctl.conf.j2 dest=/etc/sysctl.d/routing.conf
   notify: Load sysctl variables

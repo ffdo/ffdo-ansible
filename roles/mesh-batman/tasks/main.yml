@@ -1,7 +1,7 @@
 ---
 
 - name: Ensure batctl is installed
-  apt: name=batctl
+  apt: name=batctl state=latest default_release={{ ansible_distribution_release }}-backports
 
 - name: Enable batman module on boot
   lineinfile: dest=/etc/modules line=batman_adv

@@ -1,0 +1,4 @@
+---
+- name: Enable nf_conntrack module on boot
+  lineinfile: dest=/etc/modules line=nf_conntrack
+

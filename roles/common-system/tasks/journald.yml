@@ -2,6 +2,12 @@
 - name: ensure journal directory exists
   file: path=/var/log/journal state=directory group=systemd-journal mode=2755
   notify: restart journald
+  when: "'supernodes' not in group_names"
+
+- name: ensure journal directory is absent
+  file: path=/var/log/journal state=absent
+  notify: restart journald
+  when: "'supernodes' in group_names"
 
 - name: ensure rsyslog is not installed
   apt: name=rsyslog state=absent purge=yes

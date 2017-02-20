@@ -1,15 +1,7 @@
 ---
 
-- name: Ensure Universe Factory repository key is installed
-  apt_key:
-    id: CB201D9C
-    data: "{{ lookup('file', 'fastd.gpg') }}"
-
-- name: Add Universe Factory Apt Repository 
-  apt_repository: repo='deb http://repo.universe-factory.net/debian/ sid main'
-
 - name: Install fastd via Apt
-  apt: name=fastd
+  apt: name=fastd state=latest default_release={{ ansible_distribution_release }}-backports
 
 - name: Add fastd user
   user: name=fastd system=yes home=/etc/fastd createhome=no

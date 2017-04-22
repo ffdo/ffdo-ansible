@@ -1,0 +1,9 @@
+[Unit]
+Description=Sync Wiki data with Gogs
+
+[Service]
+Type=oneshot
+WorkingDirectory={{ gitit_data_dir }}/wikidata
+ExecStart=/usr/bin/git pull origin master 
+User={{ gitit_user }}
+Group={{ gitit_group }}

@@ -99,6 +99,24 @@
     - post-commit
     - post-update
 
+- name: Create systemd units for wiki updates
+  template:
+    src: sync_wiki.{{ item }}.j2
+    dest: /etc/systemd/system/sync_wiki.{{ item }}
+  with_items:
+  - "service"
+  - "timer"
+
+- name: Reload systemd units
+  systemd:
+    daemon_reload: yes
+    name: sync_wiki.{{ item }}
+    enabled: yes
+    state: started
+  with_items:
+  - "service"
+  - "timer"
+
 # TODO restore user data
 
 - name: Let acmetool generate a key and a certificate

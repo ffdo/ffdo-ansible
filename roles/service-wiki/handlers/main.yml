@@ -3,3 +3,6 @@
 
 - name: Restart gitit
   service: name=gitit state=reloaded
+
+- name: Restart nginx
+  service: name=nginx state=restarted

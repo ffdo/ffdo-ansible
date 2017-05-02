@@ -2,12 +2,12 @@ gogs_group: git
 gogs_user: gogs
 gogs_home: /opt/gogs
 
-gogs_version: 0.9.97
+gogs_version: 0.11.4
 gogs_os: linux
 gogs_arch: amd64
 gogs_archive_format: tar.gz
-gogs_package_name: "gogs_v{{ gogs_version }}_{{ gogs_os }}_{{gogs_arch}}.{{ gogs_archive_format }}"
-gogs_package_url: "https://dl.gogs.io/{{ gogs_package_name }}"
+gogs_package_name: "{{ gogs_os }}_{{gogs_arch}}.{{ gogs_archive_format }}"
+gogs_package_url: "https://dl.gogs.io/{{ gogs_version}}/{{ gogs_package_name }}"
 gogs_archive: "{{ ansible_env.HOME }}/{{ gogs_package_name }}"
 
 gogs_repo_dir: "{{ gogs_home }}/repo"

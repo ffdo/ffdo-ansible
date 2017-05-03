@@ -1,8 +1,4 @@
 ---
-# libpam-systemd and dbus (dependency) are needed for timedatectl to work
-- name: ensure libpam-systemd is installed
-  apt: name=libpam-systemd install_recommends=no
-
 - name: ensure timezone is set to CET
   command: timedatectl set-timezone CET
   when: ansible_date_time.tz not in ['CET','CEST']

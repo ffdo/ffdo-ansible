@@ -2,10 +2,15 @@
 
 - hosts: all
   roles:
-    - common-net
-    - common-repos
     - common-auth
+    - common-net
     - common-system
+    # - service-nginx
+    # - service-node_exporter
+
+- hosts: all:!supernodes
+  roles:
+    - common-ntpclient
 
 - hosts: mesh
   roles:
@@ -28,22 +33,22 @@
 
 - hosts: mapservers
   roles:
-    - common-ntpclient
     - service-nginx
     # - service-map
 
-- hosts: serviceservers
+- hosts: images.ffdo.de
   roles:
-    - service-nginx
-    - service-gogs
-
-- hosts: imageservers
-  roles:
-    - common-ntpclient
     - service-nginx
     # - service-images
 
-- hosts: buildservers
+- hosts: build.ffdo.de
   roles:
-    - common-ntpclient
     - common-docker
+
+- hosts: services.ffdo.de
+  roles:
+    # - common-restic
+    - service-nginx
+    - service-gogs
+    - service-wiki
+    - service-prometheus

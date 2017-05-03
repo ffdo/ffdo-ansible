@@ -1,0 +1,43 @@
+---
+- name: Ensure packages are installed
+  apt: name={{ item }} state=latest install_recommends=no
+  with_items:
+    - curl
+    - bash-completion
+    - dbus
+    - vim
+    - htop
+    - mtr-tiny
+    - byobu
+    - bind9-host
+    - tmux
+    - psmisc
+    - ngrep
+    - iperf3
+    - aptitude
+    - bwm-ng
+    - rsync
+    - git
+    - initramfs-tools
+    - locales
+
+- name: Ensure backported packages are installed
+  apt: name={{ item }} state=latest default_release={{ ansible_distribution_release }}-backports install_recommends=no
+  with_items:
+    - linux-base
+    - linux-image-amd64
+    - openssl
+    - libssl1.0.0
+    - systemd
+    - systemd-sysv
+    - udev
+    - libpam-systemd
+    - libnss-myhostname
+
+- name: ensure all packages are up to date
+  apt: upgrade=dist install_recommends=no dpkg_options='force-confold,force-confdef'
+
+- name: Ensure vim is default editor
+  alternatives: name=editor path=/usr/bin/vim.basic
+- name: Set defaults for vim
+  copy: src=vimrc dest=/etc/vim/vimrc.local

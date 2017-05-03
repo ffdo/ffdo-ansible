@@ -13,7 +13,5 @@
     value: 'no'
   - key: ChallengeResponseAuthentication
     value: 'no'
-  - key: PrintLastLog
-    value: 'no'
   notify:
   - reload ssh

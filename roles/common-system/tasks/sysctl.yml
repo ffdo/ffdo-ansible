@@ -1,5 +1,5 @@
 ---
 
 - name: Install custom sysctl variables
-  template: src=sysctl.conf.j2 dest=/etc/sysctl.d/system.conf
+  copy: src=sysctl.conf dest=/etc/sysctl.d/system.conf
   notify: Load sysctl variables

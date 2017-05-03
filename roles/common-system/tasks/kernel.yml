@@ -1,7 +1,0 @@
----
-
-- name: Ensure latest backports kernel is installed
-  apt: name={{ item }} state=latest default_release={{ ansible_distribution_release }}-backports install_recommends=no
-  with_items:
-    - linux-image-amd64
-    - linux-base

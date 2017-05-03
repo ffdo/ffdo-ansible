@@ -1,10 +1,11 @@
 ---
 
-- name: ensure ntp and chrony are absent
+- name: ensure ntp daemons are absent
   apt: name={{ item }} state=absent purge=yes
   with_items:
     - ntp
     - chrony
+    - openntpd
 
 - name: ensure systemd NTP client is enabled
   shell: "timedatectl | grep 'NTP enabled: yes' || timedatectl set-ntp 1"

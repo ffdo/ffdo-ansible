@@ -1,4 +1,4 @@
-{% for host in groups['all'] %}
+{% for host in groups['mesh'] %}
 {% if hostvars[host]['inventory_hostname'] != inventory_hostname %}
 auto mesh-{{hostvars[host]['inventory_hostname_short']}}
 iface mesh-{{hostvars[host]['inventory_hostname_short']}} inet manual
